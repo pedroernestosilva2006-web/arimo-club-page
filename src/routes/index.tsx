@@ -158,14 +158,16 @@ function Index() {
             Entra pra <em className="italic">mesa.</em>
           </h2>
           <p className="mt-8 text-sm text-ink-foreground/60 md:text-base">
-            O ARIMO CLUB é gratuito.
+            O ARIMO CLUB é gratuito. A entrada é por aprovação — deixe seus dados e em breve
+            entraremos em contato.
           </p>
           <div className="mt-14">
             <CtaButton tone="ink" className="px-14 py-6">
-              Entrar no ARIMO Club →
+              Quero me candidatar →
             </CtaButton>
           </div>
-          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Direto pelo WhatsApp</p>
+          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Análise de perfil antes do acesso</p>
+
         </Reveal>
       </Section>
 
