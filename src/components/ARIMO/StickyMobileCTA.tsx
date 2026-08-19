@@ -43,7 +43,7 @@ export function StickyMobileCTA() {
           type="button"
           className="block w-full py-4 text-center text-sm font-bold tracking-[0.2em] text-ink-foreground uppercase"
         >
-          Entrar no Club
+          Quero me candidatar
         </button>
       </LeadDialog>
     </div>
