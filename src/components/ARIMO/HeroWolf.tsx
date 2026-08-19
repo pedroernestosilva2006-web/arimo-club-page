@@ -1,50 +1,13 @@
-import { Suspense, lazy, useEffect, useState } from "react";
-import { ClientOnly } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { HeroFallback } from "./HeroFallback";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
-
-const HeroFuturistic = lazy(() => import("@/components/ui/hero-futuristic"));
 
 const TITLE = ["Onde", "negócio", "acontece."];
 const SUBTITLE = "Um Club pra empresário, vendedor e quem tá construindo algo.";
 
 const display = "font-display font-light tracking-[-0.01em]";
 const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
-
-function HeroBackdrop() {
-  const [mode, setMode] = useState<"fallback" | "gpu">("fallback");
-
-  useEffect(() => {
-    let cancelled = false;
-    const gpu = (navigator as Navigator & { gpu?: { requestAdapter: () => Promise<unknown> } }).gpu;
-    if (!gpu) return;
-    // Coarse pointers (phones/tablets) keep the light CSS version.
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    gpu
-      .requestAdapter()
-      .then((adapter) => {
-        if (adapter && !cancelled) setMode("gpu");
-      })
-      .catch(() => undefined);
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (mode === "gpu") {
-    return (
-      <div className="absolute inset-0">
-        <Suspense fallback={<HeroFallback />}>
-          <HeroFuturistic />
-        </Suspense>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--ink)_90%)]" />
-      </div>
-    );
-  }
-
-  return <HeroFallback />;
-}
 
 export function HeroWolf() {
   const [words, setWords] = useState(0);
@@ -69,9 +32,7 @@ export function HeroWolf() {
       id="hero"
       className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-ink px-6 py-28 text-ink-foreground"
     >
-      <ClientOnly fallback={<HeroFallback />}>
-        <HeroBackdrop />
-      </ClientOnly>
+      <HeroFallback />
 
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Logo tone="ink" className="mx-auto w-[min(58vw,22rem)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]" />

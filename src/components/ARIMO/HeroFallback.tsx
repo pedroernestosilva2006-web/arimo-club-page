@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import heroAsset from "@/assets/wolf-hero.jpg.asset.json";
+import { useEffect, useRef } from "react";
+import heroAsset from "@/assets/table-hero.jpg.asset.json";
 import { cn } from "@/lib/utils";
 
 /**
@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
  */
 export function HeroFallback({ className }: { className?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -32,14 +31,16 @@ export function HeroFallback({ className }: { className?: string }) {
       >
         <img
           src={heroAsset.url}
-          alt="Executivo em meio a notas de dinheiro em queda"
-          onLoad={() => setLoaded(true)}
+          alt="Mesa de reunião reservada sob lustre, em preto e branco"
           className={cn(
-            "h-full w-full object-cover object-center opacity-0 transition-opacity duration-[1600ms] ease-out",
-            loaded && "opacity-[0.55]",
+            "h-full w-full animate-[arimo-fade-in_1.6s_ease-out_both] object-cover object-top brightness-[1.15] contrast-[1.05] grayscale",
           )}
         />
+
       </div>
+
+      {/* legibility scrim */}
+      <div className="pointer-events-none absolute inset-0 bg-ink/55" />
 
       {/* scanline sweep */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -48,7 +49,7 @@ export function HeroFallback({ className }: { className?: string }) {
 
       {/* grain + vignette */}
       <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,var(--ink)_88%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,var(--ink)_95%)]" />
     </div>
   );
 }
