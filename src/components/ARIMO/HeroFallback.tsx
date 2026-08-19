@@ -35,7 +35,7 @@ export function HeroFallback({ className }: { className?: string }) {
           alt="Mesa de reunião reservada sob lustre, em preto e branco"
           onLoad={() => setLoaded(true)}
           className={cn(
-            "h-full w-full object-cover object-center brightness-[1.45] contrast-[1.1] grayscale opacity-0 transition-opacity duration-[1600ms] ease-out",
+            "h-full w-full object-cover object-top brightness-[1.9] contrast-[1.05] grayscale opacity-0 transition-opacity duration-[1600ms] ease-out",
             loaded && "opacity-100",
           )}
         />
