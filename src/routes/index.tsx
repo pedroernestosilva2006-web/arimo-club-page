@@ -9,13 +9,13 @@ import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ARIMO CLUB — Onde negócio acontece" },
+      { title: "ARIMO CLUB | Onde negócio acontece" },
       {
         name: "description",
         content:
           "Club gratuito para empresário, vendedor e quem tá construindo algo. Aceleração, Resultado, Inteligência, Metodologia, Otimização.",
       },
-      { property: "og:title", content: "ARIMO CLUB — Onde negócio acontece" },
+      { property: "og:title", content: "ARIMO CLUB | Onde negócio acontece" },
       {
         property: "og:description",
         content: "Um Club pra empresário, vendedor e quem tá construindo algo.",
@@ -40,7 +40,7 @@ function Index() {
       {/* HERO */}
       <HeroWolf />
 
-      {/* 1 — ABERTURA */}
+      {/* 1 ABERTURA */}
       <Section tone="paper">
         <Reveal>
           <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-[1.05]`}>
@@ -63,7 +63,7 @@ function Index() {
         </Reveal>
       </Section>
 
-      {/* 2 — O QUE É ARIMO */}
+      {/* 2 O QUE É ARIMO */}
       <Section tone="ink" innerClassName="text-center">
         <Reveal>
           <Logo tone="ink" className="mx-auto w-[min(60vw,22rem)]" />
@@ -82,7 +82,7 @@ function Index() {
         </Reveal>
       </Section>
 
-      {/* 3 — O CLUB */}
+      {/* 3 O CLUB */}
       <Section tone="paper">
         <Reveal>
           <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-none`}>
@@ -92,13 +92,13 @@ function Index() {
         <Reveal delay={120}>
           <p className="mt-12 max-w-2xl text-base leading-loose text-muted-foreground md:text-lg">
             O ARIMO CLUB junta quem empreende, quem vende e quem faz negócio acontecer. A conversa
-            passa por venda, gestão, IA, aquisição de cliente, oportunidade — tudo que faz empresa
+            passa por venda, gestão, IA, aquisição de cliente, oportunidade, tudo que faz empresa
             crescer. Mas principalmente pelas pessoas por trás disso.
           </p>
         </Reveal>
       </Section>
 
-      {/* 4 — PILARES */}
+      {/* 4 PILARES */}
       <Section tone="paper" className="py-16 md:py-24">
         <div className="border-t border-line">
           {PILARES.map((p, i) => (
@@ -116,7 +116,7 @@ function Index() {
         </div>
       </Section>
 
-      {/* 5 — FRASE DE IMPACTO */}
+      {/* 5 FRASE DE IMPACTO */}
       <Section tone="ink" className="py-40 md:py-60" innerClassName="text-center max-w-4xl">
         <Reveal>
           <p className={`${display} text-[clamp(2.5rem,9vw,7rem)] leading-[0.95]`}>
@@ -130,7 +130,7 @@ function Index() {
         </Reveal>
       </Section>
 
-      {/* 6 — PARA QUEM */}
+      {/* 6 PARA QUEM */}
       <Section tone="paper">
         <Reveal>
           <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-[1.02]`}>
@@ -145,7 +145,7 @@ function Index() {
         </Reveal>
       </Section>
 
-      {/* 7 — CTA FINAL */}
+      {/* 7 CTA FINAL */}
       <Section
         id="cta-final"
         tone="ink"
@@ -158,12 +158,12 @@ function Index() {
             Entra pra <em className="italic">mesa.</em>
           </h2>
           <p className="mt-8 text-sm text-ink-foreground/60 md:text-base">
-            O ARIMO CLUB é gratuito. A entrada é por aprovação — deixe seus dados e em breve
+            O ARIMO CLUB é gratuito. A entrada é por aprovação. Deixe seus dados e em breve
             entraremos em contato.
           </p>
           <div className="mt-14">
             <CtaButton tone="ink" className="px-14 py-6">
-              Quero me candidatar →
+              Quero me candidatar
             </CtaButton>
           </div>
           <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Análise de perfil antes do acesso</p>
