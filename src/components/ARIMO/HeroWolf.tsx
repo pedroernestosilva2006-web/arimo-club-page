@@ -4,7 +4,9 @@ import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
 const TITLE = ["Onde", "negócio", "acontece."];
-const SUBTITLE = "Um Club pra empresário, vendedor e quem tá construindo algo.";
+const SUBTITLE =
+  "A nova ordem de empresários, famintos por resultado. Um Club pra empresário, vendedor e quem tá construindo algo.";
+
 
 const display = "font-display font-light tracking-[-0.01em]";
 const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
@@ -37,7 +39,7 @@ export function HeroWolf() {
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Logo tone="ink" className="mx-auto w-[min(58vw,22rem)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]" />
 
-        <p className={`${eyebrow} mt-12 text-ink-foreground/50`}>A nova ordem de quem vende e vence</p>
+        <p className={`${eyebrow} mt-12 text-ink-foreground/50`}>Nova ordem de empresários, famintos por resultado</p>
 
         <h1
           className={`${display} mt-8 text-[clamp(3rem,11vw,8rem)] leading-[0.92] text-ink-foreground`}
@@ -70,9 +72,10 @@ export function HeroWolf() {
           }`}
         >
           <CtaButton tone="ink" className="backdrop-blur-sm">
-            Entrar para o ARIMO Club
+            Quero me candidatar
           </CtaButton>
-          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Gratuito · Acesso pelo WhatsApp</p>
+          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Gratuito · Entrada por aprovação</p>
+
         </div>
       </div>
 
