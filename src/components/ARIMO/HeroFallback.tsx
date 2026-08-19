@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import heroAsset from "@/assets/wolf-hero.jpg.asset.json";
+import heroAsset from "@/assets/table-hero.jpg.asset.json";
 import { cn } from "@/lib/utils";
 
 /**
@@ -32,11 +32,11 @@ export function HeroFallback({ className }: { className?: string }) {
       >
         <img
           src={heroAsset.url}
-          alt="Executivo em meio a notas de dinheiro em queda"
+          alt="Mesa de reunião reservada sob lustre, em preto e branco"
           onLoad={() => setLoaded(true)}
           className={cn(
             "h-full w-full object-cover object-center opacity-0 transition-opacity duration-[1600ms] ease-out",
-            loaded && "opacity-[0.55]",
+            loaded && "opacity-[0.75]",
           )}
         />
       </div>
