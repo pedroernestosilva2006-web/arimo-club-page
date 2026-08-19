@@ -39,7 +39,7 @@ export function HeroWolf() {
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Logo tone="ink" className="mx-auto w-[min(58vw,22rem)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]" />
 
-        <p className={`${eyebrow} mt-12 text-ink-foreground/50`}>A nova ordem de quem vende e vence</p>
+        <p className={`${eyebrow} mt-12 text-ink-foreground/50`}>Nova ordem de empresários, famintos por resultado</p>
 
         <h1
           className={`${display} mt-8 text-[clamp(3rem,11vw,8rem)] leading-[0.92] text-ink-foreground`}
