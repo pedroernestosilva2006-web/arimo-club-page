@@ -38,7 +38,7 @@ function Index() {
     <main className="bg-paper font-sans font-light">
       {/* HEADER */}
       <header className="fixed inset-x-0 top-0 z-40 flex justify-center py-6">
-        <Logo tone="ink" className="h-9 w-auto opacity-90 md:h-10" />
+        <Logo tone="ink" className="h-5 w-auto opacity-70 md:h-6" />
       </header>
 
       {/* HERO */}
@@ -50,7 +50,7 @@ function Index() {
       >
         <Reveal className="w-full text-center">
           <Logo tone="ink" className="mx-auto w-[min(78vw,34rem)]" />
-          <p className={`${eyebrow} mt-10 text-ink-foreground/45`}>
+          <p className={`${eyebrow} mt-14 text-ink-foreground/45`}>
             A nova ordem de quem vende e vence
           </p>
           <h1
