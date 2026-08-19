@@ -33,11 +33,14 @@ export function HeroFallback({ className }: { className?: string }) {
           src={heroAsset.url}
           alt="Mesa de reunião reservada sob lustre, em preto e branco"
           className={cn(
-            "h-full w-full animate-[arimo-fade-in_1.6s_ease-out_both] object-cover object-top brightness-[1.9] contrast-[1.05] grayscale",
+            "h-full w-full animate-[arimo-fade-in_1.6s_ease-out_both] object-cover object-top brightness-[1.15] contrast-[1.05] grayscale",
           )}
         />
 
       </div>
+
+      {/* legibility scrim */}
+      <div className="pointer-events-none absolute inset-0 bg-ink/55" />
 
       {/* scanline sweep */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
