@@ -72,9 +72,10 @@ export function HeroWolf() {
           }`}
         >
           <CtaButton tone="ink" className="backdrop-blur-sm">
-            Entrar para o ARIMO Club
+            Quero me candidatar
           </CtaButton>
-          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Gratuito · Acesso pelo WhatsApp</p>
+          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Gratuito · Entrada por aprovação</p>
+
         </div>
       </div>
 
