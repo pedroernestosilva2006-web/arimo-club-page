@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ARIMO_WHATSAPP_URL } from "@/config/links";
+import { LeadDialog } from "./LeadDialog";
 import { cn } from "@/lib/utils";
 
 export function StickyMobileCTA() {
@@ -38,14 +38,14 @@ export function StickyMobileCTA() {
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0",
       )}
     >
-      <a
-        href={ARIMO_WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full py-4 text-center text-sm font-bold tracking-[0.2em] text-ink-foreground uppercase"
-      >
-        Entrar no Club
-      </a>
+      <LeadDialog>
+        <button
+          type="button"
+          className="block w-full py-4 text-center text-sm font-bold tracking-[0.2em] text-ink-foreground uppercase"
+        >
+          Entrar no Club
+        </button>
+      </LeadDialog>
     </div>
   );
 }
