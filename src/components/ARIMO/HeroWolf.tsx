@@ -4,7 +4,9 @@ import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
 const TITLE = ["Onde", "negócio", "acontece."];
-const SUBTITLE = "Um Club pra empresário, vendedor e quem tá construindo algo.";
+const SUBTITLE =
+  "A nova ordem de empresários, famintos por resultado. Um Club pra empresário, vendedor e quem tá construindo algo.";
+
 
 const display = "font-display font-light tracking-[-0.01em]";
 const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
