@@ -90,7 +90,7 @@ export function HeroWolf() {
                 i === TITLE.length - 1 ? "italic" : "",
               ].join(" ")}
             >
-              {i === TITLE.length - 1 ? <em className="not-italic italic">{word}</em> : word}
+              {word}
             </span>
           ))}
         </h1>
