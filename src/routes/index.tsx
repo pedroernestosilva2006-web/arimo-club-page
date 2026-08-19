@@ -13,12 +13,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Club gratuito para empresário, vendedor e quem tá construindo algo. Aceleração, Resultado, Inteligência, Metodologia, Otimização.",
+          "Club gratuito para empresário e vendedor. Aceleração, Resultado, Inteligência, Metodologia, Otimização.",
       },
       { property: "og:title", content: "ARIMO CLUB | Onde negócio acontece" },
       {
         property: "og:description",
-        content: "Um Club pra empresário, vendedor e quem tá construindo algo.",
+        content: "Um Club pra empresário e vendedor.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
