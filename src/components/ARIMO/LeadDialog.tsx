@@ -8,7 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ARIMO_WHATSAPP_GROUP_URL } from "@/config/links";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const schema = z.object({
   telefone: z
