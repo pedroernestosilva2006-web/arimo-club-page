@@ -19,7 +19,12 @@ export function Logo({
       src={logoAsset.url}
       alt={alt}
       loading="lazy"
-      className={cn("select-none", tone === "paper" && "invert", className)}
+      className={cn(
+        "select-none",
+        tone === "paper" ? "invert mix-blend-multiply" : "mix-blend-screen",
+        className,
+      )}
+
     />
   );
 }
