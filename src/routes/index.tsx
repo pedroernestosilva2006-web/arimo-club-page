@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ARIMO/Reveal";
 import { CtaButton } from "@/components/ARIMO/CtaButton";
 import { StickyMobileCTA } from "@/components/ARIMO/StickyMobileCTA";
 import { Logo } from "@/components/ARIMO/Logo";
+import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,42 +37,8 @@ const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
 function Index() {
   return (
     <main className="bg-paper font-sans font-light">
-      {/* HEADER */}
-      <header className="absolute inset-x-0 top-0 z-40 flex justify-center py-6">
-        <Logo tone="ink" className="h-5 w-auto opacity-80 md:h-6" />
-      </header>
-
-
       {/* HERO */}
-      <Section
-        id="hero"
-        tone="ink"
-        className="flex min-h-screen items-center py-32"
-        innerClassName="max-w-4xl"
-      >
-        <Reveal className="w-full text-center">
-          <Logo tone="ink" className="mx-auto w-[min(78vw,34rem)]" />
-          <p className={`${eyebrow} mt-14 text-ink-foreground/45`}>
-            A nova ordem de quem vende e vence
-          </p>
-          <h1
-            className={`${display} mt-10 text-[clamp(3rem,11vw,8rem)] leading-[0.92] text-ink-foreground`}
-          >
-            Onde negócio
-            <br />
-            <em className="italic">acontece.</em>
-          </h1>
-          <p className="mx-auto mt-10 max-w-md text-sm leading-relaxed text-ink-foreground/60 md:text-base">
-            Um Club pra empresário, vendedor e quem tá construindo algo.
-          </p>
-          <div className="mt-14">
-            <CtaButton tone="ink">Entrar para o ARIMO Club</CtaButton>
-          </div>
-          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>
-            Gratuito · Acesso pelo WhatsApp
-          </p>
-        </Reveal>
-      </Section>
+      <HeroWolf />
 
       {/* 1 — ABERTURA */}
       <Section tone="paper">
