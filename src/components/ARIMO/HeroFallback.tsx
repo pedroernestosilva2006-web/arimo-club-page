@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import heroAsset from "@/assets/table-hero.jpg.asset.json";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
  */
 export function HeroFallback({ className }: { className?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -33,13 +32,8 @@ export function HeroFallback({ className }: { className?: string }) {
         <img
           src={heroAsset.url}
           alt="Mesa de reunião reservada sob lustre, em preto e branco"
-          ref={(node) => {
-            if (node?.complete) setLoaded(true);
-          }}
-          onLoad={() => setLoaded(true)}
           className={cn(
-            "h-full w-full object-cover object-top brightness-[1.9] contrast-[1.05] grayscale opacity-0 transition-opacity duration-[1600ms] ease-out",
-            loaded && "opacity-100",
+            "h-full w-full animate-[arimo-fade-in_1.6s_ease-out_both] object-cover object-top brightness-[1.9] contrast-[1.05] grayscale",
           )}
         />
 
