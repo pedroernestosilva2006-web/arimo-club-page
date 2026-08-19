@@ -35,8 +35,8 @@ export function HeroFallback({ className }: { className?: string }) {
           alt="Mesa de reunião reservada sob lustre, em preto e branco"
           onLoad={() => setLoaded(true)}
           className={cn(
-            "h-full w-full object-cover object-center opacity-0 transition-opacity duration-[1600ms] ease-out",
-            loaded && "opacity-[0.75]",
+            "h-full w-full object-cover object-center brightness-[1.45] contrast-[1.1] grayscale opacity-0 transition-opacity duration-[1600ms] ease-out",
+            loaded && "opacity-100",
           )}
         />
       </div>
@@ -48,7 +48,7 @@ export function HeroFallback({ className }: { className?: string }) {
 
       {/* grain + vignette */}
       <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,var(--ink)_88%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,var(--ink)_95%)]" />
     </div>
   );
 }
