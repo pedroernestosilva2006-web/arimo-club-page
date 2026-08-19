@@ -90,24 +90,28 @@ function Scene() {
 
   const [w, h] = useAspect(WIDTH, HEIGHT);
 
+  // Built imperatively so this module needs no react-three JSX intrinsics.
+  const mesh = useMemo(() => new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material), [material]);
+
+  useEffect(() => {
+    meshRef.current = mesh;
+    return () => {
+      mesh.geometry.dispose();
+    };
+  }, [mesh]);
+
+  const scaleFactor = 0.85;
+  mesh.scale.set(w * scaleFactor, h * scaleFactor, 1);
+
   useFrame(({ clock, pointer }) => {
     uniforms.uProgress.value = Math.sin(clock.getElapsedTime() * 0.35) * 0.5 + 0.5;
     uniforms.uPointer.value = pointer;
 
-    const mesh = meshRef.current;
-    if (mesh) {
-      const mat = mesh.material as THREE.Material;
-      mat.opacity = THREE.MathUtils.lerp(mat.opacity, visible ? 1 : 0, 0.06);
-    }
+    const mat = mesh.material as THREE.Material;
+    mat.opacity = THREE.MathUtils.lerp(mat.opacity, visible ? 1 : 0, 0.06);
   });
 
-  const scaleFactor = 0.85;
-
-  return (
-    <mesh ref={meshRef} scale={[w * scaleFactor, h * scaleFactor, 1]} material={material}>
-      <planeGeometry />
-    </mesh>
-  );
+  return <primitive object={mesh} />;
 }
 
 export default function HeroFuturistic() {
