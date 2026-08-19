@@ -1,0 +1,1 @@
+delete from auth.users where email = 'pedro.admin@arimoclub.test';
