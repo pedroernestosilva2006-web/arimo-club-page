@@ -5,7 +5,7 @@ import { CtaButton } from "./CtaButton";
 
 const TITLE = ["Onde", "negócio", "acontece."];
 const SUBTITLE =
-  "A nova ordem de empresários, famintos por resultado. Um Club pra empresário, vendedor e quem tá construindo algo.";
+  "A nova ordem de empresários, famintos por resultado. Um Club pra empresário e vendedor.";
 
 
 const display = "font-display font-light tracking-[-0.01em]";
