@@ -37,9 +37,10 @@ function Index() {
   return (
     <main className="bg-paper font-sans font-light">
       {/* HEADER */}
-      <header className="fixed inset-x-0 top-0 z-40 flex justify-center py-6">
-        <Logo tone="ink" className="h-5 w-auto mix-blend-difference md:h-6" />
+      <header className="absolute inset-x-0 top-0 z-40 flex justify-center py-6">
+        <Logo tone="ink" className="h-5 w-auto opacity-80 md:h-6" />
       </header>
+
 
       {/* HERO */}
       <Section
