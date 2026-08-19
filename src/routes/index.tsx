@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ARIMO/Reveal";
 import { CtaButton } from "@/components/ARIMO/CtaButton";
 import { StickyMobileCTA } from "@/components/ARIMO/StickyMobileCTA";
 import { Logo } from "@/components/ARIMO/Logo";
+import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 
 export const Route = createFileRoute("/")({
   head: () => ({
