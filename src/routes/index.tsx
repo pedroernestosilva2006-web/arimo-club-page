@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logoAsset from "@/assets/arimo-logo.png.asset.json";
 import { Section } from "@/components/ARIMO/Section";
 import { Reveal } from "@/components/ARIMO/Reveal";
 import { CtaButton } from "@/components/ARIMO/CtaButton";
 import { StickyMobileCTA } from "@/components/ARIMO/StickyMobileCTA";
+import { Logo } from "@/components/ARIMO/Logo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,89 +30,100 @@ const WORDS = ["Aceleração", "Resultado", "Inteligência", "Metodologia", "Oti
 const PILARES = ["NEGÓCIOS", "VENDAS", "NETWORK", "INTELIGÊNCIA", "EXECUÇÃO"];
 const PESSOAS = ["Cliente.", "Sócio.", "Fornecedor.", "Vendedor.", "Empresário.", "Parceiro."];
 
+const display = "font-display font-light tracking-[-0.01em]";
+const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
+
 function Index() {
   return (
-    <main className="bg-paper font-sans">
+    <main className="bg-paper font-sans font-light">
+      {/* HEADER */}
+      <header className="absolute inset-x-0 top-0 z-40 flex justify-center py-6">
+        <Logo tone="ink" className="h-5 w-auto opacity-80 md:h-6" />
+      </header>
+
+
       {/* HERO */}
-      <Section id="hero" tone="paper" className="flex min-h-screen items-center py-24">
+      <Section
+        id="hero"
+        tone="ink"
+        className="flex min-h-screen items-center py-32"
+        innerClassName="max-w-4xl"
+      >
         <Reveal className="w-full text-center">
-          <img
-            src={logoAsset.url}
-            alt="ARIMO"
-            className="mx-auto mb-16 w-40 md:w-56"
-            width={224}
-            height={224}
-          />
-          <h1 className="text-[clamp(2.5rem,9vw,7rem)] leading-[0.95] font-bold tracking-tight uppercase">
+          <Logo tone="ink" className="mx-auto w-[min(78vw,34rem)]" />
+          <p className={`${eyebrow} mt-14 text-ink-foreground/45`}>
+            A nova ordem de quem vende e vence
+          </p>
+          <h1
+            className={`${display} mt-10 text-[clamp(3rem,11vw,8rem)] leading-[0.92] text-ink-foreground`}
+          >
             Onde negócio
             <br />
-            acontece.
+            <em className="italic">acontece.</em>
           </h1>
-          <p className="mx-auto mt-8 max-w-xl text-base text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-10 max-w-md text-sm leading-relaxed text-ink-foreground/60 md:text-base">
             Um Club pra empresário, vendedor e quem tá construindo algo.
           </p>
-          <div className="mt-12">
-            <CtaButton>Entrar para o ARIMO Club</CtaButton>
+          <div className="mt-14">
+            <CtaButton tone="ink">Entrar para o ARIMO Club</CtaButton>
           </div>
-          <p className="mt-6 text-xs tracking-[0.2em] text-muted-foreground uppercase">
+          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>
             Gratuito · Acesso pelo WhatsApp
           </p>
         </Reveal>
       </Section>
 
       {/* 1 — ABERTURA */}
-      <Section tone="ink">
+      <Section tone="paper">
         <Reveal>
-          <h2 className="text-[clamp(2rem,6vw,4.5rem)] leading-[1.02] font-bold tracking-tight uppercase">
+          <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-[1.05]`}>
             Não é sobre trocar cartão.
             <br />
-            É sobre estar perto de quem importa.
+            <em className="italic">É sobre estar perto de quem importa.</em>
           </h2>
         </Reveal>
         <Reveal delay={120}>
-          <div className="mt-16 flex flex-wrap gap-x-10 gap-y-4 text-lg text-ink-foreground/60 md:text-2xl">
+          <div className={`${eyebrow} mt-16 flex flex-wrap gap-x-10 gap-y-5 text-muted-foreground`}>
             {PESSOAS.map((p) => (
               <span key={p}>{p}</span>
             ))}
           </div>
         </Reveal>
         <Reveal delay={200}>
-          <p className="mt-20 text-xl font-medium md:text-3xl">Negócio começa com gente.</p>
+          <p className={`${display} mt-20 border-t border-line pt-10 text-2xl md:text-4xl`}>
+            Negócio começa com gente.
+          </p>
         </Reveal>
       </Section>
 
       {/* 2 — O QUE É ARIMO */}
-      <Section tone="paper">
+      <Section tone="ink" innerClassName="text-center">
         <Reveal>
-          <h2 className="text-[clamp(3rem,12vw,9rem)] leading-none font-bold tracking-tight">
-            ARIMO
-          </h2>
+          <Logo tone="ink" className="mx-auto w-[min(60vw,22rem)]" />
         </Reveal>
-        <div className="mt-16 space-y-2">
+        <div className="mt-20 space-y-5">
           {WORDS.map((w, i) => (
             <Reveal key={w} delay={i * 80}>
-              <p className="text-[clamp(1.5rem,4.5vw,3rem)] leading-tight font-medium tracking-tight">
-                {w}
-              </p>
+              <p className={`${display} text-[clamp(1.75rem,5vw,3.5rem)] leading-none`}>{w}</p>
             </Reveal>
           ))}
         </div>
-        <Reveal delay={200}>
-          <p className="mt-20 border-t border-line pt-8 text-lg text-muted-foreground md:text-xl">
-            Inteligência com método vira resultado.
+        <Reveal delay={220}>
+          <p className={`${eyebrow} mt-20 text-ink-foreground/45`}>
+            Inteligência com método vira resultado
           </p>
         </Reveal>
       </Section>
 
       {/* 3 — O CLUB */}
-      <Section tone="ink">
+      <Section tone="paper">
         <Reveal>
-          <h2 className="text-[clamp(2rem,7vw,5rem)] leading-none font-bold tracking-tight uppercase">
-            Gente que tá no jogo.
+          <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-none`}>
+            Gente que tá <em className="italic">no jogo.</em>
           </h2>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-12 max-w-3xl text-lg leading-relaxed text-ink-foreground/75 md:text-2xl">
+          <p className="mt-12 max-w-2xl text-base leading-loose text-muted-foreground md:text-lg">
             O ARIMO CLUB junta quem empreende, quem vende e quem faz negócio acontecer. A conversa
             passa por venda, gestão, IA, aquisição de cliente, oportunidade — tudo que faz empresa
             crescer. Mas principalmente pelas pessoas por trás disso.
@@ -121,13 +132,16 @@ function Index() {
       </Section>
 
       {/* 4 — PILARES */}
-      <Section tone="paper" className="py-20 md:py-28">
+      <Section tone="paper" className="py-16 md:py-24">
         <div className="border-t border-line">
           {PILARES.map((p, i) => (
             <Reveal key={p} delay={i * 60}>
-              <div className="border-b border-line py-8 md:py-12">
-                <span className="text-[clamp(1.75rem,7vw,5rem)] leading-none font-bold tracking-tight">
+              <div className="flex items-baseline justify-between gap-6 border-b border-line py-8 md:py-11">
+                <span className={`${display} text-[clamp(1.75rem,6vw,4rem)] leading-none`}>
                   {p}
+                </span>
+                <span className={`${eyebrow} text-muted-foreground`}>
+                  {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
             </Reveal>
@@ -136,29 +150,28 @@ function Index() {
       </Section>
 
       {/* 5 — FRASE DE IMPACTO */}
-      <Section tone="ink" className="py-40 md:py-56">
-        <Reveal className="text-center">
-          <p className="text-[clamp(2.25rem,9vw,7rem)] leading-[0.95] font-bold tracking-tight uppercase">
+      <Section tone="ink" className="py-40 md:py-60" innerClassName="text-center max-w-4xl">
+        <Reveal>
+          <p className={`${display} text-[clamp(2.5rem,9vw,7rem)] leading-[0.95]`}>
             A nova ordem
             <br />
             de quem vende
-            <br />e vence.
+            <br />
+            <em className="italic">e vence.</em>
           </p>
-          <p className="mt-16 text-xs tracking-[0.4em] text-ink-foreground/50 uppercase">
-            ARIMO CLUB
-          </p>
+          <Logo tone="ink" className="mx-auto mt-16 w-32 opacity-60" />
         </Reveal>
       </Section>
 
       {/* 6 — PARA QUEM */}
       <Section tone="paper">
         <Reveal>
-          <h2 className="text-[clamp(2rem,7vw,5rem)] leading-none font-bold tracking-tight uppercase">
-            Para quem tá construindo.
+          <h2 className={`${display} text-[clamp(2.25rem,7vw,5.5rem)] leading-[1.02]`}>
+            Para quem tá <em className="italic">construindo.</em>
           </h2>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-12 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-2xl">
+          <p className="mt-12 max-w-2xl text-base leading-loose text-muted-foreground md:text-lg">
             Empresário. Vendedor. Executivo. Líder comercial. Prestador de serviço. E quem tá
             começando, mas já sacou que relação e venda abrem porta.
           </p>
@@ -166,28 +179,34 @@ function Index() {
       </Section>
 
       {/* 7 — CTA FINAL */}
-      <Section id="cta-final" tone="paper" className="py-40 md:py-56">
-        <Reveal className="text-center">
-          <img
-            src={logoAsset.url}
-            alt="ARIMO CLUB"
-            className="mx-auto mb-16 w-32 md:w-44"
-            width={176}
-            height={176}
-            loading="lazy"
-          />
-          <h2 className="text-[clamp(2.5rem,9vw,6rem)] leading-none font-bold tracking-tight uppercase">
-            Entra pra mesa.
+      <Section
+        id="cta-final"
+        tone="ink"
+        className="py-40 md:py-56"
+        innerClassName="text-center max-w-3xl"
+      >
+        <Reveal>
+          <Logo tone="ink" className="mx-auto w-[min(64vw,26rem)]" alt="ARIMO CLUB" />
+          <h2 className={`${display} mt-14 text-[clamp(2.5rem,8vw,6rem)] leading-none`}>
+            Entra pra <em className="italic">mesa.</em>
           </h2>
-          <p className="mt-8 text-lg text-muted-foreground">O ARIMO CLUB é gratuito.</p>
-          <div className="mt-12">
-            <CtaButton className="px-12 py-6">Entrar no ARIMO Club →</CtaButton>
-          </div>
-          <p className="mt-6 text-xs tracking-[0.2em] text-muted-foreground uppercase">
-            Direto pelo WhatsApp.
+          <p className="mt-8 text-sm text-ink-foreground/60 md:text-base">
+            O ARIMO CLUB é gratuito.
           </p>
+          <div className="mt-14">
+            <CtaButton tone="ink" className="px-14 py-6">
+              Entrar no ARIMO Club →
+            </CtaButton>
+          </div>
+          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Direto pelo WhatsApp</p>
         </Reveal>
       </Section>
+
+      {/* FOOTER */}
+      <footer className="flex items-center justify-center gap-4 border-t border-line bg-paper py-10">
+        <Logo tone="paper" className="h-7 w-auto" />
+        <span className={`${eyebrow} text-muted-foreground`}>Club</span>
+      </footer>
 
       <StickyMobileCTA />
     </main>
