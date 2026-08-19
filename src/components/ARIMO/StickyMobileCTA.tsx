@@ -13,14 +13,14 @@ export function StickyMobileCTA() {
 
     if (hero) {
       const io = new IntersectionObserver(
-        ([e]) => setPastHero(!e.isIntersecting),
+        (entries) => setPastHero(!entries[0]?.isIntersecting),
         { threshold: 0 },
       );
       io.observe(hero);
       observers.push(io);
     }
     if (final) {
-      const io = new IntersectionObserver(([e]) => setFinalVisible(e.isIntersecting), {
+      const io = new IntersectionObserver((entries) => setFinalVisible(!!entries[0]?.isIntersecting), {
         threshold: 0,
       });
       io.observe(final);
