@@ -37,6 +37,32 @@ export function Index() {
     <main className="overflow-hidden bg-[#050505] font-sans text-[#f2f0eb]">
       <HeroWolf />
 
+      <section className="relative min-h-[78vh] overflow-hidden border-y border-white/10">
+        <img
+          src="/arimo-hero-new-order-bw.png"
+          alt="Empresários reunidos no ARIMO CLUB"
+          className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.08)_0%,rgba(5,5,5,.25)_42%,rgba(5,5,5,.92)_100%)]" />
+        <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
+        <div className="relative mx-auto flex min-h-[78vh] max-w-[1600px] flex-col justify-between px-6 py-10 md:px-12 md:py-14">
+          <p className="arimo-label text-white/60">POR DENTRO DO ARIMO</p>
+          <div className="max-w-5xl">
+            <h2 className="max-w-4xl text-[clamp(3rem,7vw,7.4rem)] font-light leading-[.92] tracking-normal">
+              O acesso coloca você
+              <br />
+              dentro da <span className="arimo-serif italic">conversa.</span>
+            </h2>
+            <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+              <CtaButton tone="ink" className="border-white/60 px-8 py-4">
+                Solicitar meu acesso <span aria-hidden="true">→</span>
+              </CtaButton>
+              <p className="arimo-label text-white/45">Gratuito · Entrada por aprovação</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="arimo-grid relative px-6 py-32 md:px-12 md:py-52">
         <div className="mx-auto max-w-6xl">
           <Reveal>
@@ -82,6 +108,11 @@ export function Index() {
             <br />
             Negócio começa com relação. Resultado vem do que você faz com ela.
           </p>
+          <div className="mt-12">
+            <CtaButton tone="paper" className="border-black/60 px-8 py-4">
+              Quero entrar nessa rede <span aria-hidden="true">→</span>
+            </CtaButton>
+          </div>
         </div>
       </section>
 
@@ -111,6 +142,12 @@ export function Index() {
                 </div>
               </Reveal>
             ))}
+          </div>
+          <div className="mt-14 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+            <CtaButton tone="ink" className="border-white/60 px-8 py-4">
+              Fazer minha candidatura <span aria-hidden="true">→</span>
+            </CtaButton>
+            <p className="arimo-label text-white/40">Leva menos de dois minutos</p>
           </div>
         </div>
       </section>

@@ -59,7 +59,12 @@ export function HeroWolf() {
       gsap.fromTo(
         image,
         { yPercent: mobile ? -2 : -5, scale: mobile ? 1.035 : 1.045 },
-        { yPercent: mobile ? 10 : 20, scale: mobile ? 1.07 : 1.085, ease: "none", scrollTrigger: trigger },
+        {
+          yPercent: mobile ? 10 : 20,
+          scale: mobile ? 1.07 : 1.085,
+          ease: "none",
+          scrollTrigger: trigger,
+        },
       );
       gsap.fromTo(
         atmosphere,
@@ -92,11 +97,28 @@ export function HeroWolf() {
   }, []);
 
   return (
-    <section ref={heroRef} data-parallax-layers className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]">
-      <div ref={gridRef} data-parallax-layer="1" className="arimo-grid absolute -inset-y-[8%] inset-x-0 opacity-70 will-change-transform" />
-      <div ref={imageRef} data-parallax-layer="2" className="arimo-hero-image arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-hero-new-order-bw.png')] bg-cover opacity-100 will-change-transform" />
-      <div ref={atmosphereRef} data-parallax-layer="3" className="absolute -inset-y-[8%] inset-x-0 will-change-transform">
+    <section
+      ref={heroRef}
+      data-parallax-layers
+      className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]"
+    >
+      <div
+        ref={gridRef}
+        data-parallax-layer="1"
+        className="arimo-grid absolute -inset-y-[8%] inset-x-0 opacity-70 will-change-transform"
+      />
+      <div
+        ref={imageRef}
+        data-parallax-layer="2"
+        className="arimo-access-card-hero arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-access-card.png')] opacity-100 will-change-transform"
+      />
+      <div
+        ref={atmosphereRef}
+        data-parallax-layer="3"
+        className="absolute -inset-y-[8%] inset-x-0 will-change-transform"
+      >
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.9)_0%,rgba(5,5,5,.64)_34%,rgba(5,5,5,.12)_68%,rgba(5,5,5,.03)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.02)_0%,rgba(5,5,5,.08)_38%,rgba(5,5,5,.82)_70%,#050505_100%)] md:hidden" />
         <div className="absolute inset-0 bg-black/5" />
         <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
       </div>
@@ -108,13 +130,19 @@ export function HeroWolf() {
           <span className="arimo-intro-line mt-7 block h-px bg-[#927451]" />
         </div>
       </div>
-      <div ref={contentRef} data-parallax-layer="4" className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 will-change-transform md:px-12 md:pb-12 md:pt-10">
+      <div
+        ref={contentRef}
+        data-parallax-layer="4"
+        className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 will-change-transform md:px-12 md:pb-12 md:pt-10"
+      >
         <header className="flex items-center justify-between border-b border-white/15 pb-5">
           <Logo tone="ink" className="w-16 md:w-20" />
-          <span className={`${eyebrow} hidden text-white/55 sm:inline`}>Private business network</span>
+          <span className={`${eyebrow} hidden text-white/55 sm:inline`}>
+            Private business network
+          </span>
         </header>
-        <div className="flex flex-1 flex-col justify-center pb-10 pt-24 md:max-w-5xl md:pb-0">
-          <p className={`${eyebrow} mb-7 text-[#b7b7b7]`}>ARIMO CLUB / BRASIL</p>
+        <div className="flex flex-1 flex-col justify-end pb-10 pt-72 md:max-w-5xl md:justify-center md:pb-0 md:pt-24">
+          <p className={`${eyebrow} mb-7 text-[#b7b7b7]`}>SEU ACESSO / ARIMO CLUB</p>
           <h1 className="max-w-[11ch] text-[clamp(3.45rem,7.6vw,7.8rem)] font-sans font-light leading-[.92] tracking-normal">
             <span className={`arimo-mask block ${ready ? "is-visible" : ""}`}>A nova</span>
             <span
