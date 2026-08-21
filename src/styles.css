@@ -229,6 +229,35 @@
   animation: arimo-quiz-back 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes arimo-power-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes arimo-power-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+.arimo-power-row {
+  animation: arimo-power-left var(--power-speed) linear infinite;
+  will-change: transform;
+}
+
+.arimo-power-row.is-reverse {
+  animation-name: arimo-power-right;
+}
+
+.arimo-power-plane:hover .arimo-power-row {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arimo-power-row {
+    animation: none;
+  }
+}
+
 /* Private business club visual system */
 .arimo-grid {
   background-image:

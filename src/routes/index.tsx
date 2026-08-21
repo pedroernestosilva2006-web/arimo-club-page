@@ -3,6 +3,7 @@ import { CtaButton } from "@/components/ARIMO/CtaButton";
 import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
+import { DiagonalPowerMarquee } from "@/components/ui/diagonal-power-marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,6 +23,13 @@ const pillars = [
   ["O", "OTIMIZAÇÃO"],
 ];
 const topics = ["NEGÓCIOS", "CRESCIMENTO", "NETWORK", "INTELIGÊNCIA", "EXECUÇÃO"];
+const powerImages = [
+  { src: "/arimo-power-handshake.png", alt: "Empresários concluindo uma parceria" },
+  { src: "/arimo-hero-private-table-v2.png", alt: "Líderes reunidos em ambiente privado" },
+  { src: "/arimo-power-arrival.png", alt: "Empresários chegando para um encontro privado" },
+  { src: "/arimo-founders-night.png", alt: "Fundadores em uma conversa reservada" },
+  { src: "/arimo-boardroom-men.png", alt: "Mesa de decisão entre empresários" },
+];
 
 export function Index() {
   return (
@@ -75,6 +83,8 @@ export function Index() {
           </p>
         </div>
       </section>
+
+      <DiagonalPowerMarquee images={powerImages} />
 
       <section className="arimo-grid px-6 py-32 md:px-12 md:py-48">
         <div className="mx-auto max-w-6xl">
