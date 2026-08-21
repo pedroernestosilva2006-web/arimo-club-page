@@ -43,9 +43,9 @@ export function HeroWolf() {
   return (
     <section ref={heroRef} className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]">
       <div className="arimo-grid absolute inset-0 opacity-70" />
-      <div ref={imageRef} className="arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-hero-new-order.png')] bg-cover bg-center opacity-95 will-change-transform" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.94)_0%,rgba(5,5,5,.72)_34%,rgba(5,5,5,.18)_68%,rgba(5,5,5,.08)_100%)]" />
-      <div className="absolute inset-0 bg-black/15" />
+      <div ref={imageRef} className="arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-hero-new-order-bw.png')] bg-cover bg-center opacity-100 will-change-transform" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.9)_0%,rgba(5,5,5,.64)_34%,rgba(5,5,5,.12)_68%,rgba(5,5,5,.03)_100%)]" />
+      <div className="absolute inset-0 bg-black/5" />
       <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
       <div
         className={`arimo-intro fixed inset-0 z-50 flex items-center justify-center bg-[#050505] ${intro ? "is-active" : "is-gone"}`}
