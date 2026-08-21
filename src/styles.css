@@ -373,6 +373,16 @@
   background-size: clamp(46px, 6vw, 88px) clamp(46px, 6vw, 88px);
 }
 
+.arimo-hero-image {
+  background-position: center center;
+}
+
+@media (max-width: 767px) {
+  .arimo-hero-image {
+    background-position: 47% center;
+  }
+}
+
 .arimo-serif {
   font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
@@ -551,6 +561,10 @@
   }
 
   .arimo-hero-parallax {
+    transform: none !important;
+  }
+
+  [data-parallax-layer] {
     transform: none !important;
   }
 }
