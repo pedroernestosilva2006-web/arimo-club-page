@@ -11,24 +11,21 @@ export function Logo({
 }) {
   return (
     <div
-      role="img"
-      aria-label={alt}
       className={cn(
-        "arimo-wordmark inline-flex items-center gap-3",
-        tone === "paper" ? "text-[#090909]" : "text-[#f2f0eb]",
+        "inline-flex shrink-0 items-center",
         className,
       )}
     >
-      <span className="arimo-monogram" aria-hidden="true">
-        <i />
-        <b>A</b>
-      </span>
-      <span className="flex flex-col">
-        <span className="text-[1.35em] font-medium leading-none tracking-[0.22em]">ARIMO</span>
-        <span className="mt-1 text-[0.42em] font-light uppercase tracking-[0.42em] opacity-55">
-          Private Business Club
-        </span>
-      </span>
+      <img
+        src="/arimo-logo-official.png"
+        alt={alt}
+        className={cn(
+          "h-auto w-full object-contain",
+          tone === "paper"
+            ? "mix-blend-multiply invert"
+            : "mix-blend-screen",
+        )}
+      />
     </div>
   );
 }
