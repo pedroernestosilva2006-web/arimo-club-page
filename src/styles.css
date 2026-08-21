@@ -373,16 +373,36 @@
   background-size: clamp(46px, 6vw, 88px) clamp(46px, 6vw, 88px);
 }
 
-.arimo-access-card-hero {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.arimo-card-enter {
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1) 180ms,
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) 180ms;
 }
 
-@media (max-width: 767px) {
-  .arimo-access-card-hero {
-    background-position: center 17%;
-    background-size: 125% auto;
+.arimo-card-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.arimo-card-float {
+  animation: arimo-card-float 5.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.arimo-card-object {
+  filter:
+    drop-shadow(0 28px 28px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.42));
+}
+
+@keyframes arimo-card-float {
+  0%, 100% {
+    transform: translateY(0) rotateZ(-0.15deg);
+  }
+  50% {
+    transform: translateY(-7px) rotateZ(0.15deg);
   }
 }
 
@@ -559,8 +579,15 @@
     animation: none;
   }
   .arimo-intro-line,
-  .arimo-photo-drift {
+  .arimo-photo-drift,
+  .arimo-card-float {
     animation: none;
+  }
+
+  .arimo-card-enter {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .arimo-hero-parallax {
