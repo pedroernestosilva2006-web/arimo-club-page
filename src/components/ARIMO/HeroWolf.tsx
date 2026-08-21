@@ -32,7 +32,7 @@ export function HeroWolf() {
       </div>
       <div className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 md:px-12 md:pb-12 md:pt-10">
         <header className="flex items-center justify-between border-b border-white/15 pb-5">
-          <Logo tone="ink" className="w-28 md:w-36" />
+          <Logo tone="ink" className="w-16 md:w-20" />
           <span className={`${eyebrow} hidden text-white/55 sm:inline`}>Private business network</span>
         </header>
         <div className="flex flex-1 flex-col justify-center pb-10 pt-24 md:max-w-5xl md:pb-0">

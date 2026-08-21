@@ -218,7 +218,7 @@ export function Index() {
       <footer className="px-6 py-14 md:px-12">
         <div className="mx-auto flex max-w-6xl flex-col gap-14 md:flex-row md:items-end md:justify-between">
           <div>
-            <Logo tone="ink" className="w-40" alt="ARIMO CLUB" />
+            <Logo tone="ink" className="w-28" alt="ARIMO CLUB" />
             <p className="mt-5 text-[clamp(1.6rem,3vw,3rem)] font-light tracking-normal">
               Onde negócios acontecem.
             </p>
