@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
@@ -7,6 +10,9 @@ const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.32em]";
 export function HeroWolf() {
   const heroRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const atmosphereRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [intro, setIntro] = useState(true);
   useEffect(() => {
@@ -19,34 +25,81 @@ export function HeroWolf() {
   }, []);
 
   useEffect(() => {
+    const hero = heroRef.current;
+    const image = imageRef.current;
+    const grid = gridRef.current;
+    const atmosphere = atmosphereRef.current;
+    const content = contentRef.current;
+
+    if (!hero || !image || !grid || !atmosphere || !content) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let frame = 0;
-    const updateParallax = () => {
-      frame = 0;
-      const hero = heroRef.current;
-      const image = imageRef.current;
-      if (!hero || !image) return;
-      const distance = Math.min(window.scrollY, hero.offsetHeight);
-      image.style.transform = `translate3d(0, ${distance * 0.12}px, 0) scale(1.04)`;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      wheelMultiplier: 0.85,
+    });
+    const updateScrollTrigger = () => ScrollTrigger.update();
+    const tick = (time: number) => lenis.raf(time * 1000);
+
+    lenis.on("scroll", updateScrollTrigger);
+    gsap.ticker.add(tick);
+
+    const media = gsap.matchMedia();
+    const createParallax = (mobile: boolean) => {
+      const trigger = {
+        trigger: hero,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      };
+
+      gsap.fromTo(
+        image,
+        { yPercent: mobile ? -2 : -5, scale: mobile ? 1.035 : 1.045 },
+        { yPercent: mobile ? 10 : 20, scale: mobile ? 1.07 : 1.085, ease: "none", scrollTrigger: trigger },
+      );
+      gsap.fromTo(
+        atmosphere,
+        { yPercent: -1 },
+        { yPercent: mobile ? 4 : 8, ease: "none", scrollTrigger: trigger },
+      );
+      gsap.to(grid, {
+        yPercent: mobile ? 7 : 13,
+        ease: "none",
+        scrollTrigger: trigger,
+      });
+      gsap.to(content, {
+        yPercent: mobile ? 8 : 16,
+        opacity: mobile ? 0.72 : 0.45,
+        ease: "none",
+        scrollTrigger: trigger,
+      });
     };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(updateParallax);
-    };
-    updateParallax();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    media.add("(max-width: 767px)", () => createParallax(true));
+    media.add("(min-width: 768px)", () => createParallax(false));
+    ScrollTrigger.refresh();
+
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) cancelAnimationFrame(frame);
+      media.revert();
+      gsap.ticker.remove(tick);
+      lenis.off("scroll", updateScrollTrigger);
+      lenis.destroy();
     };
   }, []);
 
   return (
-    <section ref={heroRef} className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]">
-      <div className="arimo-grid absolute inset-0 opacity-70" />
-      <div ref={imageRef} className="arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-hero-new-order-bw.png')] bg-cover bg-center opacity-100 will-change-transform" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.9)_0%,rgba(5,5,5,.64)_34%,rgba(5,5,5,.12)_68%,rgba(5,5,5,.03)_100%)]" />
-      <div className="absolute inset-0 bg-black/5" />
-      <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
+    <section ref={heroRef} data-parallax-layers className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]">
+      <div ref={gridRef} data-parallax-layer="1" className="arimo-grid absolute -inset-y-[8%] inset-x-0 opacity-70 will-change-transform" />
+      <div ref={imageRef} data-parallax-layer="2" className="arimo-hero-image arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-hero-new-order-bw.png')] bg-cover opacity-100 will-change-transform" />
+      <div ref={atmosphereRef} data-parallax-layer="3" className="absolute -inset-y-[8%] inset-x-0 will-change-transform">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.9)_0%,rgba(5,5,5,.64)_34%,rgba(5,5,5,.12)_68%,rgba(5,5,5,.03)_100%)]" />
+        <div className="absolute inset-0 bg-black/5" />
+        <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
+      </div>
       <div
         className={`arimo-intro fixed inset-0 z-50 flex items-center justify-center bg-[#050505] ${intro ? "is-active" : "is-gone"}`}
       >
@@ -55,7 +108,7 @@ export function HeroWolf() {
           <span className="arimo-intro-line mt-7 block h-px bg-[#927451]" />
         </div>
       </div>
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 md:px-12 md:pb-12 md:pt-10">
+      <div ref={contentRef} data-parallax-layer="4" className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 will-change-transform md:px-12 md:pb-12 md:pt-10">
         <header className="flex items-center justify-between border-b border-white/15 pb-5">
           <Logo tone="ink" className="w-16 md:w-20" />
           <span className={`${eyebrow} hidden text-white/55 sm:inline`}>Private business network</span>
