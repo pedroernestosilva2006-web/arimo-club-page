@@ -122,11 +122,14 @@ export function ArimoNetworkMap() {
           </svg>
 
           <div className="absolute left-[37%] top-[63%] z-10 -translate-x-1/2 -translate-y-1/2">
-            <span className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 border border-[#b7966d]/40 arimo-wolf-signal sm:h-28 sm:w-28" />
+            <span className="arimo-wolf-ring is-one" aria-hidden="true" />
+            <span className="arimo-wolf-ring is-two" aria-hidden="true" />
+            <span className="arimo-wolf-ring is-three" aria-hidden="true" />
+            <span className="arimo-wolf-orbit" aria-hidden="true"><i /></span>
             <img
-              src="/arimo-logo-official.png"
-              alt="ARIMO CLUB, núcleo da rede"
-              className="relative w-12 mix-blend-screen sm:w-16"
+              src="/arimo-wolf-crest.png"
+              alt="Brasão do lobo ARIMO, núcleo da rede"
+              className="arimo-wolf-core relative w-12 mix-blend-screen sm:w-[4.5rem]"
             />
           </div>
 
