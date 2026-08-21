@@ -1,10 +1,5 @@
-import logoAsset from "@/assets/arimo-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
-/**
- * The source mark is a white wordmark on near-black.
- * On light ("paper") surfaces we invert it so it reads as black on white.
- */
 export function Logo({
   tone = "ink",
   className,
@@ -15,13 +10,25 @@ export function Logo({
   alt?: string;
 }) {
   return (
-    <img
-      src={logoAsset.url}
-      alt={alt}
-      loading="lazy"
-      className={cn("select-none", tone === "paper" && "invert", className)}
-
-
-    />
+    <div
+      role="img"
+      aria-label={alt}
+      className={cn(
+        "arimo-wordmark inline-flex items-center gap-3",
+        tone === "paper" ? "text-[#090909]" : "text-[#f2f0eb]",
+        className,
+      )}
+    >
+      <span className="arimo-monogram" aria-hidden="true">
+        <i />
+        <b>A</b>
+      </span>
+      <span className="flex flex-col">
+        <span className="text-[1.35em] font-medium leading-none tracking-[0.22em]">ARIMO</span>
+        <span className="mt-1 text-[0.42em] font-light uppercase tracking-[0.42em] opacity-55">
+          Private Business Club
+        </span>
+      </span>
+    </div>
   );
 }

@@ -20,7 +20,7 @@
 
 @theme inline {
   --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -201,6 +201,209 @@
 }
 
 @keyframes arimo-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Private business club visual system */
+.arimo-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.065) 1px, transparent 1px);
+  background-size: clamp(46px, 6vw, 88px) clamp(46px, 6vw, 88px);
+}
+
+.arimo-serif {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+}
+
+.arimo-label {
+  font-size: 0.625rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.arimo-mask {
+  clip-path: inset(0 0 110% 0);
+  transform: translateY(28px);
+  transition:
+    clip-path 900ms cubic-bezier(0.76, 0, 0.24, 1),
+    transform 900ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.arimo-mask.is-visible {
+  clip-path: inset(0);
+  transform: translateY(0);
+}
+.arimo-mask.delay-1 {
+  transition-delay: 180ms;
+}
+.arimo-mask.delay-3 {
+  transition-delay: 330ms;
+}
+.delay-2 {
+  transition-delay: 420ms;
+}
+
+.arimo-button span {
+  display: inline-block;
+  margin-left: 0.5rem;
+  transition: transform 260ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+.arimo-button:hover span {
+  transform: translateX(5px);
+}
+
+.arimo-word-rail {
+  animation: arimo-rail 24s linear infinite;
+}
+@keyframes arimo-rail {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-28%);
+  }
+}
+
+.arimo-wordmark {
+  font-size: clamp(0.62rem, 1vw, 0.86rem);
+  width: max-content;
+}
+.arimo-monogram {
+  position: relative;
+  display: grid;
+  width: 2.45em;
+  height: 2.45em;
+  place-items: center;
+  border: 1px solid currentColor;
+}
+.arimo-monogram::before,
+.arimo-monogram::after {
+  content: "";
+  position: absolute;
+  background: #927451;
+}
+.arimo-monogram::before {
+  width: 1px;
+  height: calc(100% + 10px);
+}
+.arimo-monogram::after {
+  width: calc(100% + 10px);
+  height: 1px;
+}
+.arimo-monogram i {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  opacity: 0.28;
+  transform: rotate(45deg);
+}
+.arimo-monogram b {
+  position: relative;
+  z-index: 1;
+  font-family: "Instrument Serif", serif;
+  font-size: 1.42em;
+  font-weight: 400;
+}
+
+.arimo-intro {
+  transition:
+    opacity 520ms cubic-bezier(0.76, 0, 0.24, 1),
+    visibility 520ms;
+}
+.arimo-intro.is-gone {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.arimo-intro-line {
+  transform-origin: left;
+  animation: arimo-intro-line 1.1s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+@keyframes arimo-intro-line {
+  0% {
+    transform: scaleX(0);
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+.arimo-hero-image {
+  animation: arimo-hero-drift 18s cubic-bezier(0.3, 0, 0.2, 1) infinite alternate;
+}
+@keyframes arimo-hero-drift {
+  from {
+    transform: scale(1.015) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.055) translate3d(-0.7%, -0.5%, 0);
+  }
+}
+
+.arimo-photo-drift,
+.arimo-portrait-image {
+  transition:
+    transform 1.2s cubic-bezier(0.76, 0, 0.24, 1),
+    filter 1.2s;
+}
+.arimo-photo-section:hover .arimo-photo-drift {
+  transform: scale(1.025);
+}
+.arimo-portrait:hover .arimo-portrait-image {
+  transform: scale(1.035);
+  filter: contrast(1.08);
+}
+.arimo-topic {
+  transition:
+    background-color 350ms,
+    transform 350ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+.arimo-topic:hover {
+  background: rgba(146, 116, 81, 0.14);
+  transform: translateY(-5px);
+}
+
+@supports (animation-timeline: view()) {
+  .arimo-photo-drift {
+    animation: arimo-view-photo linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+  @keyframes arimo-view-photo {
+    from {
+      transform: scale(1.08) translateY(-2%);
+    }
+    to {
+      transform: scale(1.02) translateY(2%);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arimo-mask {
+    clip-path: none;
+    transform: none;
+    transition: none;
+  }
+  .arimo-word-rail {
+    animation: none;
+  }
+  .arimo-hero-image,
+  .arimo-intro-line,
+  .arimo-photo-drift {
+    animation: none;
+  }
 }

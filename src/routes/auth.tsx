@@ -56,7 +56,7 @@ function AuthPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-ink px-6 py-24 font-sans font-light text-ink-foreground">
       <div className="w-full max-w-sm">
-        <h1 className="font-display text-3xl font-light tracking-[-0.01em]">
+        <h1 className="font-display text-3xl font-light tracking-normal">
           {mode === "signin" ? "Acesso restrito." : "Criar acesso."}
         </h1>
         <p className="mt-3 text-sm text-ink-foreground/55">

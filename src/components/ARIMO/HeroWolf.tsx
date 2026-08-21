@@ -1,89 +1,74 @@
 import { useEffect, useState } from "react";
-import { HeroFallback } from "./HeroFallback";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
-const TITLE = ["Onde", "negócio", "acontece."];
-const SUBTITLE =
-  "A nova ordem de empresários, famintos por resultado. Um Club pra empresário e vendedor.";
-
-
-const display = "font-display font-light tracking-[-0.01em]";
-const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.45em]";
+const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.32em]";
 
 export function HeroWolf() {
-  const [words, setWords] = useState(0);
-  const [subtitleIn, setSubtitleIn] = useState(false);
-  const [ctaIn, setCtaIn] = useState(false);
-
+  const [ready, setReady] = useState(false);
+  const [intro, setIntro] = useState(true);
   useEffect(() => {
-    if (words < TITLE.length) {
-      const t = setTimeout(() => setWords((w) => w + 1), words === 0 ? 350 : 420);
-      return () => clearTimeout(t);
-    }
-    const t1 = setTimeout(() => setSubtitleIn(true), 500);
-    const t2 = setTimeout(() => setCtaIn(true), 900);
+    const frame = requestAnimationFrame(() => setReady(true));
+    const timer = window.setTimeout(() => setIntro(false), 1350);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
     };
-  }, [words]);
+  }, []);
 
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-ink px-6 py-28 text-ink-foreground"
-    >
-      <HeroFallback />
-
-      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-        <Logo tone="ink" className="mx-auto w-[min(58vw,22rem)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]" />
-
-        <p className={`${eyebrow} mt-12 text-ink-foreground/50`}>Nova ordem de empresários, famintos por resultado</p>
-
-        <h1
-          className={`${display} mt-8 text-[clamp(3rem,11vw,8rem)] leading-[0.92] text-ink-foreground`}
-        >
-          {TITLE.map((word, i) => (
-            <span
-              key={word}
-              className={[
-                "mr-[0.25em] inline-block transition-all duration-700 ease-out motion-reduce:transition-none",
-                i < words ? "translate-y-0 opacity-100 blur-0" : "translate-y-4 opacity-0 blur-[6px]",
-                i === TITLE.length - 1 ? "italic" : "",
-              ].join(" ")}
-            >
-              {word}
-            </span>
-          ))}
-        </h1>
-
-        <p
-          className={`mx-auto mt-10 max-w-md text-sm leading-relaxed text-ink-foreground/65 transition-all duration-700 ease-out md:text-base ${
-            subtitleIn ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
-        >
-          {SUBTITLE}
-        </p>
-
-        <div
-          className={`mt-14 transition-all duration-700 ease-out ${
-            ctaIn ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
-        >
-          <CtaButton tone="ink" className="backdrop-blur-sm">
-            Quero me candidatar
-          </CtaButton>
-          <p className={`${eyebrow} mt-8 text-ink-foreground/40`}>Gratuito · Entrada por aprovação</p>
-
+    <section className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]">
+      <div className="arimo-grid absolute inset-0 opacity-70" />
+      <div className="arimo-hero-image absolute inset-0 bg-[url('/arimo-boardroom-men.png')] bg-cover bg-[position:63%_center] opacity-75" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.98)_0%,rgba(5,5,5,.82)_36%,rgba(5,5,5,.3)_72%,rgba(5,5,5,.1)_100%)]" />
+      <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
+      <div
+        className={`arimo-intro fixed inset-0 z-50 flex items-center justify-center bg-[#050505] ${intro ? "is-active" : "is-gone"}`}
+      >
+        <div className="w-full px-8">
+          <p className={`${eyebrow} text-center text-white/65`}>ARIMO / PRIVATE BUSINESS NETWORK</p>
+          <span className="arimo-intro-line mt-7 block h-px bg-[#927451]" />
         </div>
       </div>
-
-      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-3">
-        <span className={`${eyebrow} text-ink-foreground/35`}>Role para explorar</span>
-        <span className="h-10 w-px overflow-hidden bg-ink-foreground/15">
-          <span className="arimo-scroll-hint block h-4 w-px bg-ink-foreground/70" />
-        </span>
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 md:px-12 md:pb-12 md:pt-10">
+        <header className="flex items-center justify-between border-b border-white/15 pb-5">
+          <Logo tone="ink" className="w-28 md:w-36" />
+          <span className={`${eyebrow} text-white/55`}>Private business network</span>
+        </header>
+        <div className="flex flex-1 flex-col justify-center pb-10 pt-24 md:max-w-5xl md:pb-0">
+          <p className={`${eyebrow} mb-7 text-[#b7b7b7]`}>REDE PRIVADA DE EMPRESÁRIOS</p>
+          <h1 className="max-w-[10ch] text-[clamp(3.45rem,7.6vw,7.8rem)] font-sans font-light leading-[.92] tracking-normal">
+            <span className={`arimo-mask block ${ready ? "is-visible" : ""}`}>Onde</span>
+            <span
+              className={`arimo-mask -mb-[0.12em] block pb-[0.12em] ${ready ? "is-visible delay-1" : ""}`}
+            >
+              negócios
+            </span>
+            <span className={`arimo-mask block ${ready ? "is-visible delay-3" : ""}`}>
+              acontecem.
+            </span>
+          </h1>
+          <div
+            className={`mt-12 max-w-md transition-all duration-700 ${ready ? "translate-y-0 opacity-100 delay-2" : "translate-y-5 opacity-0"}`}
+          >
+            <p className="text-base leading-relaxed text-white/72 md:text-lg">
+              A nova ordem de empresários famintos por resultado.
+            </p>
+            <p className="mt-5 text-sm leading-relaxed text-white/55">
+              Um Club para quem entendeu que os negócios que mudam o jogo raramente começam no feed.
+              Começam com uma apresentação. Uma indicação. Uma parceria. Uma porta que se abre.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <CtaButton tone="ink" className="arimo-button border-[#b7b7b7]/65 px-7 py-4">
+                Quero me candidatar <span aria-hidden="true">→</span>
+              </CtaButton>
+              <span className={`${eyebrow} text-white/45`}>Gratuito · Entrada por aprovação</span>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/15 pt-5">
+          <span className={`${eyebrow} text-white/45`}>ROLE PARA EXPLORAR ↓</span>
+        </div>
       </div>
     </section>
   );
