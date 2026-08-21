@@ -373,13 +373,16 @@
   background-size: clamp(46px, 6vw, 88px) clamp(46px, 6vw, 88px);
 }
 
-.arimo-hero-image {
+.arimo-access-card-hero {
   background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 767px) {
-  .arimo-hero-image {
-    background-position: 47% center;
+  .arimo-access-card-hero {
+    background-position: center 17%;
+    background-size: 125% auto;
   }
 }
 
