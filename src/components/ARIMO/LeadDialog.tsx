@@ -10,31 +10,64 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 
-
 const schema = z.object({
+  nome: z.string().trim().min(2, "Informe seu nome").max(100),
   telefone: z
     .string()
     .trim()
-    .min(10, { message: "Informe um telefone válido com DDD" })
-    .max(20, { message: "Telefone muito longo" })
-    .regex(/^[0-9()+\-\s]+$/, { message: "Use apenas números e (), +, -" }),
+    .min(10, "Informe um telefone válido com DDD")
+    .max(20)
+    .regex(/^[0-9()+\-\s]+$/, "Use apenas números e (), +, -"),
   instagram: z
     .string()
     .trim()
-    .min(2, { message: "Informe seu @ do Instagram" })
-    .max(40, { message: "Instagram muito longo" }),
-  email: z
-    .string()
-    .trim()
-    .email({ message: "Informe um e-mail válido" })
-    .max(255, { message: "E-mail muito longo" }),
+    .max(40)
+    .transform((value) => value || "Não informado"),
+  email: z.string().trim().email("Informe um e-mail válido").max(255),
+  situacao_profissional: z.string().min(1, "Selecione seu momento profissional"),
+  empresa: z.string().trim().max(120),
+  cargo: z.string().trim().max(100),
+  segmento: z.string().min(1, "Selecione um segmento"),
+  faturamento_aproximado: z.string().min(1, "Selecione uma faixa"),
+  cidade: z.string().trim().min(2, "Informe sua cidade").max(100),
+  motivacao: z.string().trim().min(10, "Conte um pouco mais sobre sua motivação").max(1000),
 });
 
-type Errors = Partial<Record<keyof z.infer<typeof schema>, string>>;
+type ApplicationData = z.infer<typeof schema>;
+type Errors = Partial<Record<keyof ApplicationData, string>>;
 
 const field =
-  "w-full border-b border-current/30 bg-transparent py-3 text-sm font-light tracking-wide outline-none placeholder:text-current/35 focus:border-current";
-const label = "text-[0.625rem] font-light uppercase tracking-[0.35em] opacity-60";
+  "w-full border-b border-current/30 bg-transparent py-3 text-sm font-light outline-none placeholder:text-current/35 focus:border-current";
+const label = "text-[0.625rem] font-light uppercase tracking-[0.28em] opacity-60";
+
+const fields: Array<{
+  name: keyof ApplicationData;
+  label: string;
+  placeholder?: string;
+  type?: string;
+}> = [
+  { name: "nome", label: "Nome", placeholder: "Seu nome", type: "text" },
+  { name: "telefone", label: "WhatsApp", placeholder: "(11) 99999-9999", type: "tel" },
+  {
+    name: "instagram",
+    label: "Instagram",
+    placeholder: "@seuperfil ou deixe em branco",
+    type: "text",
+  },
+  { name: "email", label: "E-mail", placeholder: "voce@email.com", type: "email" },
+  {
+    name: "empresa",
+    label: "Empresa",
+    placeholder: "Se ainda não tiver, deixe em branco",
+    type: "text",
+  },
+  { name: "cargo", label: "Cargo", placeholder: "Sua função atual", type: "text" },
+  { name: "cidade", label: "Cidade", placeholder: "Cidade / Estado", type: "text" },
+];
+
+function FieldError({ message }: { message?: string }) {
+  return message ? <p className="mt-2 text-xs text-ink-foreground/70">{message}</p> : null;
+}
 
 export function LeadDialog({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -43,28 +76,26 @@ export function LeadDialog({ children }: { children: ReactNode }) {
   const [done, setDone] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    const parsed = schema.safeParse(data);
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget)) as Record<string, string>;
+    const parsed = schema.safeParse(values);
     if (!parsed.success) {
       const next: Errors = {};
-      for (const issue of parsed.error.issues) {
-        const key = issue.path[0] as keyof Errors;
+      parsed.error.issues.forEach((issue) => {
+        const key = issue.path[0] as keyof ApplicationData;
         if (!next[key]) next[key] = issue.message;
-      }
+      });
       setErrors(next);
       return;
     }
+
     setErrors({});
     setFailed(false);
     setSending(true);
     const { error } = await supabase.from("lead_applications").insert(parsed.data);
     setSending(false);
-    if (error) {
-      setFailed(true);
-      return;
-    }
+    if (error) return setFailed(true);
     setDone(true);
   }
 
@@ -80,22 +111,22 @@ export function LeadDialog({ children }: { children: ReactNode }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="border-line-dark bg-ink text-ink-foreground sm:max-w-md">
+      <DialogContent className="max-h-[92vh] overflow-y-auto border-line-dark bg-ink text-ink-foreground sm:max-w-2xl">
         {done ? (
-          <div className="py-6 text-center">
+          <div className="py-10 text-center">
             <DialogHeader>
-              <DialogTitle className="font-display text-3xl font-light tracking-[-0.01em]">
+              <DialogTitle className="font-display text-4xl font-light">
                 Candidatura recebida.
               </DialogTitle>
               <DialogDescription className="text-ink-foreground/60">
-                Em breve entraremos em contato para avaliar seu perfil. Se aprovado, você será
-                adicionado ao grupo do ARIMO CLUB.
+                Todas as candidaturas passam por análise. Entraremos em contato pelos dados
+                informados.
               </DialogDescription>
             </DialogHeader>
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="mt-10 w-full border border-ink-foreground/50 px-8 py-4 text-[0.6875rem] font-light tracking-[0.3em] uppercase transition-colors duration-300 hover:bg-ink-foreground hover:text-ink"
+              className="mt-10 border border-ink-foreground/50 px-8 py-4 text-xs uppercase tracking-[0.25em] hover:bg-ink-foreground hover:text-ink"
             >
               Fechar
             </button>
@@ -103,82 +134,133 @@ export function LeadDialog({ children }: { children: ReactNode }) {
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="font-display text-3xl font-light tracking-[-0.01em]">
-                Entra pra mesa.
-              </DialogTitle>
+              <p className={label}>ARIMO CLUB / APPLICATION</p>
+              <DialogTitle className="font-display text-4xl font-light">Candidatura</DialogTitle>
               <DialogDescription className="text-ink-foreground/55">
-                Deixe seus contatos. Em breve entraremos em contato para ver se você foi aprovado e
-                será adicionado ao grupo.
+                Você não precisa já ter uma empresa ou faturamento. Queremos entender seu momento,
+                sua ambição e o que você busca construir.
               </DialogDescription>
             </DialogHeader>
+            <form
+              onSubmit={onSubmit}
+              className="mt-6 grid gap-x-8 gap-y-7 md:grid-cols-2"
+              noValidate
+            >
+              {fields.map((item) => (
+                <div key={item.name}>
+                  <label className={label} htmlFor={item.name}>
+                    {item.label}
+                  </label>
+                  <input
+                    id={item.name}
+                    name={item.name}
+                    type={item.type}
+                    placeholder={item.placeholder}
+                    className={field}
+                  />
+                  <FieldError message={errors[item.name]} />
+                </div>
+              ))}
 
-            <form onSubmit={onSubmit} className="mt-4 space-y-7" noValidate>
               <div>
-                <label className={label} htmlFor="telefone">
-                  Telefone
+                <label className={label} htmlFor="situacao_profissional">
+                  Seu momento
                 </label>
-                <input
-                  id="telefone"
-                  name="telefone"
-                  type="tel"
-                  inputMode="tel"
-                  maxLength={20}
-                  autoComplete="tel"
-                  placeholder="(11) 99999-9999"
+                <select
+                  id="situacao_profissional"
+                  name="situacao_profissional"
+                  defaultValue=""
                   className={field}
-                />
-                {errors.telefone && (
-                  <p className="mt-2 text-xs text-ink-foreground/70">{errors.telefone}</p>
-                )}
+                >
+                  <option value="" disabled>
+                    Selecione
+                  </option>
+                  <option>Tenho uma empresa</option>
+                  <option>Estou começando e ainda não tenho empresa</option>
+                  <option>Sou autônomo ou prestador de serviço</option>
+                  <option>Trabalho em uma empresa</option>
+                  <option>Estou validando uma ideia</option>
+                </select>
+                <FieldError message={errors.situacao_profissional} />
               </div>
 
               <div>
-                <label className={label} htmlFor="instagram">
-                  Instagram
+                <label className={label} htmlFor="segmento">
+                  Segmento
                 </label>
-                <input
-                  id="instagram"
-                  name="instagram"
-                  maxLength={40}
-                  placeholder="@seuperfil"
-                  className={field}
-                />
-                {errors.instagram && (
-                  <p className="mt-2 text-xs text-ink-foreground/70">{errors.instagram}</p>
-                )}
+                <select id="segmento" name="segmento" defaultValue="" className={field}>
+                  <option value="" disabled>
+                    Selecione
+                  </option>
+                  <option>Comércio</option>
+                  <option>Serviços</option>
+                  <option>Tecnologia</option>
+                  <option>Indústria</option>
+                  <option>Mercado financeiro</option>
+                  <option>Imobiliário</option>
+                  <option>Saúde</option>
+                  <option>Educação</option>
+                  <option>Ainda não definido</option>
+                  <option>Outro</option>
+                </select>
+                <FieldError message={errors.segmento} />
               </div>
 
-              <div>
-                <label className={label} htmlFor="email">
-                  E-mail
+              <div className="md:col-span-2">
+                <label className={label} htmlFor="faturamento_aproximado">
+                  Faturamento aproximado
                 </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  maxLength={255}
-                  autoComplete="email"
-                  placeholder="voce@empresa.com"
+                <select
+                  id="faturamento_aproximado"
+                  name="faturamento_aproximado"
+                  defaultValue=""
                   className={field}
+                >
+                  <option value="" disabled>
+                    Selecione
+                  </option>
+                  <option>Ainda não faturo</option>
+                  <option>Até R$ 10 mil por mês</option>
+                  <option>R$ 10 mil a R$ 50 mil por mês</option>
+                  <option>R$ 50 mil a R$ 200 mil por mês</option>
+                  <option>R$ 200 mil a R$ 1 milhão por mês</option>
+                  <option>Acima de R$ 1 milhão por mês</option>
+                  <option>Prefiro não informar</option>
+                </select>
+                <FieldError message={errors.faturamento_aproximado} />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className={label} htmlFor="motivacao">
+                  Por que você quer fazer parte do ARIMO CLUB?
+                </label>
+                <textarea
+                  id="motivacao"
+                  name="motivacao"
+                  rows={4}
+                  placeholder="Conte o que você está construindo e que tipo de relação ou oportunidade busca."
+                  className={`${field} resize-none`}
                 />
-                {errors.email && (
-                  <p className="mt-2 text-xs text-ink-foreground/70">{errors.email}</p>
-                )}
+                <FieldError message={errors.motivacao} />
               </div>
 
               {failed && (
-                <p className="text-xs text-ink-foreground/70">
-                  Não foi possível enviar agora. Tente novamente em instantes.
+                <p className="text-sm text-ink-foreground/70 md:col-span-2">
+                  Não foi possível enviar. A estrutura nova precisa estar aplicada no Supabase.
                 </p>
               )}
-
-              <button
-                type="submit"
-                disabled={sending}
-                className="w-full border border-ink-foreground/50 px-8 py-4 text-[0.6875rem] font-light tracking-[0.3em] uppercase transition-colors duration-300 hover:bg-ink-foreground hover:text-ink disabled:opacity-50"
-              >
-                {sending ? "Enviando…" : "Enviar candidatura"}
-              </button>
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="w-full border border-ink-foreground/50 px-8 py-5 text-xs uppercase tracking-[0.25em] transition-colors hover:bg-ink-foreground hover:text-ink disabled:opacity-50"
+                >
+                  {sending ? "Enviando..." : "Enviar candidatura →"}
+                </button>
+                <p className="mt-4 text-center text-xs text-ink-foreground/45">
+                  Todas as candidaturas passam por análise.
+                </p>
+              </div>
             </form>
           </>
         )}
@@ -186,4 +268,3 @@ export function LeadDialog({ children }: { children: ReactNode }) {
     </Dialog>
   );
 }
-

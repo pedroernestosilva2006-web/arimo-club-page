@@ -6,7 +6,10 @@ export const Route = createFileRoute("/_authenticated/leads")({
   head: () => ({
     meta: [
       { title: "Candidaturas · ARIMO CLUB" },
-      { name: "description", content: "Lista das candidaturas recebidas pelo formulário do ARIMO CLUB." },
+      {
+        name: "description",
+        content: "Lista das candidaturas recebidas pelo formulário do ARIMO CLUB.",
+      },
       { property: "og:title", content: "Candidaturas · ARIMO CLUB" },
       { property: "og:description", content: "Lista das candidaturas recebidas." },
       { property: "og:type", content: "website" },
@@ -19,9 +22,17 @@ export const Route = createFileRoute("/_authenticated/leads")({
 
 type Lead = {
   id: string;
+  nome: string | null;
   telefone: string;
   instagram: string;
   email: string;
+  situacao_profissional: string | null;
+  empresa: string | null;
+  cargo: string | null;
+  segmento: string | null;
+  faturamento_aproximado: string | null;
+  cidade: string | null;
+  motivacao: string | null;
   created_at: string;
 };
 
@@ -59,9 +70,7 @@ function LeadsPage() {
         <div className="flex items-baseline justify-between gap-6">
           <div>
             <p className={`${eyebrow} text-ink-foreground/45`}>ARIMO CLUB</p>
-            <h1 className="mt-4 font-display text-4xl font-light tracking-[-0.01em]">
-              Candidaturas
-            </h1>
+            <h1 className="mt-4 font-display text-4xl font-light tracking-normal">Candidaturas</h1>
           </div>
           <button
             type="button"
@@ -90,16 +99,35 @@ function LeadsPage() {
         {!!leads?.length && (
           <div className="mt-14 border-t border-line-dark">
             {leads.map((lead) => (
-              <div
-                key={lead.id}
-                className="grid gap-2 border-b border-line-dark py-6 md:grid-cols-4 md:items-baseline"
-              >
-                <span className="text-sm">{lead.telefone}</span>
-                <span className="text-sm text-ink-foreground/75">{lead.instagram}</span>
-                <span className="text-sm break-all text-ink-foreground/75">{lead.email}</span>
-                <span className={`${eyebrow} text-ink-foreground/40 md:text-right`}>
-                  {new Date(lead.created_at).toLocaleString("pt-BR")}
-                </span>
+              <div key={lead.id} className="border-b border-line-dark py-8">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <h2 className="text-xl font-normal">{lead.nome || "Candidatura anterior"}</h2>
+                    <p className="mt-2 text-sm text-ink-foreground/65">
+                      {lead.situacao_profissional || "Momento não informado"}
+                    </p>
+                  </div>
+                  <span className={`${eyebrow} text-ink-foreground/40`}>
+                    {new Date(lead.created_at).toLocaleString("pt-BR")}
+                  </span>
+                </div>
+                <div className="mt-6 grid gap-x-8 gap-y-3 text-sm text-ink-foreground/75 md:grid-cols-3">
+                  <span>{lead.telefone}</span>
+                  <span>{lead.instagram}</span>
+                  <span className="break-all">{lead.email}</span>
+                  <span>{lead.empresa || "Sem empresa"}</span>
+                  <span>{lead.cargo || "Cargo não informado"}</span>
+                  <span>{lead.cidade || "Cidade não informada"}</span>
+                  <span>{lead.segmento || "Segmento não informado"}</span>
+                  <span className="md:col-span-2">
+                    {lead.faturamento_aproximado || "Faturamento não informado"}
+                  </span>
+                </div>
+                {lead.motivacao && (
+                  <p className="mt-6 max-w-3xl border-l border-ink-foreground/20 pl-5 text-sm leading-relaxed text-ink-foreground/65">
+                    {lead.motivacao}
+                  </p>
+                )}
               </div>
             ))}
           </div>
