@@ -99,11 +99,11 @@
   --input: oklch(0.9 0 0);
   --ring: oklch(0.55 0 0);
 
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: oklch(0.22 0 0);
+  --chart-2: oklch(0.38 0 0);
+  --chart-3: oklch(0.54 0 0);
+  --chart-4: oklch(0.7 0 0);
+  --chart-5: oklch(0.86 0 0);
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.129 0.042 264.695);
   --sidebar-primary: oklch(0.208 0.042 265.755);
@@ -134,11 +134,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: oklch(0.92 0 0);
+  --chart-2: oklch(0.78 0 0);
+  --chart-3: oklch(0.64 0 0);
+  --chart-4: oklch(0.5 0 0);
+  --chart-5: oklch(0.36 0 0);
   --sidebar: oklch(0.208 0.042 265.755);
   --sidebar-foreground: oklch(0.984 0.003 247.858);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -212,13 +212,25 @@
 }
 
 @keyframes arimo-quiz-in {
-  from { opacity: 0; transform: translateX(24px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes arimo-quiz-back {
-  from { opacity: 0; transform: translateX(-24px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .arimo-quiz-in {
@@ -230,13 +242,21 @@
 }
 
 @keyframes arimo-power-left {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @keyframes arimo-power-right {
-  from { transform: translate3d(-50%, 0, 0); }
-  to { transform: translate3d(0, 0, 0); }
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .arimo-power-row {
@@ -253,34 +273,68 @@
 }
 
 @keyframes arimo-route-draw {
-  0%, 12% { stroke-dashoffset: 1; opacity: 0; }
-  42%, 78% { stroke-dashoffset: 0; opacity: 0.85; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
+  0%,
+  12% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  42%,
+  78% {
+    stroke-dashoffset: 0;
+    opacity: 0.85;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes arimo-network-pulse {
-  from { r: 3; opacity: 0.75; }
-  to { r: 11; opacity: 0; }
+  from {
+    r: 3;
+    opacity: 0.75;
+  }
+  to {
+    r: 11;
+    opacity: 0;
+  }
 }
 
 @keyframes arimo-wolf-signal {
-  0% { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
-  24% { opacity: 0.5; }
-  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+  0% {
+    transform: translate(-50%, -50%) scale(0.55);
+    opacity: 0;
+  }
+  24% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
 }
 
 @keyframes arimo-wolf-breathe {
-  0%, 100% { transform: scale(0.96); opacity: 0.88; }
-  50% { transform: scale(1.04); opacity: 1; }
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.88;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
 }
 
 @keyframes arimo-wolf-orbit {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .arimo-network-route {
   fill: none;
-  stroke: #b7966d;
+  stroke: #cfcfcf;
   stroke-width: 1.05;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
@@ -302,7 +356,7 @@
   top: 50%;
   width: 5rem;
   height: 5rem;
-  border: 1px solid rgb(183 150 109 / 42%);
+  border: 1px solid rgb(255 255 255 / 38%);
   border-radius: 999px;
   animation: arimo-wolf-signal 4.2s cubic-bezier(0.2, 0.65, 0.3, 1) infinite;
   will-change: transform, opacity;
@@ -318,7 +372,7 @@
 
 .arimo-wolf-core {
   animation: arimo-wolf-breathe 4.6s ease-in-out infinite;
-  filter: drop-shadow(0 0 9px rgb(197 164 119 / 24%));
+  filter: drop-shadow(0 0 9px rgb(255 255 255 / 22%));
   will-change: transform, opacity;
 }
 
@@ -328,7 +382,7 @@
   top: 50%;
   width: 5.8rem;
   height: 5.8rem;
-  border: 1px solid rgb(183 150 109 / 18%);
+  border: 1px solid rgb(255 255 255 / 18%);
   border-radius: 999px;
   animation: arimo-wolf-orbit 9s linear infinite;
 }
@@ -341,8 +395,8 @@
   height: 5px;
   transform: translateX(-50%);
   border-radius: 999px;
-  background: #e7d1b2;
-  box-shadow: 0 0 10px rgb(231 209 178 / 75%);
+  background: #f1f1f1;
+  box-shadow: 0 0 10px rgb(255 255 255 / 70%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -392,13 +446,13 @@
 }
 
 .arimo-card-object {
-  filter:
-    drop-shadow(0 28px 28px rgba(0, 0, 0, 0.72))
+  filter: drop-shadow(0 28px 28px rgba(0, 0, 0, 0.72))
     drop-shadow(0 0 1px rgba(255, 255, 255, 0.42));
 }
 
 @keyframes arimo-card-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotateZ(-0.15deg);
   }
   50% {
@@ -416,6 +470,27 @@
   font-weight: 300;
   letter-spacing: 0.28em;
   text-transform: uppercase;
+}
+
+.arimo-gradient-text {
+  color: transparent;
+  background: linear-gradient(180deg, #ffffff 0%, #d8d8d8 52%, #8d8d8d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arimo-gradient-text-dark {
+  color: transparent;
+  background: linear-gradient(180deg, #161616 0%, #4f4f4f 55%, #858585 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arimo-deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 .arimo-mask {
@@ -477,7 +552,7 @@
 .arimo-monogram::after {
   content: "";
   position: absolute;
-  background: #927451;
+  background: #bdbdbd;
 }
 .arimo-monogram::before {
   width: 1px;
@@ -549,8 +624,17 @@
     transform 350ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 .arimo-topic:hover {
-  background: rgba(146, 116, 81, 0.14);
+  background: rgba(255, 255, 255, 0.09);
   transform: translateY(-5px);
+}
+
+@media (forced-colors: active) {
+  .arimo-gradient-text,
+  .arimo-gradient-text-dark {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 @supports (animation-timeline: view()) {

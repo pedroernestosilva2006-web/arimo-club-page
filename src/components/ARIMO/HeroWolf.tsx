@@ -1,7 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Lenis from "lenis";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
@@ -26,74 +23,69 @@ export function HeroWolf() {
   }, []);
 
   useEffect(() => {
-    const hero = heroRef.current;
-    const image = imageRef.current;
-    const grid = gridRef.current;
-    const atmosphere = atmosphereRef.current;
-    const content = contentRef.current;
-
-    if (!hero || !image || !grid || !atmosphere || !content) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
 
-    gsap.registerPlugin(ScrollTrigger);
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([{ default: gsap }, { ScrollTrigger }]) => {
+        const hero = heroRef.current;
+        const image = imageRef.current;
+        const grid = gridRef.current;
+        const atmosphere = atmosphereRef.current;
+        const content = contentRef.current;
 
-    const lenis = new Lenis({
-      duration: 1.05,
-      smoothWheel: true,
-      wheelMultiplier: 0.85,
-    });
-    const updateScrollTrigger = () => ScrollTrigger.update();
-    const tick = (time: number) => lenis.raf(time * 1000);
+        if (cancelled || !hero || !image || !grid || !atmosphere || !content) return;
 
-    lenis.on("scroll", updateScrollTrigger);
-    gsap.ticker.add(tick);
+        gsap.registerPlugin(ScrollTrigger);
 
-    const media = gsap.matchMedia();
-    const createParallax = (mobile: boolean) => {
-      const trigger = {
-        trigger: hero,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      };
+        const media = gsap.matchMedia();
+        const createParallax = (mobile: boolean) => {
+          const trigger = {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          };
 
-      gsap.fromTo(
-        image,
-        { yPercent: mobile ? -1 : -3, scale: 1 },
-        {
-          yPercent: mobile ? 10 : 18,
-          scale: mobile ? 0.94 : 0.9,
-          ease: "none",
-          scrollTrigger: trigger,
-        },
-      );
-      gsap.fromTo(
-        atmosphere,
-        { yPercent: -1 },
-        { yPercent: mobile ? 4 : 8, ease: "none", scrollTrigger: trigger },
-      );
-      gsap.to(grid, {
-        yPercent: mobile ? 7 : 13,
-        ease: "none",
-        scrollTrigger: trigger,
-      });
-      gsap.to(content, {
-        yPercent: mobile ? 5 : 10,
-        opacity: mobile ? 0.78 : 0.55,
-        ease: "none",
-        scrollTrigger: trigger,
-      });
-    };
+          gsap.fromTo(
+            image,
+            { yPercent: mobile ? -1 : -3, scale: 1 },
+            {
+              yPercent: mobile ? 10 : 18,
+              scale: mobile ? 0.94 : 0.9,
+              ease: "none",
+              scrollTrigger: trigger,
+            },
+          );
+          gsap.fromTo(
+            atmosphere,
+            { yPercent: -1 },
+            { yPercent: mobile ? 4 : 8, ease: "none", scrollTrigger: trigger },
+          );
+          gsap.to(grid, {
+            yPercent: mobile ? 7 : 13,
+            ease: "none",
+            scrollTrigger: trigger,
+          });
+          gsap.to(content, {
+            yPercent: mobile ? 5 : 10,
+            opacity: mobile ? 0.78 : 0.55,
+            ease: "none",
+            scrollTrigger: trigger,
+          });
+        };
 
-    media.add("(max-width: 767px)", () => createParallax(true));
-    media.add("(min-width: 768px)", () => createParallax(false));
-    ScrollTrigger.refresh();
+        media.add("(max-width: 767px)", () => createParallax(true));
+        media.add("(min-width: 768px)", () => createParallax(false));
+        ScrollTrigger.refresh();
+        cleanup = () => media.revert();
+      },
+    );
 
     return () => {
-      media.revert();
-      gsap.ticker.remove(tick);
-      lenis.off("scroll", updateScrollTrigger);
-      lenis.destroy();
+      cancelled = true;
+      cleanup?.();
     };
   }, []);
 
@@ -101,7 +93,7 @@ export function HeroWolf() {
     <section
       ref={heroRef}
       data-parallax-layers
-      className="arimo-hero relative min-h-[94svh] overflow-hidden bg-[#050505] text-[#f2f0eb] md:min-h-[94vh]"
+      className="arimo-hero relative min-h-[94svh] overflow-hidden bg-[#050505] text-[#f3f3f3] md:min-h-[94vh]"
     >
       <div
         ref={gridRef}
@@ -123,7 +115,7 @@ export function HeroWolf() {
       >
         <div className="w-full px-8">
           <p className={`${eyebrow} text-center text-white/65`}>ARIMO / PRIVATE BUSINESS NETWORK</p>
-          <span className="arimo-intro-line mt-7 block h-px bg-[#927451]" />
+          <span className="arimo-intro-line mt-7 block h-px bg-gradient-to-r from-transparent via-white/75 to-transparent" />
         </div>
       </div>
       <div className="relative mx-auto flex min-h-[94svh] w-full max-w-[1600px] flex-col px-6 pb-8 pt-6 md:min-h-[94vh] md:px-12 md:pb-9 md:pt-8">
@@ -138,21 +130,23 @@ export function HeroWolf() {
           data-parallax-layer="4"
           className="flex flex-1 flex-col items-center justify-center py-5 text-center will-change-transform md:py-3"
         >
-          <p className={`${eyebrow} mb-4 text-[#a98b67] md:mb-5`}>SEU ACESSO / ARIMO CLUB</p>
-          <h1 className="relative z-10 w-full text-[clamp(3.1rem,7vw,6rem)] font-light leading-[.84] tracking-normal">
+          <p className={`${eyebrow} arimo-gradient-text mb-4 md:mb-5`}>SEU ACESSO / ARIMO CLUB</p>
+          <h1 className="relative z-10 w-full text-[clamp(2.65rem,7vw,6rem)] font-light leading-[.84] tracking-normal">
             <span className={`arimo-mask block font-sans ${ready ? "is-visible" : ""}`}>
               A nova ordem
             </span>
             <span
-              className={`arimo-mask arimo-serif -mb-[0.08em] block pb-[0.08em] text-[.9em] italic text-[#d8d1c6] sm:text-[1em] ${ready ? "is-visible delay-1" : ""}`}
+              className={`arimo-mask -mb-[0.08em] block pb-[0.08em] ${ready ? "is-visible delay-1" : ""}`}
             >
-              de empresários.
+              <span className="arimo-gradient-text arimo-serif block whitespace-nowrap text-[.9em] italic sm:text-[1em]">
+                de empresários.
+              </span>
             </span>
           </h1>
           <div
             ref={imageRef}
             data-parallax-layer="2"
-            className="arimo-hero-parallax relative -mb-3 -mt-1 w-[118vw] max-w-[900px] will-change-transform md:-mb-8 md:-mt-5 md:w-[72vw]"
+            className="arimo-hero-parallax relative -mb-3 -mt-1 w-[102vw] max-w-[900px] will-change-transform md:-mb-8 md:-mt-5 md:w-[72vw]"
           >
             <div className={`arimo-card-enter ${ready ? "is-visible" : ""}`}>
               <div className="arimo-card-float">
@@ -161,12 +155,17 @@ export function HeroWolf() {
                   tiltLimit={8}
                   scale={1.025}
                   perspective={1500}
-                  spotlightMask="url('/arimo-access-card-cutout.png')"
+                  spotlightMask="url('/arimo-access-card-cutout.webp')"
                   className="mx-auto"
                 >
                   <img
-                    src="/arimo-access-card-cutout.png"
+                    src="/arimo-access-card-cutout.webp"
                     alt="Cartão de acesso ARIMO CLUB Founders Edition"
+                    width={1672}
+                    height={941}
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     className="arimo-card-object h-auto w-full select-none"
                     draggable={false}
                   />

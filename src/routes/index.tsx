@@ -25,22 +25,26 @@ const pillars = [
 ];
 const topics = ["NEGÓCIOS", "CRESCIMENTO", "NETWORK", "INTELIGÊNCIA", "EXECUÇÃO"];
 const powerImages = [
-  { src: "/arimo-power-handshake.png", alt: "Empresários concluindo uma parceria" },
-  { src: "/arimo-hero-private-table-v2.png", alt: "Líderes reunidos em ambiente privado" },
-  { src: "/arimo-power-arrival.png", alt: "Empresários chegando para um encontro privado" },
-  { src: "/arimo-founders-night.png", alt: "Fundadores em uma conversa reservada" },
-  { src: "/arimo-boardroom-men.png", alt: "Mesa de decisão entre empresários" },
+  { src: "/arimo-power-handshake.webp", alt: "Empresários concluindo uma parceria" },
+  { src: "/arimo-hero-private-table-v2.webp", alt: "Líderes reunidos em ambiente privado" },
+  { src: "/arimo-power-arrival.webp", alt: "Empresários chegando para um encontro privado" },
+  { src: "/arimo-founders-night.webp", alt: "Fundadores em uma conversa reservada" },
+  { src: "/arimo-boardroom-men.webp", alt: "Mesa de decisão entre empresários" },
 ];
 
-export function Index() {
+function Index() {
   return (
-    <main className="overflow-hidden bg-[#050505] font-sans text-[#f2f0eb]">
+    <main className="overflow-hidden bg-[#050505] font-sans text-[#f3f3f3]">
       <HeroWolf />
 
       <section className="relative min-h-[78vh] overflow-hidden border-y border-white/10">
         <img
-          src="/arimo-hero-new-order-bw.png"
+          src="/arimo-hero-new-order-bw.webp"
           alt="Empresários reunidos no ARIMO CLUB"
+          width={1672}
+          height={941}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.08)_0%,rgba(5,5,5,.25)_42%,rgba(5,5,5,.92)_100%)]" />
@@ -66,7 +70,7 @@ export function Index() {
       <section className="arimo-grid relative px-6 py-32 md:px-12 md:py-52">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <p className="arimo-label text-[#927451]">ACESSO</p>
+            <p className="arimo-label arimo-gradient-text">ACESSO</p>
           </Reveal>
           <Reveal delay={100}>
             <h2 className="mt-10 max-w-5xl text-[clamp(3rem,7.3vw,7.8rem)] font-light leading-[.94] tracking-normal">
@@ -76,7 +80,7 @@ export function Index() {
             </h2>
           </Reveal>
           <Reveal delay={200}>
-            <div className="ml-auto mt-20 max-w-xl border-l border-[#927451] pl-7 text-base leading-relaxed text-white/62 md:text-lg">
+            <div className="ml-auto mt-20 max-w-xl border-l border-white/30 pl-7 text-base leading-relaxed text-white/62 md:text-lg">
               Você pode ter capital, produto, estratégia e ambição. Ainda assim, continuar distante
               de oportunidades que nunca chegam até você.
               <br />
@@ -90,9 +94,9 @@ export function Index() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-[#f2f0eb] px-6 py-28 text-[#090909] md:px-12 md:py-40">
+      <section className="arimo-deferred border-y border-white/10 bg-[#f2f2f2] px-6 py-28 text-[#090909] md:px-12 md:py-40">
         <div className="mx-auto max-w-6xl">
-          <p className="arimo-label text-[#927451]">RELAÇÃO</p>
+          <p className="arimo-label arimo-gradient-text-dark">RELAÇÃO</p>
           <h2 className="mt-8 max-w-4xl text-[clamp(3rem,7.2vw,7.6rem)] font-light leading-[.94] tracking-normal">
             Não é sobre trocar cartão.
             <br />É sobre fazer <span className="arimo-serif italic">negócio.</span>
@@ -120,7 +124,7 @@ export function Index() {
 
       <section className="arimo-grid px-6 py-32 md:px-12 md:py-48">
         <div className="mx-auto max-w-6xl">
-          <p className="arimo-label text-[#927451]">MÉTODO ARIMO</p>
+          <p className="arimo-label arimo-gradient-text">MÉTODO ARIMO</p>
           <h2 className="mt-8 text-[clamp(3.5rem,9vw,9.5rem)] font-light leading-[.88] tracking-normal">
             Isso é ARIMO.
           </h2>
@@ -133,7 +137,7 @@ export function Index() {
             {pillars.map(([letter, label], index) => (
               <Reveal key={letter} delay={index * 75}>
                 <div className="grid grid-cols-[4rem_1fr] items-baseline border-b border-white/15 py-7 md:grid-cols-[8rem_1fr] md:py-10">
-                  <span className="arimo-serif text-5xl italic text-[#927451] md:text-7xl">
+                  <span className="arimo-gradient-text arimo-serif text-5xl italic md:text-7xl">
                     {letter}
                   </span>
                   <span className="text-[clamp(1.8rem,4.2vw,4.8rem)] font-light leading-none tracking-normal">
@@ -154,8 +158,16 @@ export function Index() {
 
       <ArimoNetworkMap />
 
-      <section className="arimo-photo-section relative min-h-[90vh] overflow-hidden border-y border-white/10">
-        <div className="arimo-photo-drift absolute inset-0 bg-[url('/arimo-boardroom-men.png')] bg-cover bg-center grayscale" />
+      <section className="arimo-deferred arimo-photo-section relative min-h-[90vh] overflow-hidden border-y border-white/10">
+        <img
+          src="/arimo-boardroom-men.webp"
+          alt="Empresários reunidos em uma mesa de decisões"
+          width={1774}
+          height={887}
+          loading="lazy"
+          decoding="async"
+          className="arimo-photo-drift absolute inset-0 h-full w-full object-cover object-center grayscale"
+        />
         <div className="absolute inset-0 bg-black/55" />
         <div className="relative mx-auto flex min-h-[90vh] max-w-6xl flex-col justify-between px-6 py-10 md:px-12 md:py-14">
           <p className="arimo-label text-white/55">PRA QUEM ESTÁ NO JOGO</p>
@@ -184,15 +196,23 @@ export function Index() {
 
       <section className="grid min-h-[92vh] border-b border-white/10 md:grid-cols-2">
         <div className="arimo-portrait relative flex min-h-[65vh] flex-col justify-between overflow-hidden border-b border-white/10 p-8 md:min-h-0 md:border-b-0 md:border-r md:p-14">
-          <div className="arimo-portrait-image absolute inset-0 bg-[url('/arimo-founders-night.png')] bg-cover bg-center" />
+          <img
+            src="/arimo-founders-night.webp"
+            alt="Fundadores reunidos em um encontro privado"
+            width={1023}
+            height={1537}
+            loading="lazy"
+            decoding="async"
+            className="arimo-portrait-image absolute inset-0 h-full w-full object-cover object-center"
+          />
           <div className="absolute inset-0 bg-black/45" />
           <p className="arimo-label relative text-white/55">SOZINHO</p>
           <p className="relative max-w-md text-[clamp(2.3rem,5vw,5.5rem)] font-light leading-[.94] tracking-normal">
             Tem empresário tentando descobrir tudo sozinho.
           </p>
         </div>
-        <div className="flex flex-col justify-between bg-[#f2f0eb] p-8 text-[#090909] md:p-14">
-          <p className="arimo-label text-[#927451]">CONECTADO</p>
+        <div className="flex flex-col justify-between bg-[#f2f2f2] p-8 text-[#090909] md:p-14">
+          <p className="arimo-label arimo-gradient-text-dark">CONECTADO</p>
           <div>
             <p className="max-w-md text-[clamp(2.3rem,5vw,5.5rem)] font-light leading-[.94] tracking-normal">
               E tem empresário que já entendeu como o jogo funciona.
@@ -210,7 +230,7 @@ export function Index() {
 
       <section className="px-6 py-36 md:px-12 md:py-52">
         <div className="mx-auto max-w-6xl text-center">
-          <p className="arimo-label text-[#927451]">ARIMO CLUB / PRIVATE BUSINESS NETWORK</p>
+          <p className="arimo-label arimo-gradient-text">ARIMO CLUB / PRIVATE BUSINESS NETWORK</p>
           <h2 className="mt-12 text-[clamp(3.8rem,10vw,10.5rem)] font-light leading-[.88] tracking-normal">
             A nova ordem
             <br />
@@ -229,10 +249,10 @@ export function Index() {
 
       <section
         id="candidatura"
-        className="border-y border-white/10 bg-[#f2f0eb] px-6 py-32 text-[#090909] md:px-12 md:py-48"
+        className="arimo-deferred border-y border-white/10 bg-[#f2f2f2] px-6 py-32 text-[#090909] md:px-12 md:py-48"
       >
         <div className="mx-auto max-w-6xl">
-          <p className="arimo-label text-[#927451]">CANDIDATURA</p>
+          <p className="arimo-label arimo-gradient-text-dark">CANDIDATURA</p>
           <h2 className="mt-10 max-w-5xl text-[clamp(3.5rem,8.6vw,9rem)] font-light leading-[.9] tracking-normal">
             Não existe cobrança.
             <br />

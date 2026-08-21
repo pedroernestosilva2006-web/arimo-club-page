@@ -51,11 +51,15 @@ export function ArimoNetworkMap() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="rede" className="relative overflow-hidden border-y border-white/10 bg-[#070707] px-6 py-28 md:px-12 md:py-40">
+    <section
+      ref={sectionRef}
+      id="rede"
+      className="arimo-deferred relative overflow-hidden border-y border-white/10 bg-[#070707] px-6 py-28 md:px-12 md:py-40"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1fr_0.72fr] md:items-end">
           <div>
-            <p className="arimo-label text-[#b7966d]">REDE ARIMO / SEM FRONTEIRAS</p>
+            <p className="arimo-label arimo-gradient-text">REDE ARIMO / SEM FRONTEIRAS</p>
             <h2 className="mt-8 max-w-4xl text-[clamp(3.2rem,7.5vw,7.8rem)] font-light leading-[.9] tracking-normal">
               O Brasil
               <br />
@@ -64,7 +68,7 @@ export function ArimoNetworkMap() {
               ao <span className="arimo-serif italic">mundo.</span>
             </h2>
           </div>
-          <p className="max-w-lg border-l border-[#b7966d] pl-6 text-base leading-relaxed text-white/60 md:text-lg">
+          <p className="max-w-lg border-l border-white/30 pl-6 text-base leading-relaxed text-white/60 md:text-lg">
             Relações que atravessam cidades, mercados e fusos. Uma rede criada para aproximar quem
             tem ambição de quem pode abrir o próximo caminho.
           </p>
@@ -72,10 +76,14 @@ export function ArimoNetworkMap() {
 
         <div className="relative mt-20 aspect-[1.3/1] w-full overflow-hidden border-y border-white/10 sm:aspect-[1.7/1] lg:aspect-[2/1]">
           <img
-            src="/arimo-world-map.svg"
+            src="/arimo-world-map.webp"
             alt="Mapa das conexões ARIMO no Brasil e no mundo"
+            width={1600}
+            height={800}
             className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover opacity-75"
             draggable={false}
+            loading="lazy"
+            decoding="async"
           />
 
           <svg
@@ -87,7 +95,10 @@ export function ArimoNetworkMap() {
             <defs>
               <filter id="arimo-network-glow" x="-100%" y="-100%" width="300%" height="300%">
                 <feGaussianBlur stdDeviation="2" result="blur" />
-                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
               </filter>
             </defs>
 
@@ -103,18 +114,29 @@ export function ArimoNetworkMap() {
                     className="arimo-network-route"
                     style={{ "--route-delay": `${delay}s` } as CSSProperties}
                   />
-                  <circle cx={endpoint.x} cy={endpoint.y} r="2.3" fill="#c5a477" filter="url(#arimo-network-glow)" />
+                  <circle
+                    cx={endpoint.x}
+                    cy={endpoint.y}
+                    r="2.3"
+                    fill="#d4d4d4"
+                    filter="url(#arimo-network-glow)"
+                  />
                   <circle
                     cx={endpoint.x}
                     cy={endpoint.y}
                     r="3"
                     fill="none"
-                    stroke="#c5a477"
+                    stroke="#d4d4d4"
                     className="arimo-network-pulse"
                     style={{ "--route-delay": `${delay}s` } as CSSProperties}
                   />
-                  <circle r="2.2" fill="#f2f0eb" className="arimo-network-traveler">
-                    <animateMotion dur="5s" begin={`${delay}s`} repeatCount="indefinite" path={path} />
+                  <circle r="2.2" fill="#f2f2f2" className="arimo-network-traveler">
+                    <animateMotion
+                      dur="5s"
+                      begin={`${delay}s`}
+                      repeatCount="indefinite"
+                      path={path}
+                    />
                   </circle>
                 </g>
               );
@@ -125,22 +147,32 @@ export function ArimoNetworkMap() {
             <span className="arimo-wolf-ring is-one" aria-hidden="true" />
             <span className="arimo-wolf-ring is-two" aria-hidden="true" />
             <span className="arimo-wolf-ring is-three" aria-hidden="true" />
-            <span className="arimo-wolf-orbit" aria-hidden="true"><i /></span>
+            <span className="arimo-wolf-orbit" aria-hidden="true">
+              <i />
+            </span>
             <img
-              src="/arimo-wolf-crest.png"
+              src="/arimo-wolf-crest.webp"
               alt="Brasão do lobo ARIMO, núcleo da rede"
+              width={920}
+              height={920}
+              loading="lazy"
+              decoding="async"
               className="arimo-wolf-core relative w-12 mix-blend-screen sm:w-[4.5rem]"
             />
           </div>
 
-          <div className="absolute bottom-4 left-4 z-20 border-l border-[#b7966d] pl-3 sm:bottom-7 sm:left-7">
+          <div className="absolute bottom-4 left-4 z-20 border-l border-white/30 pl-3 sm:bottom-7 sm:left-7">
             <p className="arimo-label text-white/40">NÚCLEO</p>
             <p className="mt-1 text-xs text-white/75 sm:text-sm">Brasil</p>
           </div>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[0.625rem] uppercase tracking-[0.26em] text-white/38">
-          <span>Brasil</span><span>Américas</span><span>Europa</span><span>Oriente Médio</span><span>Ásia</span>
+          <span>Brasil</span>
+          <span>Américas</span>
+          <span>Europa</span>
+          <span>Oriente Médio</span>
+          <span>Ásia</span>
         </div>
       </div>
     </section>
