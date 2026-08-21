@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
@@ -58,10 +59,10 @@ export function HeroWolf() {
 
       gsap.fromTo(
         image,
-        { yPercent: mobile ? -2 : -5, scale: mobile ? 1.035 : 1.045 },
+        { yPercent: mobile ? -1 : -3, scale: 1 },
         {
-          yPercent: mobile ? 10 : 20,
-          scale: mobile ? 1.07 : 1.085,
+          yPercent: mobile ? 10 : 18,
+          scale: mobile ? 0.94 : 0.9,
           ease: "none",
           scrollTrigger: trigger,
         },
@@ -77,8 +78,8 @@ export function HeroWolf() {
         scrollTrigger: trigger,
       });
       gsap.to(content, {
-        yPercent: mobile ? 8 : 16,
-        opacity: mobile ? 0.72 : 0.45,
+        yPercent: mobile ? 5 : 10,
+        opacity: mobile ? 0.78 : 0.55,
         ease: "none",
         scrollTrigger: trigger,
       });
@@ -100,7 +101,7 @@ export function HeroWolf() {
     <section
       ref={heroRef}
       data-parallax-layers
-      className="arimo-hero relative min-h-screen overflow-hidden bg-[#050505] text-[#f2f0eb]"
+      className="arimo-hero relative min-h-[94svh] overflow-hidden bg-[#050505] text-[#f2f0eb] md:min-h-[94vh]"
     >
       <div
         ref={gridRef}
@@ -108,18 +109,13 @@ export function HeroWolf() {
         className="arimo-grid absolute -inset-y-[8%] inset-x-0 opacity-70 will-change-transform"
       />
       <div
-        ref={imageRef}
-        data-parallax-layer="2"
-        className="arimo-access-card-hero arimo-hero-parallax absolute -inset-y-[12%] inset-x-0 bg-[url('/arimo-access-card.png')] opacity-100 will-change-transform"
-      />
-      <div
         ref={atmosphereRef}
         data-parallax-layer="3"
         className="absolute -inset-y-[8%] inset-x-0 will-change-transform"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,.9)_0%,rgba(5,5,5,.64)_34%,rgba(5,5,5,.12)_68%,rgba(5,5,5,.03)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.02)_0%,rgba(5,5,5,.08)_38%,rgba(5,5,5,.82)_70%,#050505_100%)] md:hidden" />
-        <div className="absolute inset-0 bg-black/5" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#050505_0%,#0a0a0a_48%,#050505_100%)]" />
+        <div className="absolute inset-y-0 left-1/2 w-px bg-white/[0.07]" />
+        <div className="absolute inset-x-0 top-[54%] h-px bg-white/[0.05]" />
         <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
       </div>
       <div
@@ -130,43 +126,70 @@ export function HeroWolf() {
           <span className="arimo-intro-line mt-7 block h-px bg-[#927451]" />
         </div>
       </div>
-      <div
-        ref={contentRef}
-        data-parallax-layer="4"
-        className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-6 pb-10 pt-7 will-change-transform md:px-12 md:pb-12 md:pt-10"
-      >
-        <header className="flex items-center justify-between border-b border-white/15 pb-5">
-          <Logo tone="ink" className="w-16 md:w-20" />
+      <div className="relative mx-auto flex min-h-[94svh] w-full max-w-[1600px] flex-col px-6 pb-8 pt-6 md:min-h-[94vh] md:px-12 md:pb-9 md:pt-8">
+        <header className="flex items-center justify-between border-b border-white/15 pb-4">
+          <Logo tone="ink" className="w-14 md:w-[4.5rem]" />
           <span className={`${eyebrow} hidden text-white/55 sm:inline`}>
             Private business network
           </span>
         </header>
-        <div className="flex flex-1 flex-col justify-end pb-10 pt-72 md:max-w-5xl md:justify-center md:pb-0 md:pt-24">
-          <p className={`${eyebrow} mb-7 text-[#b7b7b7]`}>SEU ACESSO / ARIMO CLUB</p>
-          <h1 className="max-w-[11ch] text-[clamp(3.45rem,7.6vw,7.8rem)] font-sans font-light leading-[.92] tracking-normal">
-            <span className={`arimo-mask block ${ready ? "is-visible" : ""}`}>A nova</span>
-            <span
-              className={`arimo-mask -mb-[0.12em] block pb-[0.12em] ${ready ? "is-visible delay-1" : ""}`}
-            >
-              ordem de
+        <div
+          ref={contentRef}
+          data-parallax-layer="4"
+          className="flex flex-1 flex-col items-center justify-center py-5 text-center will-change-transform md:py-3"
+        >
+          <p className={`${eyebrow} mb-4 text-[#a98b67] md:mb-5`}>SEU ACESSO / ARIMO CLUB</p>
+          <h1 className="relative z-10 w-full text-[clamp(3.1rem,7vw,6rem)] font-light leading-[.84] tracking-normal">
+            <span className={`arimo-mask block font-sans ${ready ? "is-visible" : ""}`}>
+              A nova ordem
             </span>
-            <span className={`arimo-mask block ${ready ? "is-visible delay-3" : ""}`}>
-              empresários.
+            <span
+              className={`arimo-mask arimo-serif -mb-[0.08em] block pb-[0.08em] text-[.9em] italic text-[#d8d1c6] sm:text-[1em] ${ready ? "is-visible delay-1" : ""}`}
+            >
+              de empresários.
             </span>
           </h1>
           <div
-            className={`mt-12 w-full min-w-0 max-w-md transition-all duration-700 ${ready ? "translate-y-0 opacity-100 delay-2" : "translate-y-5 opacity-0"}`}
+            ref={imageRef}
+            data-parallax-layer="2"
+            className="arimo-hero-parallax relative -mb-3 -mt-1 w-[118vw] max-w-[900px] will-change-transform md:-mb-8 md:-mt-5 md:w-[72vw]"
           >
-            <div className="flex flex-wrap items-center gap-6">
-              <CtaButton tone="ink" className="arimo-button border-[#b7b7b7]/65 px-7 py-4">
-                Quero me candidatar <span aria-hidden="true">→</span>
+            <div className={`arimo-card-enter ${ready ? "is-visible" : ""}`}>
+              <div className="arimo-card-float">
+                <TiltCard
+                  effect="evade"
+                  tiltLimit={8}
+                  scale={1.025}
+                  perspective={1500}
+                  spotlightMask="url('/arimo-access-card-cutout.png')"
+                  className="mx-auto"
+                >
+                  <img
+                    src="/arimo-access-card-cutout.png"
+                    alt="Cartão de acesso ARIMO CLUB Founders Edition"
+                    className="arimo-card-object h-auto w-full select-none"
+                    draggable={false}
+                  />
+                </TiltCard>
+              </div>
+            </div>
+          </div>
+          <div
+            className={`relative z-20 w-full min-w-0 max-w-lg transition-all duration-700 ${ready ? "translate-y-0 opacity-100 delay-2" : "translate-y-5 opacity-0"}`}
+          >
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
+              <CtaButton
+                tone="ink"
+                className="arimo-button shrink-0 whitespace-nowrap border-[#b7b7b7]/65 px-7 py-4"
+              >
+                Solicitar meu acesso <span aria-hidden="true">→</span>
               </CtaButton>
               <span className={`${eyebrow} text-white/45`}>Gratuito · Entrada por aprovação</span>
             </div>
           </div>
         </div>
-        <div className="border-t border-white/15 pt-5">
-          <span className={`${eyebrow} text-white/45`}>ROLE PARA EXPLORAR ↓</span>
+        <div className="flex items-center justify-center border-t border-white/15 pt-4">
+          <span className={`${eyebrow} text-white/40`}>ROLE PARA EXPLORAR ↓</span>
         </div>
       </div>
     </section>
