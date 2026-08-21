@@ -264,9 +264,18 @@
 }
 
 @keyframes arimo-wolf-signal {
-  0% { transform: translate(-50%, -50%) scale(0.72); opacity: 0; }
-  35% { opacity: 0.55; }
-  100% { transform: translate(-50%, -50%) scale(1.22); opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
+  24% { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+
+@keyframes arimo-wolf-breathe {
+  0%, 100% { transform: scale(0.96); opacity: 0.88; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+@keyframes arimo-wolf-orbit {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .arimo-network-route {
@@ -287,15 +296,62 @@
   animation-delay: var(--route-delay);
 }
 
-.arimo-wolf-signal {
-  animation: arimo-wolf-signal 3.2s ease-out infinite;
+.arimo-wolf-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid rgb(183 150 109 / 42%);
+  border-radius: 999px;
+  animation: arimo-wolf-signal 4.2s cubic-bezier(0.2, 0.65, 0.3, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.arimo-wolf-ring.is-two {
+  animation-delay: 1.4s;
+}
+
+.arimo-wolf-ring.is-three {
+  animation-delay: 2.8s;
+}
+
+.arimo-wolf-core {
+  animation: arimo-wolf-breathe 4.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 9px rgb(197 164 119 / 24%));
+  will-change: transform, opacity;
+}
+
+.arimo-wolf-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5.8rem;
+  height: 5.8rem;
+  border: 1px solid rgb(183 150 109 / 18%);
+  border-radius: 999px;
+  animation: arimo-wolf-orbit 9s linear infinite;
+}
+
+.arimo-wolf-orbit i {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #e7d1b2;
+  box-shadow: 0 0 10px rgb(231 209 178 / 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .arimo-power-row,
   .arimo-network-route,
   .arimo-network-pulse,
-  .arimo-wolf-signal {
+  .arimo-wolf-ring,
+  .arimo-wolf-core,
+  .arimo-wolf-orbit {
     animation: none;
   }
 
