@@ -4,6 +4,7 @@ import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
 import { DiagonalPowerMarquee } from "@/components/ui/diagonal-power-marquee";
+import { ArimoNetworkMap } from "@/components/ui/arimo-network-map";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -113,6 +114,8 @@ export function Index() {
           </div>
         </div>
       </section>
+
+      <ArimoNetworkMap />
 
       <section className="arimo-photo-section relative min-h-[90vh] overflow-hidden border-y border-white/10">
         <div className="arimo-photo-drift absolute inset-0 bg-[url('/arimo-boardroom-men.png')] bg-cover bg-center grayscale" />
