@@ -38,6 +38,7 @@ function MarqueeRow({
               alt={index < images.length ? image.alt : ""}
               aria-hidden={index >= images.length}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02]"
             />
             <div className="absolute inset-0 bg-black/10" />
@@ -52,7 +53,7 @@ export function DiagonalPowerMarquee({ images, className }: DiagonalPowerMarquee
   return (
     <section
       className={cn(
-        "relative flex h-[88vh] min-h-[680px] w-full items-center overflow-hidden border-y border-white/10 bg-[#070707]",
+        "arimo-deferred relative flex h-[88vh] min-h-[680px] w-full items-center overflow-hidden border-y border-white/10 bg-[#070707]",
         className,
       )}
       aria-label="Ambientes e conexões ARIMO"
