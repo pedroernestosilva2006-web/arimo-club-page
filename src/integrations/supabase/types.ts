@@ -16,24 +16,48 @@ export type Database = {
     Tables: {
       lead_applications: {
         Row: {
+          cargo: string | null
+          cidade: string | null
           created_at: string
           email: string
+          empresa: string | null
+          faturamento_aproximado: string | null
           id: string
           instagram: string
+          motivacao: string | null
+          nome: string | null
+          segmento: string | null
+          situacao_profissional: string | null
           telefone: string
         }
         Insert: {
+          cargo?: string | null
+          cidade?: string | null
           created_at?: string
           email: string
+          empresa?: string | null
+          faturamento_aproximado?: string | null
           id?: string
           instagram: string
+          motivacao?: string | null
+          nome?: string | null
+          segmento?: string | null
+          situacao_profissional?: string | null
           telefone: string
         }
         Update: {
+          cargo?: string | null
+          cidade?: string | null
           created_at?: string
           email?: string
+          empresa?: string | null
+          faturamento_aproximado?: string | null
           id?: string
           instagram?: string
+          motivacao?: string | null
+          nome?: string | null
+          segmento?: string | null
+          situacao_profissional?: string | null
           telefone?: string
         }
         Relationships: []
