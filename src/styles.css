@@ -497,18 +497,6 @@
   }
 }
 
-.arimo-hero-image {
-  animation: arimo-hero-drift 18s cubic-bezier(0.3, 0, 0.2, 1) infinite alternate;
-}
-@keyframes arimo-hero-drift {
-  from {
-    transform: scale(1.015) translate3d(0, 0, 0);
-  }
-  to {
-    transform: scale(1.055) translate3d(-0.7%, -0.5%, 0);
-  }
-}
-
 .arimo-photo-drift,
 .arimo-portrait-image {
   transition:
@@ -557,9 +545,12 @@
   .arimo-word-rail {
     animation: none;
   }
-  .arimo-hero-image,
   .arimo-intro-line,
   .arimo-photo-drift {
     animation: none;
+  }
+
+  .arimo-hero-parallax {
+    transform: none !important;
   }
 }
