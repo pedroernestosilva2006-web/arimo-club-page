@@ -281,8 +281,8 @@
 /* Private business club visual system */
 .arimo-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.065) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: clamp(46px, 6vw, 88px) clamp(46px, 6vw, 88px);
 }
 
@@ -345,6 +345,123 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Editorial copy ----------------------------------------------------- */
+
+.arimo-editorial-copy {
+  width: 100%;
+  max-width: 46rem;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.arimo-editorial-copy[data-align="center"] {
+  text-align: center;
+}
+
+.arimo-editorial-copy__rule {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04));
+}
+
+.arimo-editorial-copy[data-align="center"] .arimo-editorial-copy__rule {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22) 28%,
+    rgba(255, 255, 255, 0.22) 72%,
+    transparent
+  );
+}
+
+.arimo-editorial-copy__rule span {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: min(28%, 11rem);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  transform: translateX(-120%);
+  animation: arimo-editorial-rule 7s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+.arimo-editorial-copy__body {
+  display: grid;
+  gap: clamp(1.4rem, 2.6vw, 2.35rem);
+  padding-top: clamp(1.6rem, 3.2vw, 2.6rem);
+}
+
+.arimo-editorial-copy__paragraph {
+  max-width: 62ch;
+  margin: 0;
+  color: rgba(243, 243, 243, 0.72);
+  font-size: clamp(1rem, 0.42vw + 0.92rem, 1.16rem);
+  font-weight: 300;
+  line-height: 1.72;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+.arimo-editorial-copy[data-align="center"] .arimo-editorial-copy__paragraph {
+  margin-inline: auto;
+}
+
+.arimo-editorial-copy__paragraph.is-lead {
+  max-width: 46ch;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1.2rem, 0.85vw + 1rem, 1.62rem);
+  line-height: 1.5;
+}
+
+.arimo-editorial-copy__paragraph.is-closing {
+  max-width: 48ch;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: clamp(1.18rem, 0.72vw + 1rem, 1.5rem);
+  line-height: 1.5;
+}
+
+.arimo-editorial-copy__paragraph strong {
+  color: transparent;
+  background: linear-gradient(105deg, #a6a6a6 18%, #f7f7f5 42%, #ffffff 50%, #b8b8b8 70%);
+  background-position: 140% 0;
+  background-size: 230% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 400;
+  animation: arimo-editorial-text 8.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+.arimo-editorial-copy__paragraph em {
+  color: #f6f6f4;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.18em;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@keyframes arimo-editorial-rule {
+  0%,
+  22% {
+    transform: translateX(-120%);
+  }
+  68%,
+  100% {
+    transform: translateX(520%);
+  }
+}
+
+@keyframes arimo-editorial-text {
+  0%,
+  58% {
+    background-position: 140% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
 }
 
 .arimo-application-accent {
@@ -920,10 +1037,24 @@
 
 @media (forced-colors: active) {
   .arimo-gradient-text,
-  .arimo-gradient-text-dark {
+  .arimo-gradient-text-dark,
+  .arimo-editorial-copy__paragraph strong {
     color: CanvasText;
     background: none;
     -webkit-text-fill-color: currentColor;
+  }
+
+  .arimo-editorial-copy__paragraph,
+  .arimo-editorial-copy__paragraph em {
+    color: CanvasText;
+  }
+
+  .arimo-editorial-copy__rule {
+    background: CanvasText;
+  }
+
+  .arimo-editorial-copy__rule span {
+    display: none;
   }
 
   .arimo-access-button {
@@ -962,6 +1093,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .arimo-editorial-copy__rule span,
+  .arimo-editorial-copy__paragraph strong {
+    animation: none;
+  }
+
+  .arimo-editorial-copy__rule span {
+    display: none;
+  }
+
   .arimo-access-button,
   .arimo-access-button__content,
   .arimo-access-button__content > span[aria-hidden="true"] {

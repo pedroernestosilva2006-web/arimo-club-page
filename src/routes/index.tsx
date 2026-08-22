@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaButton } from "@/components/ARIMO/CtaButton";
+import { EditorialCopy } from "@/components/ARIMO/EditorialCopy";
 import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
@@ -83,18 +84,37 @@ export function Index() {
               <span className="arimo-serif italic">Acesso</span> é uma delas.
             </h2>
           </Reveal>
-          <Reveal delay={200}>
-            <div className="ml-auto mt-20 max-w-xl border-l border-white/30 pl-7 text-base leading-relaxed text-white/62 md:text-lg">
-              Você pode ter capital, produto, estratégia e ambição. Ainda assim, continuar distante
-              de oportunidades que nunca chegam até você.
-              <br />
-              <br />
-              Porque alguns negócios não são anunciados. Algumas parcerias não são procuradas.
-              Algumas portas simplesmente se abrem entre quem já está perto.
-              <br />
-              <br />É para diminuir essa distância que existe o ARIMO CLUB.
-            </div>
-          </Reveal>
+          <EditorialCopy
+            className="ml-auto mt-20"
+            delay={180}
+            paragraphs={[
+              {
+                variant: "lead",
+                content: (
+                  <>
+                    Você pode ter <strong>capital, produto, estratégia e ambição.</strong> Ainda
+                    assim, continuar distante de oportunidades que nunca chegam até você.
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    Alguns negócios não são anunciados. Algumas parcerias não são procuradas.
+                    Algumas portas simplesmente se abrem entre quem já está perto.
+                  </>
+                ),
+              },
+              {
+                variant: "closing",
+                content: (
+                  <>
+                    O ARIMO CLUB existe para <em>diminuir essa distância.</em>
+                  </>
+                ),
+              },
+            ]}
+          />
         </div>
       </section>
 
@@ -116,13 +136,29 @@ export function Index() {
           </div>
 
           <div className="px-6 md:px-12">
-            <p className="mt-14 max-w-2xl text-xl leading-relaxed text-white/62 md:mt-16 md:text-2xl">
-              Uma relação certa pode resolver em uma conversa o que levaria meses tentando sozinho.
-              <br />
-              <br />
-              Negócio começa com relação. Resultado vem do que você faz com ela.
-            </p>
-            <div className="mt-12">
+            <EditorialCopy
+              className="ml-auto mt-14 md:mt-16"
+              paragraphs={[
+                {
+                  variant: "lead",
+                  content: (
+                    <>
+                      Uma relação certa pode resolver em <strong>uma conversa</strong> o que levaria
+                      meses tentando sozinho.
+                    </>
+                  ),
+                },
+                {
+                  variant: "closing",
+                  content: (
+                    <>
+                      Negócio começa com <em>relação.</em> Resultado vem do que você faz com ela.
+                    </>
+                  ),
+                },
+              ]}
+            />
+            <div className="ml-auto mt-10 max-w-[46rem]">
               <CtaButton tone="ink" className="border-white/60 px-8 py-4">
                 Quero entrar nessa rede <span aria-hidden="true">→</span>
               </CtaButton>
@@ -170,11 +206,28 @@ export function Index() {
           <h2 className="mt-8 text-[clamp(3.5rem,9vw,9.5rem)] font-light leading-[.88] tracking-normal">
             Isso é ARIMO.
           </h2>
-          <p className="mt-12 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg">
-            Não acreditamos em conexão por conexão. Acreditamos em colocar empresários com
-            interesses, desafios e ambições em comum próximos o suficiente para que coisas
-            aconteçam.
-          </p>
+          <EditorialCopy
+            className="mt-12"
+            paragraphs={[
+              {
+                variant: "lead",
+                content: (
+                  <>
+                    Não acreditamos em <em>conexão por conexão.</em>
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    Acreditamos em colocar empresários com{" "}
+                    <strong>interesses, desafios e ambições em comum</strong> próximos o suficiente
+                    para que coisas aconteçam.
+                  </>
+                ),
+              },
+            ]}
+          />
           <div className="mt-24 border-t border-white/15">
             {pillars.map(([letter, label], index) => (
               <Reveal key={letter} delay={index * 75}>
@@ -288,12 +341,24 @@ export function Index() {
             <br />
             <span className="arimo-serif italic">famintos</span> por resultado.
           </h2>
-          <p className="mx-auto mt-14 max-w-2xl text-base leading-relaxed text-white/62 md:text-lg">
-            Fundadores. Sócios. Empresários. Executivos. Líderes. Pessoas com algo em jogo.
-            <br />
-            <br />
-            Com problemas reais para resolver, oportunidades para dividir e ambição para ir além.
-          </p>
+          <EditorialCopy
+            align="center"
+            className="mx-auto mt-14"
+            paragraphs={[
+              {
+                variant: "lead",
+                content: <strong>Fundadores. Sócios. Empresários. Executivos. Líderes.</strong>,
+              },
+              {
+                content: (
+                  <>
+                    Pessoas com algo em jogo, problemas reais para resolver, oportunidades para
+                    dividir e ambição para ir além.
+                  </>
+                ),
+              },
+            ]}
+          />
         </div>
       </section>
 
