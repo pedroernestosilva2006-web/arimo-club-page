@@ -17,31 +17,14 @@ type CobeGlobeProps = {
   markers: Marker[];
   arcs: Arc[];
   labels?: GlobeLabel[];
-  signals?: string[];
   className?: string;
 };
 
 const INITIAL_PHI = -0.42;
 const INITIAL_THETA = 0.17;
-const AUTO_ROTATION_PER_MS = 0.00008;
-const SIGNAL_POSITIONS = [
-  "left-[7%] top-[15%]",
-  "right-[13%] top-[23%]",
-  "left-[1%] top-[43%]",
-  "right-[11%] top-[48%]",
-  "left-[9%] bottom-[20%]",
-  "right-[13%] bottom-[16%]",
-  "left-[28%] top-[7%]",
-  "right-[29%] bottom-[7%]",
-];
+const AUTO_ROTATION_PER_MS = 0.000055;
 
-export function CobeGlobe({
-  markers,
-  arcs,
-  labels = [],
-  signals = [],
-  className = "",
-}: CobeGlobeProps) {
+export function CobeGlobe({ markers, arcs, labels = [], className = "" }: CobeGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dragStartRef = useRef<number | null>(null);
   const dragPositionRef = useRef(0);
@@ -109,22 +92,22 @@ export function CobeGlobe({
         phi,
         theta: INITIAL_THETA,
         dark: 0,
-        diffuse: 1.3,
+        diffuse: 1.05,
         mapSamples,
-        mapBrightness: 9,
-        mapBaseBrightness: 0.05,
-        baseColor: [0.18, 0.18, 0.18],
-        markerColor: [0.02, 0.02, 0.02],
-        glowColor: [0.93, 0.93, 0.91],
-        opacity: 0.96,
-        scale: 1.035,
+        mapBrightness: 4.8,
+        mapBaseBrightness: 0.1,
+        baseColor: [0.82, 0.82, 0.8],
+        markerColor: [0.06, 0.06, 0.06],
+        glowColor: [0.98, 0.98, 0.97],
+        opacity: 0.92,
+        scale: 0.98,
         offset: [0, 0],
-        markerElevation: 0.04,
+        markerElevation: 0.025,
         markers,
         arcs,
-        arcColor: [0.04, 0.04, 0.04],
-        arcWidth: 0.9,
-        arcHeight: 0.24,
+        arcColor: [0.24, 0.24, 0.24],
+        arcWidth: 0.48,
+        arcHeight: 0.16,
       });
     } catch {
       canvas.dataset["failed"] = "true";
@@ -169,10 +152,10 @@ export function CobeGlobe({
       const pulse = reduceMotion ? 0.5 : (Math.sin(time * 0.0012) + 1) / 2;
       globe.update({
         phi: phi + renderedDragPosition,
-        theta: reduceMotion ? INITIAL_THETA : INITIAL_THETA + Math.sin(time * 0.00022) * 0.026,
-        markerElevation: 0.03 + pulse * 0.025,
-        arcHeight: 0.21 + pulse * 0.05,
-        arcWidth: 0.76 + pulse * 0.24,
+        theta: reduceMotion ? INITIAL_THETA : INITIAL_THETA + Math.sin(time * 0.0002) * 0.02,
+        markerElevation: 0.02 + pulse * 0.014,
+        arcHeight: 0.14 + pulse * 0.035,
+        arcWidth: 0.4 + pulse * 0.12,
       });
       frame = window.requestAnimationFrame(render);
     };
@@ -191,7 +174,7 @@ export function CobeGlobe({
     <div className={`relative aspect-square w-full ${className}`}>
       <div
         aria-hidden="true"
-        className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle_at_38%_34%,rgba(255,255,255,.94),rgba(210,210,207,.45)_44%,rgba(40,40,40,.08)_68%,transparent_72%)]"
+        className="absolute inset-[9%] rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(255,255,255,.98),rgba(220,220,217,.46)_48%,rgba(70,70,70,.06)_68%,transparent_73%)]"
       />
       <canvas
         ref={canvasRef}
@@ -208,19 +191,6 @@ export function CobeGlobe({
 
       <div className="arimo-globe-orbit is-outer" aria-hidden="true" />
       <div className="arimo-globe-orbit is-inner" aria-hidden="true" />
-
-      <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
-        {signals.slice(0, SIGNAL_POSITIONS.length).map((signal, index) => (
-          <span
-            key={signal}
-            className={`arimo-globe-signal ${SIGNAL_POSITIONS[index]}`}
-            style={{ "--signal-delay": `${index * -1.05}s` } as CSSProperties}
-          >
-            <i />
-            {signal}
-          </span>
-        ))}
-      </div>
 
       {labels.map((label) => (
         <span

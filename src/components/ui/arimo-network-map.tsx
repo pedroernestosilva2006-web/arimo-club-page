@@ -15,11 +15,6 @@ const origin: City = {
 };
 
 const destinations: City[] = [
-  { id: "manaus", label: "Manaus", location: [-3.119, -60.0217] },
-  { id: "recife", label: "Recife", location: [-8.0476, -34.877] },
-  { id: "brasilia", label: "Brasília", location: [-15.7939, -47.8828] },
-  { id: "porto-alegre", label: "Porto Alegre", location: [-30.0346, -51.2177] },
-  { id: "miami", label: "Miami", location: [25.7617, -80.1918] },
   { id: "nova-york", label: "Nova York", location: [40.7128, -74.006] },
   { id: "cidade-do-mexico", label: "Cidade do México", location: [19.4326, -99.1332] },
   { id: "lisboa", label: "Lisboa", location: [38.7223, -9.1393] },
@@ -66,8 +61,8 @@ export function ArimoNetworkMap() {
       ...destinations.map((city) => ({
         id: city.id,
         location: city.location,
-        size: 0.035,
-        color: [0.12, 0.12, 0.12] as [number, number, number],
+        size: 0.03,
+        color: [0.16, 0.16, 0.16] as [number, number, number],
       })),
     ],
     [],
@@ -96,32 +91,31 @@ export function ArimoNetworkMap() {
     >
       <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(0,0,0,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.05)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-      <div className="relative mx-auto grid min-w-0 max-w-[92rem] grid-cols-[minmax(0,1fr)] items-center gap-x-10 px-6 pb-20 pt-20 md:px-12 md:pb-28 md:pt-28 lg:min-h-[48rem] lg:grid-cols-[0.78fr_1.22fr] lg:grid-rows-[auto_1fr] lg:py-24">
+      <div className="relative mx-auto grid min-w-0 max-w-[92rem] grid-cols-[minmax(0,1fr)] items-center gap-x-12 px-6 pb-20 pt-20 md:px-12 md:pb-28 md:pt-28 lg:min-h-[48rem] lg:grid-cols-[0.82fr_1.18fr] lg:grid-rows-[auto_1fr] lg:py-24">
         <div className="relative z-10 min-w-0 lg:col-start-1 lg:row-start-1">
-          <p className="arimo-label text-black/55">REDE ARIMO / SEM FRONTEIRAS</p>
-          <h2 className="mt-7 max-w-3xl text-[clamp(3rem,6.5vw,7rem)] font-light leading-[.9] tracking-normal">
-            O Brasil
+          <p className="arimo-label text-black/52">REDE ARIMO / ALCANCE GLOBAL</p>
+          <h2 className="mt-7 max-w-3xl text-[clamp(3rem,5.8vw,6.4rem)] font-light leading-[.92] tracking-normal">
+            O próximo negócio
             <br />
-            conectado
+            pode estar em
             <br />
-            ao <span className="arimo-serif italic">mundo.</span>
+            <span className="arimo-serif italic">outro fuso.</span>
           </h2>
         </div>
 
-        <div className="relative left-1/2 z-0 mt-3 w-[calc(100vw-3rem)] min-w-0 -translate-x-1/2 sm:w-[min(46rem,calc(100vw-3rem))] lg:left-auto lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:-mr-24 lg:mt-0 lg:w-full lg:translate-x-0 xl:-mr-32">
+        <div className="relative left-1/2 z-0 mt-5 w-[calc(100vw-3rem)] min-w-0 -translate-x-1/2 sm:w-[min(46rem,calc(100vw-3rem))] lg:left-auto lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:-mr-16 lg:mt-0 lg:w-full lg:translate-x-0 xl:-mr-24">
           <CobeGlobe
             markers={markers}
             arcs={arcs}
             labels={featuredCountries}
-            signals={countries.slice(0, 8)}
-            className="mx-auto max-w-[60rem]"
+            className="arimo-network-globe mx-auto max-w-[56rem]"
           />
         </div>
 
-        <div className="relative z-10 mt-4 min-w-0 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start">
+        <div className="relative z-10 mt-5 min-w-0 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start">
           <p className="max-w-xl border-t border-black/20 pt-7 text-base leading-relaxed text-black/68 md:text-lg">
-            Relações que atravessam cidades, mercados e fusos. Uma rede para aproximar quem tem
-            ambição de quem pode abrir o próximo caminho.
+            Uma rede para aproximar empresários, clientes, sócios e fornecedores além do próprio
+            mercado. Porque oportunidade não precisa terminar na sua cidade.
           </p>
 
           <dl className="mt-9 grid grid-cols-3 border-y border-black/15">
@@ -132,15 +126,15 @@ export function ArimoNetworkMap() {
               </dd>
             </div>
             <div className="border-r border-black/15 px-3 py-4">
-              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Alcance</dt>
+              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Ponte</dt>
               <dd className="mt-2 text-[0.6875rem] uppercase tracking-[0.16em] text-black/78">
                 Global
               </dd>
             </div>
             <div className="py-4 pl-3">
-              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Rede</dt>
+              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Foco</dt>
               <dd className="mt-2 text-[0.6875rem] uppercase tracking-[0.16em] text-black/78">
-                Ativa
+                Negócios
               </dd>
             </div>
           </dl>
