@@ -120,6 +120,37 @@ function Index() {
         </div>
       </section>
 
+      <section
+        id="candidatura"
+        className="scroll-mt-6 border-b border-black/10 bg-[#f2f2f2] px-6 pb-24 pt-16 text-[#090909] md:px-12 md:pb-36 md:pt-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          <p className="arimo-label arimo-gradient-text-dark">CANDIDATURA</p>
+          <h2 className="mt-6 max-w-5xl text-[clamp(3.25rem,8.6vw,8.5rem)] font-light leading-[.9] tracking-normal md:mt-8">
+            Não existe cobrança.
+            <br />
+            <span className="arimo-application-accent arimo-serif italic">Existe critério.</span>
+          </h2>
+          <Reveal delay={210} className="mt-12 md:mt-16">
+            <div className="relative grid gap-10 overflow-hidden border-t border-black/15 pt-8 md:grid-cols-[1fr_auto] md:items-end md:gap-16 md:pt-10">
+              <span className="arimo-application-rule" aria-hidden="true" />
+              <p className="max-w-xl text-base leading-relaxed text-black/65 md:text-lg">
+                Nem todo mundo entra. E é justamente por isso que pode valer a pena estar dentro.
+                <br />
+                <br />O ARIMO CLUB é gratuito, mas cada entrada passa por análise. Não existe
+                cobrança para participar. Existe critério.
+              </p>
+              <div>
+                <CtaButton tone="paper" className="border-black/60 px-9 py-5">
+                  Quero me candidatar <span aria-hidden="true">→</span>
+                </CtaButton>
+                <p className="arimo-label mt-5 text-black/45">Gratuito · Entrada por aprovação</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <DiagonalPowerMarquee images={powerImages} />
 
       <section className="arimo-grid px-6 py-32 md:px-12 md:py-48">
@@ -244,34 +275,6 @@ function Index() {
             <br />
             Com problemas reais para resolver, oportunidades para dividir e ambição para ir além.
           </p>
-        </div>
-      </section>
-
-      <section
-        id="candidatura"
-        className="arimo-deferred border-y border-white/10 bg-[#f2f2f2] px-6 py-32 text-[#090909] md:px-12 md:py-48"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="arimo-label arimo-gradient-text-dark">CANDIDATURA</p>
-          <h2 className="mt-10 max-w-5xl text-[clamp(3.5rem,8.6vw,9rem)] font-light leading-[.9] tracking-normal">
-            Não existe cobrança.
-            <br />
-            <span className="arimo-serif italic">Existe critério.</span>
-          </h2>
-          <div className="mt-20 grid gap-12 border-t border-black/15 pt-10 md:grid-cols-[1fr_auto] md:items-end">
-            <p className="max-w-xl text-base leading-relaxed text-black/65 md:text-lg">
-              Nem todo mundo entra. E é justamente por isso que pode valer a pena estar dentro.
-              <br />
-              <br />O ARIMO CLUB é gratuito, mas cada entrada passa por análise. Não existe cobrança
-              para participar. Existe critério.
-            </p>
-            <div>
-              <CtaButton tone="paper" className="border-black/60 px-9 py-5">
-                Quero me candidatar <span aria-hidden="true">→</span>
-              </CtaButton>
-              <p className="arimo-label mt-5 text-black/45">Gratuito · Entrada por aprovação</p>
-            </div>
-          </div>
         </div>
       </section>
 
