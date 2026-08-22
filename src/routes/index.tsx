@@ -5,6 +5,7 @@ import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
 import { DiagonalPowerMarquee } from "@/components/ui/diagonal-power-marquee";
 import { ArimoNetworkMap } from "@/components/ui/arimo-network-map";
+import { RelationshipPerspectiveMarquee } from "@/components/ui/relationship-perspective-marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -97,28 +98,35 @@ function Index() {
         </div>
       </section>
 
-      <section className="arimo-deferred border-y border-white/10 bg-[#f2f2f2] px-6 py-28 text-[#090909] md:px-12 md:py-40">
+      <section
+        id="relacoes"
+        className="arimo-deferred arimo-grid relative scroll-mt-6 overflow-hidden border-y border-white/10 bg-[#050505] py-28 text-[#f3f3f3] md:py-40"
+      >
         <div className="mx-auto max-w-6xl">
-          <p className="arimo-label arimo-gradient-text-dark">RELAÇÃO</p>
-          <h2 className="mt-8 max-w-4xl text-[clamp(3rem,7.2vw,7.6rem)] font-light leading-[.94] tracking-normal">
-            Não é sobre trocar cartão.
-            <br />É sobre fazer <span className="arimo-serif italic">negócio.</span>
-          </h2>
-          <div className="mt-24 overflow-hidden border-y border-black/15 py-4">
-            <div className="arimo-word-rail whitespace-nowrap text-[clamp(2.6rem,6vw,6.5rem)] font-light leading-none tracking-normal">
-              CLIENTE · SÓCIO · PARCEIRO · FORNECEDOR · CAPITAL · INDICAÇÃO ·
-            </div>
+          <div className="px-6 md:px-12">
+            <p className="arimo-label arimo-gradient-text">RELAÇÃO</p>
+            <h2 className="mt-8 max-w-4xl text-[clamp(3rem,7.2vw,7.6rem)] font-light leading-[.94] tracking-normal">
+              Não é sobre trocar cartão.
+              <br />É sobre fazer <span className="arimo-serif italic">negócio.</span>
+            </h2>
           </div>
-          <p className="mt-16 max-w-2xl text-xl leading-relaxed text-black/65 md:text-2xl">
-            Uma relação certa pode resolver em uma conversa o que levaria meses tentando sozinho.
-            <br />
-            <br />
-            Negócio começa com relação. Resultado vem do que você faz com ela.
-          </p>
-          <div className="mt-12">
-            <CtaButton tone="paper" className="border-black/60 px-8 py-4">
-              Quero entrar nessa rede <span aria-hidden="true">→</span>
-            </CtaButton>
+
+          <div className="mt-16 border-y border-white/10 md:mt-24">
+            <RelationshipPerspectiveMarquee />
+          </div>
+
+          <div className="px-6 md:px-12">
+            <p className="mt-14 max-w-2xl text-xl leading-relaxed text-white/62 md:mt-16 md:text-2xl">
+              Uma relação certa pode resolver em uma conversa o que levaria meses tentando sozinho.
+              <br />
+              <br />
+              Negócio começa com relação. Resultado vem do que você faz com ela.
+            </p>
+            <div className="mt-12">
+              <CtaButton tone="ink" className="border-white/60 px-8 py-4">
+                Quero entrar nessa rede <span aria-hidden="true">→</span>
+              </CtaButton>
+            </div>
           </div>
         </div>
       </section>
