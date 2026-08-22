@@ -557,6 +557,73 @@
   transition-delay: 420ms;
 }
 
+.arimo-hero-perspective {
+  position: absolute;
+  top: 28%;
+  right: -14%;
+  left: -14%;
+  height: clamp(6.5rem, 13vw, 11rem);
+  overflow: hidden;
+  perspective: 1200px;
+  opacity: 0.24;
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+}
+
+.arimo-hero-perspective::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #050505, transparent 28%, transparent 72%, #050505);
+  content: "";
+}
+
+.arimo-hero-perspective-plane {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  transform: rotateX(8deg) rotateY(-18deg) rotateZ(-2.5deg) scale(1.08);
+  transform-style: preserve-3d;
+}
+
+.arimo-hero-perspective-track,
+.arimo-hero-perspective-group {
+  display: flex;
+  width: max-content;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.arimo-hero-perspective-track {
+  animation: arimo-hero-perspective-flow 34s linear infinite;
+  will-change: transform;
+}
+
+.arimo-hero-perspective-group span {
+  color: transparent;
+  font-size: clamp(3.4rem, 7.4vw, 7.4rem);
+  font-weight: 300;
+  line-height: 0.86;
+  letter-spacing: 0;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.52);
+}
+
+.arimo-hero-perspective-group span::after {
+  margin-inline: 0.34em;
+  color: rgba(255, 255, 255, 0.44);
+  content: "/";
+  -webkit-text-stroke: 0;
+}
+
+@keyframes arimo-hero-perspective-flow {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .arimo-button span {
   display: inline-block;
   margin-left: 0.5rem;
@@ -803,6 +870,9 @@
     transition: none;
   }
   .arimo-relations-track {
+    animation: none;
+  }
+  .arimo-hero-perspective-track {
     animation: none;
   }
   .arimo-application-accent,
