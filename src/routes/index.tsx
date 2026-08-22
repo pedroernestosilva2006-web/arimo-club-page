@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaButton } from "@/components/ARIMO/CtaButton";
 import { EditorialCopy } from "@/components/ARIMO/EditorialCopy";
+import { ExecutorsSection } from "@/components/ARIMO/ExecutorsSection";
 import { HeroWolf } from "@/components/ARIMO/HeroWolf";
 import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
@@ -39,38 +40,7 @@ export function Index() {
     <main className="overflow-hidden bg-[#050505] font-sans text-[#f3f3f3]">
       <HeroWolf />
 
-      <section className="relative min-h-[78vh] overflow-hidden border-y border-white/10">
-        <img
-          src="/arimo-hero-new-order-bw.webp"
-          alt="Empresários reunidos no ARIMO CLUB"
-          width={1672}
-          height={941}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.08)_0%,rgba(5,5,5,.25)_42%,rgba(5,5,5,.92)_100%)]" />
-        <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
-        <div className="relative mx-auto flex min-h-[78vh] max-w-[1600px] flex-col justify-between px-6 py-10 md:px-12 md:py-14">
-          <p className="arimo-label text-white/60">ARIMO / PARA QUEM EXECUTA</p>
-          <div className="max-w-5xl">
-            <h2 className="max-w-4xl text-[clamp(3rem,7vw,7.4rem)] font-light leading-[.92] tracking-normal">
-              Para empresários
-              <br />
-              famintos por <span className="arimo-serif italic">resultado.</span>
-            </h2>
-            <p className="mt-7 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
-              Nada de networking superficial. Aqui, conexão precisa virar negócio.
-            </p>
-            <div className="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-              <CtaButton tone="ink" className="border-white/60 px-8 py-4">
-                Solicitar meu acesso <span aria-hidden="true">→</span>
-              </CtaButton>
-              <p className="arimo-label text-white/45">Gratuito · Entrada por aprovação</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ExecutorsSection />
 
       <section className="arimo-grid relative px-6 py-32 md:px-12 md:py-52">
         <div className="mx-auto max-w-6xl">

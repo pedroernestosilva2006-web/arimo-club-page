@@ -888,28 +888,6 @@
   }
 }
 
-@keyframes arimo-globe-signal {
-  0%,
-  100% {
-    opacity: 0.58;
-    transform: translateY(2px);
-  }
-  50% {
-    opacity: 0.96;
-    transform: translateY(-2px);
-  }
-}
-
-@keyframes arimo-globe-signal-dot {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgb(0 0 0 / 28%);
-  }
-  50% {
-    box-shadow: 0 0 0 7px rgb(0 0 0 / 0%);
-  }
-}
-
 .arimo-globe-orbit {
   pointer-events: none;
   position: absolute;
@@ -925,39 +903,36 @@
 
 .arimo-globe-orbit.is-inner {
   inset: 13%;
-  border-top: 1px solid rgb(0 0 0 / 20%);
+  border-top: 1px solid rgb(0 0 0 / 14%);
   border-right: 1px solid transparent;
-  border-bottom: 1px solid rgb(0 0 0 / 7%);
+  border-bottom: 1px solid rgb(0 0 0 / 5%);
   border-left: 1px solid transparent;
-  animation: arimo-globe-orbit 29s linear infinite reverse;
+  animation: arimo-globe-orbit 36s linear infinite reverse;
 }
 
-.arimo-globe-signal {
+.arimo-network-globe {
+  isolation: isolate;
+}
+
+.arimo-network-globe::before {
   position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: rgb(0 0 0 / 72%);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  text-transform: uppercase;
-  text-shadow: 0 1px 8px rgb(241 241 239 / 92%);
-  animation: arimo-globe-signal 9.6s ease-in-out infinite;
-  animation-delay: var(--signal-delay);
-  will-change: opacity, transform;
-  white-space: nowrap;
+  z-index: -1;
+  inset: 14%;
+  border-radius: 999px;
+  box-shadow:
+    0 2rem 5rem rgb(0 0 0 / 9%),
+    0 0 0 1px rgb(255 255 255 / 72%);
+  content: "";
 }
 
-.arimo-globe-signal i {
-  width: 4px;
-  height: 4px;
-  flex: none;
+.arimo-network-globe::after {
+  position: absolute;
+  z-index: 12;
+  inset: 5%;
+  border-top: 1px solid rgb(255 255 255 / 70%);
   border-radius: 999px;
-  background: #090909;
-  animation: arimo-globe-signal-dot 2.8s ease-out infinite;
-  animation-delay: var(--signal-delay);
+  content: "";
+  transform: rotate(-18deg);
 }
 
 .arimo-globe-location {
@@ -1053,35 +1028,6 @@
 }
 
 @media (max-width: 639px) {
-  .arimo-globe-signal {
-    font-size: 0.52rem;
-    letter-spacing: 0.12em;
-  }
-
-  .arimo-globe-signal:nth-child(1) {
-    left: 10%;
-  }
-
-  .arimo-globe-signal:nth-child(2) {
-    right: 10%;
-  }
-
-  .arimo-globe-signal:nth-child(3) {
-    left: 10%;
-  }
-
-  .arimo-globe-signal:nth-child(4) {
-    right: 10%;
-  }
-
-  .arimo-globe-signal:nth-child(5) {
-    left: 16%;
-  }
-
-  .arimo-globe-signal:nth-child(n + 6) {
-    display: none;
-  }
-
   .arimo-globe-location {
     display: none;
   }
@@ -1213,15 +1159,8 @@
     transform: rotate(22deg);
   }
 
-  .arimo-globe-orbit,
-  .arimo-globe-signal,
-  .arimo-globe-signal i {
+  .arimo-globe-orbit {
     animation: none;
-  }
-
-  .arimo-globe-signal {
-    opacity: 0.72;
-    transform: none;
   }
 
   .arimo-relations-track {
