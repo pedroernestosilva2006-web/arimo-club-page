@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { TextShimmer } from "@/components/ui/be-ui-text-animation";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
 
 const eyebrow = "text-[0.625rem] font-light uppercase tracking-[0.32em]";
-const heroTickerItems = ["ACESSO", "NEGÓCIOS", "RESULTADO", "DECISÃO"];
 
 export function HeroWolf() {
   const heroRef = useRef<HTMLElement>(null);
@@ -110,19 +110,6 @@ export function HeroWolf() {
         <div className="absolute inset-y-0 left-1/2 w-px bg-white/[0.07]" />
         <div className="absolute inset-x-0 top-[54%] h-px bg-white/[0.05]" />
         <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
-        <div className="arimo-hero-perspective" aria-hidden="true">
-          <div className="arimo-hero-perspective-plane">
-            <div className="arimo-hero-perspective-track">
-              {[0, 1].map((group) => (
-                <div className="arimo-hero-perspective-group" key={group}>
-                  {heroTickerItems.map((item) => (
-                    <span key={`${group}-${item}`}>{item}</span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
       <div
         className={`arimo-intro fixed inset-0 z-50 flex items-center justify-center bg-[#050505] ${intro ? "is-active" : "is-gone"}`}
@@ -146,16 +133,18 @@ export function HeroWolf() {
         >
           <p className={`${eyebrow} arimo-gradient-text mb-4 md:mb-5`}>SEU ACESSO / ARIMO CLUB</p>
           <h1 className="relative z-10 w-full text-[clamp(2.65rem,7vw,6rem)] font-light leading-[.84] tracking-normal">
-            <span className={`arimo-mask block font-sans ${ready ? "is-visible" : ""}`}>
-              A nova ordem
-            </span>
-            <span
-              className={`arimo-mask -mb-[0.24em] block pb-[0.24em] ${ready ? "is-visible delay-1" : ""}`}
-            >
-              <span className="arimo-gradient-text arimo-serif block whitespace-nowrap text-[.9em] leading-[1.04] italic sm:text-[1em]">
-                de empresários.
+            <TextShimmer as="span" duration={3} className="block">
+              <span className={`arimo-mask block font-sans ${ready ? "is-visible" : ""}`}>
+                A nova ordem
               </span>
-            </span>
+              <span
+                className={`arimo-mask -mb-[0.24em] block pb-[0.24em] ${ready ? "is-visible delay-1" : ""}`}
+              >
+                <span className="arimo-serif block whitespace-nowrap text-[.9em] leading-[1.04] italic sm:text-[1em]">
+                  de empresários.
+                </span>
+              </span>
+            </TextShimmer>
           </h1>
           <div
             ref={imageRef}

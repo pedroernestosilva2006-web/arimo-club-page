@@ -246,8 +246,8 @@ function Index() {
           decoding="async"
           className="arimo-photo-drift absolute inset-0 h-full w-full object-cover object-[56%_center] grayscale md:object-center"
         />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.55)_0%,rgba(5,5,5,.12)_38%,rgba(5,5,5,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(5,5,5,.92)_0%,rgba(5,5,5,.58)_46%,rgba(5,5,5,.14)_100%)]" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.72)_0%,rgba(5,5,5,.32)_38%,rgba(5,5,5,.96)_100%)] md:bg-[linear-gradient(90deg,rgba(5,5,5,.96)_0%,rgba(5,5,5,.72)_46%,rgba(5,5,5,.38)_100%)]" />
         <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
 
         <div className="relative mx-auto flex min-h-[100svh] max-w-[1600px] flex-col justify-between px-6 py-10 md:px-12 md:py-14">
