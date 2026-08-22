@@ -612,6 +612,159 @@
   transform: translateY(-5px);
 }
 
+@keyframes arimo-globe-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes arimo-globe-signal {
+  0%,
+  12%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(5px);
+  }
+  30%,
+  62% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  76% {
+    opacity: 0.35;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes arimo-globe-signal-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 28%);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgb(0 0 0 / 0%);
+  }
+}
+
+.arimo-globe-orbit {
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  border-radius: 999px;
+}
+
+.arimo-globe-orbit.is-outer {
+  inset: 6.5%;
+  border: 1px dashed rgb(0 0 0 / 12%);
+  animation: arimo-globe-orbit 42s linear infinite;
+}
+
+.arimo-globe-orbit.is-inner {
+  inset: 13%;
+  border-top: 1px solid rgb(0 0 0 / 20%);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid rgb(0 0 0 / 7%);
+  border-left: 1px solid transparent;
+  animation: arimo-globe-orbit 29s linear infinite reverse;
+}
+
+.arimo-globe-signal {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgb(0 0 0 / 66%);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgb(241 241 239 / 92%);
+  animation: arimo-globe-signal 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  animation-delay: var(--signal-delay);
+  will-change: opacity, transform;
+}
+
+.arimo-globe-signal i {
+  width: 4px;
+  height: 4px;
+  flex: none;
+  border-radius: 999px;
+  background: #090909;
+  animation: arimo-globe-signal-dot 2.8s ease-out infinite;
+  animation-delay: var(--signal-delay);
+}
+
+.arimo-globe-location {
+  display: none;
+}
+
+@supports (position-anchor: --cobe-marker) {
+  .arimo-globe-location {
+    position: absolute;
+    z-index: 30;
+    bottom: anchor(top);
+    left: anchor(center);
+    display: block;
+    padding-bottom: 0.55rem;
+    color: rgb(0 0 0 / 72%);
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    opacity: var(--globe-label-visible);
+    text-shadow:
+      0 1px 5px #f1f1ef,
+      0 1px 10px #f1f1ef;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease;
+    white-space: nowrap;
+  }
+
+  .arimo-globe-location::after {
+    position: absolute;
+    bottom: 0.2rem;
+    left: 50%;
+    width: 1px;
+    height: 0.25rem;
+    background: rgb(0 0 0 / 42%);
+    content: "";
+  }
+}
+
+@media (max-width: 639px) {
+  .arimo-globe-signal:nth-child(1) {
+    left: 10%;
+  }
+
+  .arimo-globe-signal:nth-child(2) {
+    right: 10%;
+  }
+
+  .arimo-globe-signal:nth-child(3) {
+    left: 10%;
+  }
+
+  .arimo-globe-signal:nth-child(4) {
+    right: 10%;
+  }
+
+  .arimo-globe-signal:nth-child(5) {
+    left: 16%;
+  }
+
+  .arimo-globe-signal:nth-child(n + 6) {
+    display: none;
+  }
+
+  .arimo-globe-location {
+    display: none;
+  }
+}
+
 @media (forced-colors: active) {
   .arimo-gradient-text,
   .arimo-gradient-text-dark {
@@ -638,6 +791,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .arimo-globe-orbit,
+  .arimo-globe-signal,
+  .arimo-globe-signal i {
+    animation: none;
+  }
+
+  .arimo-globe-signal {
+    opacity: 0.72;
+    transform: none;
+  }
+
   .arimo-relations-track {
     animation: none;
   }

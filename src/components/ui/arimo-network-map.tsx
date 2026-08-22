@@ -32,7 +32,22 @@ const destinations: City[] = [
   { id: "sydney", label: "Sydney", location: [-33.8688, 151.2093] },
 ];
 
-const regions = ["Brasil", "Américas", "Europa", "África", "Oriente Médio", "Ásia", "Oceania"];
+const featuredCities = [
+  origin,
+  ...destinations.filter((city) =>
+    ["nova-york", "lisboa", "londres", "dubai", "singapura", "toquio", "sydney"].includes(city.id),
+  ),
+];
+const networkSignals = [
+  "CONEXÕES",
+  "NEGÓCIOS",
+  "SÓCIOS",
+  "VENDAS",
+  "NETWORK",
+  "CLIENTES",
+  "FORNECEDORES",
+  "EXPANSÃO",
+];
 
 export function ArimoNetworkMap() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -97,15 +112,21 @@ export function ArimoNetworkMap() {
         </div>
 
         <div className="relative left-1/2 mt-4 w-[calc(100vw+2.5rem)] min-w-0 -translate-x-1/2 sm:w-[calc(100vw+1rem)] lg:left-auto lg:-mr-40 lg:ml-[-8%] lg:mt-0 lg:w-auto lg:translate-x-0">
-          <CobeGlobe markers={markers} arcs={arcs} className="mx-auto max-w-[54rem]" />
+          <CobeGlobe
+            markers={markers}
+            arcs={arcs}
+            labels={featuredCities}
+            signals={networkSignals}
+            className="mx-auto max-w-[54rem]"
+          />
           <p className="absolute bottom-[8%] left-1/2 -translate-x-1/2 text-center text-[0.5625rem] uppercase tracking-[0.24em] text-black/40">
             Arraste para explorar
           </p>
         </div>
 
         <div className="col-span-full mt-2 flex flex-wrap gap-x-8 gap-y-3 border-t border-black/15 pt-7 text-[0.625rem] uppercase tracking-[0.24em] text-black/45">
-          {regions.map((region) => (
-            <span key={region}>{region}</span>
+          {networkSignals.map((signal) => (
+            <span key={signal}>{signal}</span>
           ))}
         </div>
       </div>

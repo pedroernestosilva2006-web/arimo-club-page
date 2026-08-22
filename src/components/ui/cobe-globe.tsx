@@ -1,31 +1,66 @@
 import createGlobe, { type Arc, type Marker } from "cobe";
-import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
+
+type GlobeLabel = {
+  id: string;
+  label: string;
+};
 
 type CobeGlobeProps = {
   markers: Marker[];
   arcs: Arc[];
+  labels?: GlobeLabel[];
+  signals?: string[];
   className?: string;
 };
 
 const INITIAL_PHI = -0.42;
 const INITIAL_THETA = 0.17;
+const SIGNAL_POSITIONS = [
+  "left-[7%] top-[15%]",
+  "right-[13%] top-[23%]",
+  "left-[1%] top-[43%]",
+  "right-[11%] top-[48%]",
+  "left-[9%] bottom-[20%]",
+  "right-[13%] bottom-[16%]",
+  "left-[28%] top-[7%]",
+  "right-[29%] bottom-[7%]",
+];
 
-export function CobeGlobe({ markers, arcs, className = "" }: CobeGlobeProps) {
+export function CobeGlobe({
+  markers,
+  arcs,
+  labels = [],
+  signals = [],
+  className = "",
+}: CobeGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dragStartRef = useRef<number | null>(null);
   const dragPositionRef = useRef(0);
   const pointerDeltaRef = useRef(0);
+  const lastDragPositionRef = useRef(0);
+  const velocityRef = useRef(0);
 
   const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     dragStartRef.current = event.clientX;
     pointerDeltaRef.current = dragPositionRef.current;
+    lastDragPositionRef.current = dragPositionRef.current;
+    velocityRef.current = 0;
     event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
   const handlePointerMove = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     if (dragStartRef.current === null) return;
-    dragPositionRef.current =
-      pointerDeltaRef.current + (event.clientX - dragStartRef.current) / 180;
+    const nextPosition = pointerDeltaRef.current + (event.clientX - dragStartRef.current) / 180;
+    velocityRef.current = (nextPosition - lastDragPositionRef.current) * 0.16;
+    dragPositionRef.current = nextPosition;
+    lastDragPositionRef.current = nextPosition;
   }, []);
 
   const handlePointerUp = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
@@ -84,10 +119,22 @@ export function CobeGlobe({ markers, arcs, className = "" }: CobeGlobeProps) {
 
     resizeObserver.observe(canvas);
 
-    const render = () => {
+    const render = (time = 0) => {
       if (!globe) return;
-      if (!reduceMotion && dragStartRef.current === null) phi += 0.0017;
-      globe.update({ phi: phi + dragPositionRef.current, theta: INITIAL_THETA });
+      if (!reduceMotion && dragStartRef.current === null) {
+        phi += 0.00145 + Math.sin(time * 0.00035) * 0.00016;
+        dragPositionRef.current += velocityRef.current;
+        velocityRef.current *= 0.94;
+      }
+
+      const pulse = reduceMotion ? 0.5 : (Math.sin(time * 0.0012) + 1) / 2;
+      globe.update({
+        phi: phi + dragPositionRef.current,
+        theta: reduceMotion ? INITIAL_THETA : INITIAL_THETA + Math.sin(time * 0.00028) * 0.035,
+        markerElevation: 0.025 + pulse * 0.025,
+        arcHeight: 0.19 + pulse * 0.055,
+        arcWidth: 0.66 + pulse * 0.24,
+      });
       frame = window.requestAnimationFrame(render);
     };
 
@@ -116,6 +163,38 @@ export function CobeGlobe({ markers, arcs, className = "" }: CobeGlobeProps) {
         role="img"
         aria-label="Globo interativo com conexões da ARIMO entre o Brasil e cidades de todos os continentes"
       />
+
+      <div className="arimo-globe-orbit is-outer" aria-hidden="true" />
+      <div className="arimo-globe-orbit is-inner" aria-hidden="true" />
+
+      <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+        {signals.slice(0, SIGNAL_POSITIONS.length).map((signal, index) => (
+          <span
+            key={signal}
+            className={`arimo-globe-signal ${SIGNAL_POSITIONS[index]}`}
+            style={{ "--signal-delay": `${index * -1.05}s` } as CSSProperties}
+          >
+            <i />
+            {signal}
+          </span>
+        ))}
+      </div>
+
+      {labels.map((label) => (
+        <span
+          key={label.id}
+          className="arimo-globe-location"
+          style={
+            {
+              "--globe-label-visible": `var(--cobe-visible-${label.id}, 0)`,
+              positionAnchor: `--cobe-${label.id}`,
+            } as CSSProperties
+          }
+          aria-hidden="true"
+        >
+          {label.label}
+        </span>
+      ))}
     </div>
   );
 }
