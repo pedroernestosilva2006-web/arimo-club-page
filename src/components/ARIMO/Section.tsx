@@ -9,13 +9,7 @@ type SectionProps = {
   children: ReactNode;
 };
 
-export function Section({
-  tone = "paper",
-  id,
-  className,
-  innerClassName,
-  children,
-}: SectionProps) {
+export function Section({ tone = "paper", id, className, innerClassName, children }: SectionProps) {
   return (
     <section
       id={id}

@@ -14,19 +14,19 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="flex min-h-screen items-center justify-center bg-[#050505] px-6 font-sans text-[#f5f5f3]">
+      <div className="w-full max-w-md border-t border-white/15 pt-10">
+        <p className="text-[0.625rem] uppercase tracking-[0.28em] text-white/38">ERRO 404</p>
+        <h1 className="mt-5 text-4xl font-medium leading-tight">Esta página não existe.</h1>
+        <p className="mt-4 text-sm leading-relaxed text-white/50">
+          O endereço pode ter mudado ou não fazer parte da sua área de acesso.
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex border-b border-white/35 pb-2 text-xs uppercase tracking-[0.2em] text-white/72 hover:text-white"
           >
-            Go home
+            Voltar ao site
           </Link>
         </div>
       </div>
@@ -42,29 +42,30 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+    <div className="flex min-h-screen items-center justify-center bg-[#050505] px-6 font-sans text-[#f5f5f3]">
+      <div className="w-full max-w-md border-t border-white/15 pt-10">
+        <p className="text-[0.625rem] uppercase tracking-[0.28em] text-white/38">
+          NÃO FOI POSSÍVEL CARREGAR
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="mt-5 text-4xl font-medium leading-tight">Algo interrompeu o acesso.</h1>
+        <p className="mt-4 text-sm leading-relaxed text-white/50">
+          Tente novamente. Se o problema continuar, volte ao início e refaça o acesso.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex h-11 items-center justify-center bg-white px-5 text-xs font-medium uppercase tracking-[0.18em] text-black hover:bg-white/85"
           >
-            Try again
+            Tentar novamente
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex h-11 items-center justify-center border border-white/20 px-5 text-xs uppercase tracking-[0.18em] text-white/58 hover:border-white/50 hover:text-white"
           >
-            Go home
+            Voltar ao site
           </a>
         </div>
       </div>
@@ -103,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
