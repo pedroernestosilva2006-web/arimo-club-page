@@ -5,6 +5,7 @@ import { Logo } from "@/components/ARIMO/Logo";
 import { Reveal } from "@/components/ARIMO/Reveal";
 import { DiagonalPowerMarquee } from "@/components/ui/diagonal-power-marquee";
 import { ArimoNetworkMap } from "@/components/ui/arimo-network-map";
+import { LoopingWords } from "@/components/ui/looping-words-with-gsap";
 import { RelationshipPerspectiveMarquee } from "@/components/ui/relationship-perspective-marquee";
 
 export const Route = createFileRoute("/")({
@@ -25,6 +26,9 @@ const pillars = [
   ["O", "OTIMIZAÇÃO"],
 ];
 const topics = ["NEGÓCIOS", "CRESCIMENTO", "NETWORK", "INTELIGÊNCIA", "EXECUÇÃO"];
+const outcomeWords = ["resultado.", "crescimento.", "execução."];
+const relationshipWords = ["negócio.", "parceria.", "progresso."];
+const ambitionWords = ["famintos", "obcecados", "movidos"];
 const powerImages = [
   { src: "/arimo-power-handshake.webp", alt: "Empresários concluindo uma parceria" },
   { src: "/arimo-hero-private-table-v2.webp", alt: "Líderes reunidos em ambiente privado" },
@@ -56,7 +60,7 @@ function Index() {
             <h2 className="max-w-4xl text-[clamp(3rem,7vw,7.4rem)] font-light leading-[.92] tracking-normal">
               Para empresários
               <br />
-              famintos por <span className="arimo-serif italic">resultado.</span>
+              famintos por <LoopingWords words={outcomeWords} className="arimo-serif italic" />
             </h2>
             <p className="mt-7 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
               Nada de networking superficial. Aqui, conexão precisa virar negócio.
@@ -107,7 +111,8 @@ function Index() {
             <p className="arimo-label arimo-gradient-text">RELAÇÃO</p>
             <h2 className="mt-8 max-w-4xl text-[clamp(3rem,7.2vw,7.6rem)] font-light leading-[.94] tracking-normal">
               Não é sobre trocar cartão.
-              <br />É sobre fazer <span className="arimo-serif italic">negócio.</span>
+              <br />É sobre fazer{" "}
+              <LoopingWords words={relationshipWords} className="arimo-serif italic" />
             </h2>
           </div>
 
@@ -286,7 +291,7 @@ function Index() {
             <br />
             de empresários
             <br />
-            <span className="arimo-serif italic">famintos</span> por resultado.
+            <LoopingWords words={ambitionWords} className="arimo-serif italic" /> por resultado.
           </h2>
           <p className="mx-auto mt-14 max-w-2xl text-base leading-relaxed text-white/62 md:text-lg">
             Fundadores. Sócios. Empresários. Executivos. Líderes. Pessoas com algo em jogo.
