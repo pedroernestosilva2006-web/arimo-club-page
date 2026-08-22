@@ -398,13 +398,166 @@
   transition-delay: 420ms;
 }
 
-.arimo-button span {
-  display: inline-block;
-  margin-left: 0.5rem;
-  transition: transform 260ms cubic-bezier(0.76, 0, 0.24, 1);
+/* Access CTA ---------------------------------------------------------- */
+
+.arimo-access-button {
+  --arimo-cta-surface: #ededeb;
+  --arimo-cta-surface-hover: #ffffff;
+  --arimo-cta-text: #090909;
+  --arimo-cta-glow: rgba(17, 17, 17, 0.18);
+  background: var(--arimo-cta-surface);
+  color: var(--arimo-cta-text);
+  box-shadow: 0 0 0 1px rgba(12, 12, 12, 0.12);
+  transition:
+    box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.arimo-button:hover span {
+
+.arimo-access-button[data-tone="ink"] {
+  --arimo-cta-surface: #080808;
+  --arimo-cta-surface-hover: #111111;
+  --arimo-cta-text: #f4f4f2;
+  --arimo-cta-glow: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.arimo-access-button__border {
+  position: absolute;
+  z-index: 0;
+  inset: -230%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 46deg,
+    rgba(124, 124, 124, 0.2) 66deg,
+    rgba(245, 245, 245, 0.95) 88deg,
+    #ffffff 96deg,
+    rgba(169, 169, 169, 0.45) 114deg,
+    transparent 142deg 226deg,
+    rgba(117, 117, 117, 0.18) 248deg,
+    rgba(238, 238, 238, 0.82) 274deg,
+    transparent 306deg 360deg
+  );
+  animation: arimo-cta-rotate 5.2s linear infinite;
+  pointer-events: none;
+}
+
+.arimo-access-button__surface {
+  position: absolute;
+  z-index: 1;
+  inset: 1px;
+  background: var(--arimo-cta-surface);
+  transition: background-color 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.arimo-access-button__sheen {
+  position: absolute;
+  z-index: 2;
+  top: -80%;
+  bottom: -80%;
+  left: -38%;
+  width: 18%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.03) 80%,
+    transparent
+  );
+  filter: blur(1px);
+  opacity: 0.72;
+  transform: skewX(-18deg);
+  animation: arimo-cta-sheen 4.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  pointer-events: none;
+}
+
+.arimo-access-button[data-tone="paper"] .arimo-access-button__sheen {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.02) 20%,
+    rgba(255, 255, 255, 0.92) 50%,
+    rgba(0, 0, 0, 0.02) 80%,
+    transparent
+  );
+}
+
+.arimo-access-button__content {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  color: var(--arimo-cta-text);
+  text-align: center;
+  transition:
+    color 350ms ease,
+    text-shadow 350ms ease;
+}
+
+.arimo-access-button__content > span[aria-hidden="true"] {
+  display: inline-block;
+  margin-left: 0.05rem;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arimo-access-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 42px -22px var(--arimo-cta-glow),
+    0 0 22px -11px var(--arimo-cta-glow);
+}
+
+.arimo-access-button:hover .arimo-access-button__surface {
+  background: var(--arimo-cta-surface-hover);
+}
+
+.arimo-access-button:hover .arimo-access-button__content {
+  text-shadow: 0 0 18px var(--arimo-cta-glow);
+}
+
+.arimo-access-button:hover .arimo-access-button__content > span[aria-hidden="true"] {
   transform: translateX(5px);
+}
+
+.arimo-access-button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 120ms;
+}
+
+.arimo-access-button:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 5px;
+}
+
+.arimo-access-button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+  transform: none;
+}
+
+.arimo-access-button:disabled .arimo-access-button__border,
+.arimo-access-button:disabled .arimo-access-button__sheen {
+  animation-play-state: paused;
+}
+
+@keyframes arimo-cta-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes arimo-cta-sheen {
+  0%,
+  46% {
+    transform: translateX(0) skewX(-18deg);
+  }
+  78%,
+  100% {
+    transform: translateX(780%) skewX(-18deg);
+  }
 }
 
 .arimo-relations-perspective {
@@ -772,6 +925,24 @@
     background: none;
     -webkit-text-fill-color: currentColor;
   }
+
+  .arimo-access-button {
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+    box-shadow: none;
+  }
+
+  .arimo-access-button__border,
+  .arimo-access-button__surface,
+  .arimo-access-button__sheen {
+    display: none;
+  }
+
+  .arimo-access-button__content {
+    color: ButtonText;
+    text-shadow: none;
+  }
 }
 
 @supports (animation-timeline: view()) {
@@ -791,6 +962,30 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .arimo-access-button,
+  .arimo-access-button__content,
+  .arimo-access-button__content > span[aria-hidden="true"] {
+    transition: none;
+  }
+
+  .arimo-access-button:hover,
+  .arimo-access-button:active {
+    transform: none;
+  }
+
+  .arimo-access-button:hover .arimo-access-button__content > span[aria-hidden="true"] {
+    transform: none;
+  }
+
+  .arimo-access-button__border,
+  .arimo-access-button__sheen {
+    animation: none;
+  }
+
+  .arimo-access-button__border {
+    transform: rotate(22deg);
+  }
+
   .arimo-globe-orbit,
   .arimo-globe-signal,
   .arimo-globe-signal i {
