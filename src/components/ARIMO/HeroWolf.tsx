@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { TextShimmer } from "@/components/ui/be-ui-text-animation";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { Logo } from "./Logo";
 import { CtaButton } from "./CtaButton";
@@ -132,24 +131,24 @@ export function HeroWolf() {
           className="flex flex-1 flex-col items-center justify-center py-5 text-center will-change-transform md:py-3"
         >
           <p className={`${eyebrow} arimo-gradient-text mb-4 md:mb-5`}>SEU ACESSO / ARIMO CLUB</p>
-          <h1 className="relative z-10 w-full text-[clamp(2.65rem,7vw,6rem)] font-light leading-[.84] tracking-normal">
-            <TextShimmer as="span" duration={3} className="block">
-              <span className={`arimo-mask block font-sans ${ready ? "is-visible" : ""}`}>
-                A nova ordem
+          <h1 className="relative z-10 w-full text-[clamp(2.65rem,7vw,6rem)] font-light leading-[.9] tracking-normal md:leading-[.84]">
+            <span
+              className={`block font-sans transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.76,0,0.24,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${ready ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"}`}
+            >
+              A nova ordem
+            </span>
+            <span
+              className={`mt-1 block pb-[0.12em] transition-[opacity,transform] delay-[180ms] duration-[900ms] ease-[cubic-bezier(0.76,0,0.24,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${ready ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"}`}
+            >
+              <span className="arimo-gradient-text arimo-serif block whitespace-nowrap text-[.86em] leading-[1.04] italic sm:text-[1em]">
+                de empresários.
               </span>
-              <span
-                className={`arimo-mask -mb-[0.24em] block pb-[0.24em] ${ready ? "is-visible delay-1" : ""}`}
-              >
-                <span className="arimo-serif block whitespace-nowrap text-[.9em] leading-[1.04] italic sm:text-[1em]">
-                  de empresários.
-                </span>
-              </span>
-            </TextShimmer>
+            </span>
           </h1>
           <div
             ref={imageRef}
             data-parallax-layer="2"
-            className="arimo-hero-parallax relative -mb-3 -mt-1 w-[102vw] max-w-[900px] will-change-transform md:-mb-8 md:-mt-5 md:w-[72vw]"
+            className="arimo-hero-parallax relative -mb-1 mt-1 w-[90vw] max-w-[900px] will-change-transform md:-mb-8 md:-mt-5 md:w-[72vw]"
           >
             <div className={`arimo-card-enter ${ready ? "is-visible" : ""}`}>
               <div className="arimo-card-float">
@@ -182,11 +181,11 @@ export function HeroWolf() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
               <CtaButton
                 tone="ink"
-                className="arimo-button shrink-0 whitespace-nowrap border-[#b7b7b7]/65 px-7 py-4"
+                className="arimo-button shrink-0 whitespace-nowrap border-[#b7b7b7]/80 px-7 py-4"
               >
                 Solicitar meu acesso <span aria-hidden="true">→</span>
               </CtaButton>
-              <span className={`${eyebrow} text-white/45`}>Gratuito · Entrada por aprovação</span>
+              <span className={`${eyebrow} text-white/55`}>Gratuito · Entrada por aprovação</span>
             </div>
           </div>
         </div>
