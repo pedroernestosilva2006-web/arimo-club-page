@@ -236,36 +236,44 @@ function Index() {
         </div>
       </section>
 
-      <section className="grid min-h-[92vh] border-b border-white/10 md:grid-cols-2">
-        <div className="arimo-portrait relative flex min-h-[65vh] flex-col justify-between overflow-hidden border-b border-white/10 p-8 md:min-h-0 md:border-b-0 md:border-r md:p-14">
-          <img
-            src="/arimo-founders-night.webp"
-            alt="Fundadores reunidos em um encontro privado"
-            width={1023}
-            height={1537}
-            loading="lazy"
-            decoding="async"
-            className="arimo-portrait-image absolute inset-0 h-full w-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/45" />
-          <p className="arimo-label relative text-white/55">SOZINHO</p>
-          <p className="relative max-w-md text-[clamp(2.3rem,5vw,5.5rem)] font-light leading-[.94] tracking-normal">
-            Tem empresário tentando descobrir tudo sozinho.
-          </p>
-        </div>
-        <div className="flex flex-col justify-between bg-[#f2f2f2] p-8 text-[#090909] md:p-14">
-          <p className="arimo-label arimo-gradient-text-dark">CONECTADO</p>
-          <div>
-            <p className="max-w-md text-[clamp(2.3rem,5vw,5.5rem)] font-light leading-[.94] tracking-normal">
-              E tem empresário que já entendeu como o jogo funciona.
-            </p>
-            <p className="mt-12 max-w-lg text-base leading-relaxed text-black/65">
-              Seu próximo cliente pode estar a uma apresentação de distância. Seu próximo sócio
-              também.
-              <br />
-              <br />A oportunidade que muda o ano da sua empresa pode começar com alguém que hoje
-              ainda não sabe que você existe.
-            </p>
+      <section className="arimo-deferred arimo-photo-section relative min-h-[100svh] overflow-hidden border-b border-white/10">
+        <img
+          src="/arimo-power-handshake.webp"
+          alt="Empresários estabelecendo uma parceria"
+          width={1448}
+          height={1086}
+          loading="lazy"
+          decoding="async"
+          className="arimo-photo-drift absolute inset-0 h-full w-full object-cover object-[56%_center] grayscale md:object-center"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.55)_0%,rgba(5,5,5,.12)_38%,rgba(5,5,5,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(5,5,5,.92)_0%,rgba(5,5,5,.58)_46%,rgba(5,5,5,.14)_100%)]" />
+        <div className="arimo-grain pointer-events-none absolute inset-0 opacity-[0.035]" />
+
+        <div className="relative mx-auto flex min-h-[100svh] max-w-[1600px] flex-col justify-between px-6 py-10 md:px-12 md:py-14">
+          <p className="arimo-label text-white/55">SOZINHO / CONECTADO</p>
+
+          <div className="grid items-end gap-10 md:grid-cols-[1.25fr_.75fr] md:gap-20">
+            <Reveal>
+              <h2 className="max-w-4xl text-[clamp(3rem,7vw,7.4rem)] font-light leading-[.9] tracking-normal">
+                Quem tenta crescer <span className="arimo-serif italic">sozinho</span> sempre chega
+                mais tarde.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={140}>
+              <div className="border-t border-white/30 pt-7 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                <p className="max-w-lg text-base leading-relaxed text-white/72 md:text-lg">
+                  O próximo cliente, sócio ou fornecedor pode estar a uma apresentação de distância.
+                  Estar perto das pessoas certas encurta o caminho entre ambição e resultado.
+                </p>
+                <div className="mt-8">
+                  <CtaButton tone="ink" className="border-white/60 px-8 py-4">
+                    Entrar na rede <span aria-hidden="true">→</span>
+                  </CtaButton>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
