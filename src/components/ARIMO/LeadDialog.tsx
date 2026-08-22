@@ -108,6 +108,7 @@ export function LeadDialog({
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [statusToken, setStatusToken] = useState<string | null>(null);
 
   function update(key: QuizKey, value: string) {
     setData((current) => ({ ...current, [key]: value }));
@@ -117,10 +118,11 @@ export function LeadDialog({
   function validateStep() {
     const result = schema.safeParse(data);
     const nextErrors: Partial<Record<QuizKey, string>> = {};
+    const currentStepFields = stepFields[step] ?? [];
     if (!result.success)
       result.error.issues.forEach((issue) => {
         const key = issue.path[0] as QuizKey;
-        if (stepFields[step].includes(key) && !nextErrors[key]) nextErrors[key] = issue.message;
+        if (currentStepFields.includes(key) && !nextErrors[key]) nextErrors[key] = issue.message;
       });
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -142,15 +144,55 @@ export function LeadDialog({
     if (!validateStep()) return;
     setFailed(false);
     setSending(true);
-    const { error } = await supabase.from("lead_applications").insert({
-      ...data,
-      instagram: "Não informado",
-      empresa: "",
-      cargo: "",
-      cidade: "Não informada",
+    const search = new URLSearchParams(window.location.search);
+    const utms = Object.fromEntries(
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]
+        .map((key) => [key, search.get(key)])
+        .filter((entry): entry is [string, string] => Boolean(entry[1])),
+    );
+    const submission = await supabase.rpc("submit_application", {
+      p_nome: data.nome,
+      p_telefone: data.telefone,
+      p_email: data.email,
+      p_situacao_profissional: data.situacao_profissional,
+      p_segmento: data.segmento,
+      p_faturamento_aproximado: data.faturamento_aproximado,
+      p_motivacao: data.motivacao,
+      p_empresa: "",
+      p_cargo: "",
+      p_cidade: "",
+      p_pais: "Brasil",
+      p_instagram: "Não informado",
+      p_linkedin: "",
+      p_site: "",
+      p_objetivos: [],
+      p_origem: document.referrer || "website",
+      p_utms: utms,
     });
+
+    let error = submission.error;
+    if (error?.code === "PGRST202" || error?.code === "42883") {
+      const fallback = await supabase.from("lead_applications").insert({
+        ...data,
+        instagram: "Não informado",
+        empresa: "",
+        cargo: "",
+        cidade: "Não informada",
+      });
+      error = fallback.error;
+    }
+
     setSending(false);
     if (error) return setFailed(true);
+
+    const response = submission.data;
+    if (response && typeof response === "object" && !Array.isArray(response)) {
+      const token = response["token"];
+      if (typeof token === "string") {
+        window.localStorage.setItem("arimo_application_token", token);
+        setStatusToken(token);
+      }
+    }
     setDone(true);
   }
 
@@ -163,6 +205,7 @@ export function LeadDialog({
         setErrors({});
         setDone(false);
         setFailed(false);
+        setStatusToken(null);
       }, 200);
   }
 
@@ -196,6 +239,14 @@ export function LeadDialog({
             >
               Concluir
             </button>
+            {statusToken && (
+              <a
+                href={`/application-status?token=${encodeURIComponent(statusToken)}`}
+                className="mt-4 inline-flex min-h-11 items-center text-[0.625rem] uppercase tracking-[0.22em] text-white/62 hover:text-white"
+              >
+                Acompanhar candidatura
+              </a>
+            )}
           </div>
         ) : (
           <div className="px-6 pb-7 pt-6 sm:px-10 sm:pb-10 sm:pt-8">

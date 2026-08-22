@@ -36,7 +36,6 @@ export function HeroFallback({ className }: { className?: string }) {
             "h-full w-full animate-[arimo-fade-in_1.6s_ease-out_both] object-cover object-top brightness-[1.15] contrast-[1.05] grayscale",
           )}
         />
-
       </div>
 
       {/* legibility scrim */}
