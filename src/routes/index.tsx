@@ -33,7 +33,7 @@ const powerImages = [
   { src: "/arimo-boardroom-men.webp", alt: "Mesa de decisão entre empresários" },
 ];
 
-function Index() {
+export function Index() {
   return (
     <main className="overflow-hidden bg-[#050505] font-sans text-[#f3f3f3]">
       <HeroWolf />
