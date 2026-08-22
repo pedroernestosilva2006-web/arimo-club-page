@@ -890,19 +890,13 @@
 
 @keyframes arimo-globe-signal {
   0%,
-  12%,
   100% {
-    opacity: 0.3;
-    transform: translateY(5px);
+    opacity: 0.58;
+    transform: translateY(2px);
   }
-  30%,
-  62% {
-    opacity: 0.9;
-    transform: translateY(0);
-  }
-  76% {
-    opacity: 0.35;
-    transform: translateY(-3px);
+  50% {
+    opacity: 0.96;
+    transform: translateY(-2px);
   }
 }
 
@@ -943,16 +937,17 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  color: rgb(0 0 0 / 66%);
-  font-size: 0.55rem;
+  color: rgb(0 0 0 / 72%);
+  font-size: 0.6rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   line-height: 1;
   text-transform: uppercase;
   text-shadow: 0 1px 8px rgb(241 241 239 / 92%);
-  animation: arimo-globe-signal 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  animation: arimo-globe-signal 9.6s ease-in-out infinite;
   animation-delay: var(--signal-delay);
   will-change: opacity, transform;
+  white-space: nowrap;
 }
 
 .arimo-globe-signal i {
@@ -977,20 +972,23 @@
     left: anchor(center);
     display: block;
     padding-bottom: 0.55rem;
-    color: rgb(0 0 0 / 72%);
-    font-size: 0.5rem;
-    font-weight: 400;
-    letter-spacing: 0.18em;
+    color: rgb(0 0 0 / 82%);
+    filter: blur(calc((1 - var(--globe-label-visible)) * 2px));
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     line-height: 1;
     opacity: var(--globe-label-visible);
     text-shadow:
       0 1px 5px #f1f1ef,
       0 1px 10px #f1f1ef;
     text-transform: uppercase;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(calc((1 - var(--globe-label-visible)) * 4px));
     transition:
-      opacity 300ms ease,
-      transform 300ms ease;
+      opacity 180ms ease,
+      filter 180ms ease,
+      transform 180ms ease;
+    will-change: opacity, filter, transform;
     white-space: nowrap;
   }
 
@@ -1005,7 +1003,61 @@
   }
 }
 
+@keyframes arimo-country-flow {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.arimo-country-marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.arimo-country-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: arimo-country-flow 38s linear infinite;
+  will-change: transform;
+}
+
+.arimo-country-marquee__group {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.arimo-country-marquee__group span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-inline: clamp(1.4rem, 3vw, 2.8rem);
+  color: rgb(0 0 0 / 62%);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.arimo-country-marquee__group i {
+  width: 4px;
+  height: 4px;
+  flex: none;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 74%);
+  box-shadow: 0 0 0 4px rgb(0 0 0 / 5%);
+}
+
 @media (max-width: 639px) {
+  .arimo-globe-signal {
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+  }
+
   .arimo-globe-signal:nth-child(1) {
     left: 10%;
   }
@@ -1057,6 +1109,20 @@
     display: none;
   }
 
+  .arimo-country-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .arimo-country-marquee__group span {
+    color: CanvasText;
+  }
+
+  .arimo-country-marquee__group i {
+    background: CanvasText;
+    box-shadow: none;
+  }
+
   .arimo-access-button {
     border-color: ButtonText;
     background: ButtonFace;
@@ -1093,6 +1159,27 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .arimo-country-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .arimo-country-marquee__track {
+    width: 100%;
+    animation: none;
+  }
+
+  .arimo-country-marquee__group {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+
+  .arimo-country-marquee__group:nth-child(2) {
+    display: none;
+  }
+
   .arimo-editorial-copy__rule span,
   .arimo-editorial-copy__paragraph strong {
     animation: none;

@@ -4,6 +4,7 @@ import {
   useEffect,
   useRef,
   type CSSProperties,
+  type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 
@@ -22,6 +23,7 @@ type CobeGlobeProps = {
 
 const INITIAL_PHI = -0.42;
 const INITIAL_THETA = 0.17;
+const AUTO_ROTATION_PER_MS = 0.00008;
 const SIGNAL_POSITIONS = [
   "left-[7%] top-[15%]",
   "right-[13%] top-[23%]",
@@ -45,22 +47,27 @@ export function CobeGlobe({
   const dragPositionRef = useRef(0);
   const pointerDeltaRef = useRef(0);
   const lastDragPositionRef = useRef(0);
+  const lastPointerTimeRef = useRef(0);
   const velocityRef = useRef(0);
 
   const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     dragStartRef.current = event.clientX;
     pointerDeltaRef.current = dragPositionRef.current;
     lastDragPositionRef.current = dragPositionRef.current;
+    lastPointerTimeRef.current = performance.now();
     velocityRef.current = 0;
     event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
   const handlePointerMove = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     if (dragStartRef.current === null) return;
-    const nextPosition = pointerDeltaRef.current + (event.clientX - dragStartRef.current) / 180;
-    velocityRef.current = (nextPosition - lastDragPositionRef.current) * 0.16;
+    const nextPosition = pointerDeltaRef.current + (event.clientX - dragStartRef.current) / 165;
+    const now = performance.now();
+    const elapsed = Math.max(now - lastPointerTimeRef.current, 1);
+    velocityRef.current = ((nextPosition - lastDragPositionRef.current) / elapsed) * 16.667;
     dragPositionRef.current = nextPosition;
     lastDragPositionRef.current = nextPosition;
+    lastPointerTimeRef.current = now;
   }, []);
 
   const handlePointerUp = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
@@ -70,15 +77,28 @@ export function CobeGlobe({
     }
   }, []);
 
+  const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLCanvasElement>) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    dragPositionRef.current += event.key === "ArrowLeft" ? -0.2 : 0.2;
+    velocityRef.current = 0;
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = Math.max(canvas.clientWidth, 320);
+    const compact = width < 640;
+    const dprLimit = compact ? 1.35 : 1.5;
+    const dpr = Math.min(window.devicePixelRatio || 1, dprLimit);
+    const mapSamples = compact ? 9000 : 12000;
     let phi = INITIAL_PHI;
+    let renderedDragPosition = dragPositionRef.current;
+    let lastFrameTime = 0;
     let frame = 0;
+    let visible = true;
     let globe: ReturnType<typeof createGlobe> | null = null;
 
     try {
@@ -89,25 +109,25 @@ export function CobeGlobe({
         phi,
         theta: INITIAL_THETA,
         dark: 0,
-        diffuse: 1.25,
-        mapSamples: 18000,
-        mapBrightness: 8,
-        mapBaseBrightness: 0.04,
-        baseColor: [0.22, 0.22, 0.22],
+        diffuse: 1.3,
+        mapSamples,
+        mapBrightness: 9,
+        mapBaseBrightness: 0.05,
+        baseColor: [0.18, 0.18, 0.18],
         markerColor: [0.02, 0.02, 0.02],
         glowColor: [0.93, 0.93, 0.91],
-        opacity: 0.94,
-        scale: 1.04,
+        opacity: 0.96,
+        scale: 1.035,
         offset: [0, 0],
-        markerElevation: 0.035,
+        markerElevation: 0.04,
         markers,
         arcs,
-        arcColor: [0.08, 0.08, 0.08],
-        arcWidth: 0.8,
-        arcHeight: 0.22,
+        arcColor: [0.04, 0.04, 0.04],
+        arcWidth: 0.9,
+        arcHeight: 0.24,
       });
     } catch {
-      canvas.dataset.failed = "true";
+      canvas.dataset["failed"] = "true";
       return;
     }
 
@@ -119,21 +139,40 @@ export function CobeGlobe({
 
     resizeObserver.observe(canvas);
 
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry?.isIntersecting ?? true;
+      },
+      { rootMargin: "180px" },
+    );
+    visibilityObserver.observe(canvas);
+
     const render = (time = 0) => {
       if (!globe) return;
-      if (!reduceMotion && dragStartRef.current === null) {
-        phi += 0.00145 + Math.sin(time * 0.00035) * 0.00016;
-        dragPositionRef.current += velocityRef.current;
-        velocityRef.current *= 0.94;
+      const elapsed = lastFrameTime ? Math.min(time - lastFrameTime, 42) : 16.667;
+      const frameScale = elapsed / 16.667;
+      lastFrameTime = time;
+
+      if (!visible) {
+        frame = window.requestAnimationFrame(render);
+        return;
       }
 
+      if (!reduceMotion && dragStartRef.current === null) {
+        phi += AUTO_ROTATION_PER_MS * elapsed;
+        dragPositionRef.current += velocityRef.current * frameScale;
+        velocityRef.current *= Math.pow(0.9, frameScale);
+      }
+
+      const follow = reduceMotion ? 1 : 1 - Math.pow(0.56, frameScale);
+      renderedDragPosition += (dragPositionRef.current - renderedDragPosition) * follow;
       const pulse = reduceMotion ? 0.5 : (Math.sin(time * 0.0012) + 1) / 2;
       globe.update({
-        phi: phi + dragPositionRef.current,
-        theta: reduceMotion ? INITIAL_THETA : INITIAL_THETA + Math.sin(time * 0.00028) * 0.035,
-        markerElevation: 0.025 + pulse * 0.025,
-        arcHeight: 0.19 + pulse * 0.055,
-        arcWidth: 0.66 + pulse * 0.24,
+        phi: phi + renderedDragPosition,
+        theta: reduceMotion ? INITIAL_THETA : INITIAL_THETA + Math.sin(time * 0.00022) * 0.026,
+        markerElevation: 0.03 + pulse * 0.025,
+        arcHeight: 0.21 + pulse * 0.05,
+        arcWidth: 0.76 + pulse * 0.24,
       });
       frame = window.requestAnimationFrame(render);
     };
@@ -143,6 +182,7 @@ export function CobeGlobe({
     return () => {
       window.cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      visibilityObserver.disconnect();
       globe?.destroy();
     };
   }, [arcs, markers]);
@@ -155,13 +195,15 @@ export function CobeGlobe({
       />
       <canvas
         ref={canvasRef}
-        className="relative h-full w-full cursor-grab touch-none select-none active:cursor-grabbing data-[failed=true]:opacity-0"
+        className="relative h-full w-full cursor-grab touch-pan-y select-none outline-none active:cursor-grabbing focus-visible:rounded-full focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-black/40 data-[failed=true]:opacity-0"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
         role="img"
-        aria-label="Globo interativo com conexões da ARIMO entre o Brasil e cidades de todos os continentes"
+        aria-label="Globo interativo com conexões da ARIMO entre o Brasil e países de todos os continentes"
       />
 
       <div className="arimo-globe-orbit is-outer" aria-hidden="true" />

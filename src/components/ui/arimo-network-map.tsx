@@ -32,21 +32,30 @@ const destinations: City[] = [
   { id: "sydney", label: "Sydney", location: [-33.8688, 151.2093] },
 ];
 
-const featuredCities = [
-  origin,
-  ...destinations.filter((city) =>
-    ["nova-york", "lisboa", "londres", "dubai", "singapura", "toquio", "sydney"].includes(city.id),
-  ),
+const featuredCountries: City[] = [
+  { ...origin, label: "Brasil" },
+  { id: "nova-york", label: "Estados Unidos", location: [40.7128, -74.006] },
+  { id: "cidade-do-mexico", label: "México", location: [19.4326, -99.1332] },
+  { id: "lisboa", label: "Portugal", location: [38.7223, -9.1393] },
+  { id: "londres", label: "Reino Unido", location: [51.5074, -0.1278] },
+  { id: "cidade-do-cabo", label: "África do Sul", location: [-33.9249, 18.4241] },
+  { id: "dubai", label: "Emirados Árabes", location: [25.2048, 55.2708] },
+  { id: "singapura", label: "Singapura", location: [1.3521, 103.8198] },
+  { id: "toquio", label: "Japão", location: [35.6762, 139.6503] },
+  { id: "sydney", label: "Austrália", location: [-33.8688, 151.2093] },
 ];
-const networkSignals = [
-  "CONEXÕES",
-  "NEGÓCIOS",
-  "SÓCIOS",
-  "VENDAS",
-  "NETWORK",
-  "CLIENTES",
-  "FORNECEDORES",
-  "EXPANSÃO",
+const countries = [
+  "Brasil",
+  "Estados Unidos",
+  "México",
+  "Portugal",
+  "Reino Unido",
+  "França",
+  "África do Sul",
+  "Emirados Árabes",
+  "Singapura",
+  "Japão",
+  "Austrália",
 ];
 
 export function ArimoNetworkMap() {
@@ -85,48 +94,71 @@ export function ArimoNetworkMap() {
       id="rede"
       className="arimo-deferred relative overflow-hidden border-y border-black/10 bg-[#f1f1ef] text-[#090909]"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(0,0,0,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.055)_1px,transparent_1px)] [background-size:72px_72px]" />
+      <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(0,0,0,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.05)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-      <div className="relative mx-auto grid min-h-[46rem] min-w-0 max-w-[92rem] grid-cols-[minmax(0,1fr)] items-center gap-8 px-6 py-24 md:px-12 md:py-32 lg:grid-cols-[0.82fr_1.18fr] lg:gap-0 lg:py-24">
-        <div className="relative z-10 w-[calc(100vw-3rem)] min-w-0 lg:w-auto lg:py-16">
+      <div className="relative mx-auto grid min-w-0 max-w-[92rem] grid-cols-[minmax(0,1fr)] items-center gap-x-10 px-6 pb-20 pt-20 md:px-12 md:pb-28 md:pt-28 lg:min-h-[48rem] lg:grid-cols-[0.78fr_1.22fr] lg:grid-rows-[auto_1fr] lg:py-24">
+        <div className="relative z-10 min-w-0 lg:col-start-1 lg:row-start-1">
           <p className="arimo-label text-black/55">REDE ARIMO / SEM FRONTEIRAS</p>
-          <h2 className="mt-8 max-w-3xl text-[clamp(3.4rem,7vw,7.6rem)] font-light leading-[.88] tracking-normal">
+          <h2 className="mt-7 max-w-3xl text-[clamp(3rem,6.5vw,7rem)] font-light leading-[.9] tracking-normal">
             O Brasil
             <br />
             conectado
             <br />
             ao <span className="arimo-serif italic">mundo.</span>
           </h2>
-          <p className="mt-10 max-w-full border-l border-black/25 pl-6 text-base leading-relaxed text-black/60 md:max-w-xl md:text-lg">
+        </div>
+
+        <div className="relative left-1/2 z-0 mt-3 w-[calc(100vw-3rem)] min-w-0 -translate-x-1/2 sm:w-[min(46rem,calc(100vw-3rem))] lg:left-auto lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:-mr-24 lg:mt-0 lg:w-full lg:translate-x-0 xl:-mr-32">
+          <CobeGlobe
+            markers={markers}
+            arcs={arcs}
+            labels={featuredCountries}
+            signals={countries.slice(0, 8)}
+            className="mx-auto max-w-[60rem]"
+          />
+        </div>
+
+        <div className="relative z-10 mt-4 min-w-0 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start">
+          <p className="max-w-xl border-t border-black/20 pt-7 text-base leading-relaxed text-black/68 md:text-lg">
             Relações que atravessam cidades, mercados e fusos. Uma rede para aproximar quem tem
             ambição de quem pode abrir o próximo caminho.
           </p>
 
-          <div className="mt-12 flex items-center gap-3 text-[0.625rem] uppercase tracking-[0.24em] text-black/48">
-            <span className="relative flex h-3 w-3 items-center justify-center" aria-hidden="true">
-              <span className="absolute h-full w-full animate-ping rounded-full bg-black/20 motion-reduce:animate-none" />
-              <span className="relative h-1.5 w-1.5 rounded-full bg-black" />
-            </span>
-            Núcleo no Brasil
-          </div>
+          <dl className="mt-9 grid grid-cols-3 border-y border-black/15">
+            <div className="border-r border-black/15 py-4 pr-3">
+              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Núcleo</dt>
+              <dd className="mt-2 text-[0.6875rem] uppercase tracking-[0.16em] text-black/78">
+                Brasil
+              </dd>
+            </div>
+            <div className="border-r border-black/15 px-3 py-4">
+              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Alcance</dt>
+              <dd className="mt-2 text-[0.6875rem] uppercase tracking-[0.16em] text-black/78">
+                Global
+              </dd>
+            </div>
+            <div className="py-4 pl-3">
+              <dt className="text-[0.5rem] uppercase tracking-[0.2em] text-black/42">Rede</dt>
+              <dd className="mt-2 text-[0.6875rem] uppercase tracking-[0.16em] text-black/78">
+                Ativa
+              </dd>
+            </div>
+          </dl>
         </div>
+      </div>
 
-        <div className="relative left-1/2 mt-4 w-[calc(100vw+2.5rem)] min-w-0 -translate-x-1/2 sm:w-[calc(100vw+1rem)] lg:left-auto lg:-mr-40 lg:ml-[-8%] lg:mt-0 lg:w-auto lg:translate-x-0">
-          <CobeGlobe
-            markers={markers}
-            arcs={arcs}
-            labels={featuredCities}
-            signals={networkSignals}
-            className="mx-auto max-w-[54rem]"
-          />
-          <p className="absolute bottom-[8%] left-1/2 -translate-x-1/2 text-center text-[0.5625rem] uppercase tracking-[0.24em] text-black/40">
-            Arraste para explorar
-          </p>
-        </div>
-
-        <div className="col-span-full mt-2 flex flex-wrap gap-x-8 gap-y-3 border-t border-black/15 pt-7 text-[0.625rem] uppercase tracking-[0.24em] text-black/45">
-          {networkSignals.map((signal) => (
-            <span key={signal}>{signal}</span>
+      <div className="arimo-country-marquee border-t border-black/15 py-6">
+        <p className="sr-only">Países conectados: {countries.join(", ")}.</p>
+        <div className="arimo-country-marquee__track" aria-hidden="true">
+          {[0, 1].map((group) => (
+            <div key={group} className="arimo-country-marquee__group">
+              {countries.map((country) => (
+                <span key={group + "-" + country}>
+                  <i />
+                  {country}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>
