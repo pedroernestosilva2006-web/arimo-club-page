@@ -201,9 +201,6 @@ export function HeroWolf() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center border-t border-white/15 pt-4">
-          <span className={`${eyebrow} text-white/40`}>ROLE PARA EXPLORAR ↓</span>
-        </div>
       </div>
     </section>
   );
