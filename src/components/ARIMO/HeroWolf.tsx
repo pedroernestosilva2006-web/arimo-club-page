@@ -181,7 +181,7 @@ export function HeroWolf() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
               <CtaButton
                 tone="ink"
-                className="arimo-button shrink-0 whitespace-nowrap border-[#b7b7b7]/80 px-7 py-4"
+                className="shrink-0 whitespace-nowrap border-[#b7b7b7]/80 px-7 py-4"
               >
                 Solicitar meu acesso <span aria-hidden="true">→</span>
               </CtaButton>

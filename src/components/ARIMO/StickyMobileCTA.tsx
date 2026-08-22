@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { LeadDialog } from "./LeadDialog";
 import { cn } from "@/lib/utils";
+import { CtaButton } from "./CtaButton";
 
 export function StickyMobileCTA() {
   const [pastHero, setPastHero] = useState(false);
@@ -12,17 +12,19 @@ export function StickyMobileCTA() {
     const observers: IntersectionObserver[] = [];
 
     if (hero) {
-      const io = new IntersectionObserver(
-        (entries) => setPastHero(!entries[0]?.isIntersecting),
-        { threshold: 0 },
-      );
+      const io = new IntersectionObserver((entries) => setPastHero(!entries[0]?.isIntersecting), {
+        threshold: 0,
+      });
       io.observe(hero);
       observers.push(io);
     }
     if (final) {
-      const io = new IntersectionObserver((entries) => setFinalVisible(!!entries[0]?.isIntersecting), {
-        threshold: 0,
-      });
+      const io = new IntersectionObserver(
+        (entries) => setFinalVisible(!!entries[0]?.isIntersecting),
+        {
+          threshold: 0,
+        },
+      );
       io.observe(final);
       observers.push(io);
     }
@@ -38,14 +40,9 @@ export function StickyMobileCTA() {
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0",
       )}
     >
-      <LeadDialog>
-        <button
-          type="button"
-          className="block w-full py-4 text-center text-sm font-bold tracking-[0.2em] text-ink-foreground uppercase"
-        >
-          Quero me candidatar
-        </button>
-      </LeadDialog>
+      <CtaButton tone="ink" className="w-full py-4 text-center text-sm tracking-[0.2em]">
+        Quero me candidatar <span aria-hidden="true">→</span>
+      </CtaButton>
     </div>
   );
 }
