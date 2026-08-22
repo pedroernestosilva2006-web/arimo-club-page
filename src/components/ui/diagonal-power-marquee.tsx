@@ -70,10 +70,12 @@ export function DiagonalPowerMarquee({ images, className }: DiagonalPowerMarquee
 
       <div className="pointer-events-none relative z-30 mx-auto w-full max-w-6xl px-6 md:px-12">
         <p className="arimo-label text-white/60">INFLUÊNCIA / ACESSO / MOVIMENTO</p>
-        <h2 className="mt-7 max-w-4xl text-[clamp(3.4rem,8vw,8.4rem)] font-light leading-[.88] tracking-normal text-white">
-          Poder não se exibe.
+        <h2 className="mt-7 max-w-5xl text-[clamp(3.1rem,7.4vw,7.8rem)] font-light leading-[.88] tracking-normal text-white">
+          O mercado não espera.
           <br />
-          <span className="arimo-serif italic">Circula.</span>
+          Ou você ocupa espaço,
+          <br />
+          <span className="arimo-serif italic">ou alguém ocupa o seu.</span>
         </h2>
       </div>
     </section>
