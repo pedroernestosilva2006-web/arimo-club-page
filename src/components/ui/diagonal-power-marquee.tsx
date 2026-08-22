@@ -52,6 +52,7 @@ function MarqueeRow({
 export function DiagonalPowerMarquee({ images, className }: DiagonalPowerMarqueeProps) {
   return (
     <section
+      data-section="power"
       className={cn(
         "arimo-deferred relative flex h-[88vh] min-h-[680px] w-full items-center overflow-hidden border-y border-white/10 bg-[#070707]",
         className,
